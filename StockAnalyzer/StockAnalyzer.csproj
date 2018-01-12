@@ -46,7 +46,9 @@
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="DataModel\KLine.cs" />
     <Compile Include="DataModel\KLineAnalyzer.cs" />
+    <Compile Include="DataModel\KLineDataProcessor.cs" />
     <Compile Include="DataModel\KLineDef.cs" />
+    <Compile Include="DataModel\MovingAverage.cs" />
     <Compile Include="DataSource\StockMarketData.cs" />
     <Compile Include="DataSource\StockDataCollector.cs" />
     <Compile Include="DataSource\StockDataConvertor.cs" />

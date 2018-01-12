@@ -8,9 +8,6 @@ namespace StockAnalyzer.DataModel
 {
     class KLineAnalyzer
     {
-        
-
-        
-
+        //
     }
 }
