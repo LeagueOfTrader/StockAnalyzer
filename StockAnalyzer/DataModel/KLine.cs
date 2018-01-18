@@ -158,6 +158,17 @@ namespace StockAnalyzer.DataModel
             }
             return false;
         }
+
+        public double getChange()
+        {
+            return latestPrice - openPrice;
+        }
+
+        public double getChangePercent()
+        {
+            double chgPct = getChange() / openPrice;
+            return chgPct;
+        }
     }
 
     class StockKLine : KLine

@@ -59,5 +59,64 @@ namespace StockAnalyzer.DataModel
 
             return maArr;
         }
+
+        public static List<double> calcMAData(List<StockKLine> kLineData, int days)
+        {
+            List<double> maArr = new List<double>();
+
+            if (kLineData.Count >= days)
+            {
+                for (int i = days - 1; i < kLineData.Count; i++)
+                {
+                    double accumVal = 0.0;
+                    for (int j = 0; j < days; j++)
+                    {
+                        accumVal += kLineData[i - j].latestPrice;
+                    }
+                    double maVal = accumVal / days;
+                    maArr.Add(maVal);
+                }
+            }
+
+            return maArr;
+        }
+
+        public static void calcKLineExtremum(List<KLine> kLineData, out double maxPrice, out double minPrice)
+        {
+            maxPrice = 0.0;
+            minPrice = double.MaxValue;
+
+            for(int i = 0; i < kLineData.Count; i++)
+            {
+                if(maxPrice < kLineData[i].highestPrice)
+                {
+                    maxPrice = kLineData[i].highestPrice;
+                }
+
+                if(minPrice > kLineData[i].lowestPrice)
+                {
+                    minPrice = kLineData[i].lowestPrice;
+                }
+            }
+        }
+
+        public static void calcKLineExtremum(List<StockKLine> kLineData, out double maxPrice, out double minPrice)
+        {
+            maxPrice = 0.0;
+            minPrice = double.MaxValue;
+
+            for (int i = 0; i < kLineData.Count; i++)
+            {
+                if (maxPrice < kLineData[i].highestPrice)
+                {
+                    maxPrice = kLineData[i].highestPrice;
+                }
+
+                if (minPrice > kLineData[i].lowestPrice)
+                {
+                    minPrice = kLineData[i].lowestPrice;
+                }
+            }
+        }
     }
 }

@@ -36,4 +36,14 @@ namespace StockAnalyzer.DataModel
         public const double PRICE_DIFF_THRESHOLD = 0.01;
         public const double LINE_LENGTH_LIMIT_RATIO_THRESHOLD = 0.05;
     }
+
+    class KLinePriceVolumeParam
+    {
+        public const int REFERENCE_DAYS = 20;
+        public const double PRICE_CHG_PCT = 0.01;
+        public const double PRICE_CHG_PCT_EXPLOSION = 0.05;
+        public const double VOL_RATIO_UPTREND = 1.5;
+        public const double VOL_RATIO_DOWNTREND = 0.9;
+        public const double VOL_RATIO_EXPLOSION = 2.0;
+    }
 }
