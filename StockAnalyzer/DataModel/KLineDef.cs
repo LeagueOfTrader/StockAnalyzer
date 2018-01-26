@@ -44,6 +44,10 @@ namespace StockAnalyzer.DataModel
         public const double PRICE_CHG_PCT_EXPLOSION = 0.05;
         public const double VOL_RATIO_UPTREND = 1.5;
         public const double VOL_RATIO_DOWNTREND = 0.9;
+        public const double VOL_RATIO_SHRINK = 0.66;
         public const double VOL_RATIO_EXPLOSION = 2.0;
+        public const double PRICE_DIFF_THRESHOLD = 0.01;
+        public const double PRICE_POLE_POS = 0.1;
+        public const double PRICE_RELATIVE_POS = 0.2;
     }
 }

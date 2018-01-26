@@ -99,7 +99,7 @@ namespace StockAnalyzer.DataModel
             return m_high - m_low;
         }
 
-        public double getValueByIndexReversed(int index)
+        public double getValueByReversedIndex(int index)
         {
             int last = m_maData.Count - 1;
             if(last < index)
@@ -108,6 +108,17 @@ namespace StockAnalyzer.DataModel
             }
 
             return m_maData[last - index];
+        }
+
+        public double getDiffByReversedIndex(int index)
+        {
+            int last = m_maData.Count - 1;
+            if (last < index + 1)
+            {
+                return 0.0;
+            }
+
+            return m_maData[last - index] - m_maData[last - index - 1];
         }
     }
 }

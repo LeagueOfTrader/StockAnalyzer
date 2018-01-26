@@ -46,7 +46,7 @@ namespace StockAnalyzer.DataModel
             return null;
         }
 
-        public double getCurWaterLevel()
+        public double getCurPricePos()
         {
             double range = m_highPrice - m_lowPrice;
             double waterLevel = (m_curMarketData.latestPrice - m_lowPrice) / range;
@@ -169,6 +169,120 @@ namespace StockAnalyzer.DataModel
             }
 
             return true;
+        }
+
+        // 二次探底缩量
+        public bool isPrcTouchBottomTwiceVolShrink()
+        {
+            if(m_curMarketData.volumeRatio > KLinePriceVolumeParam.VOL_RATIO_SHRINK)
+            {
+                return false;
+            }
+
+            if (m_curMarketData.lowestPrice > m_lowPrice) {
+                if (Math.Abs(m_curMarketData.lowestPrice - m_lowPrice) > KLinePriceVolumeParam.PRICE_DIFF_THRESHOLD)
+                {
+                    return false;
+                }
+            }
+
+            MovingAverage ma5 = getMAData(5);
+            if(ma5.getLastDiff() > 0)
+            {
+                return false;
+            }
+
+            bool negative = true;
+            int last = m_kLineData.Count - 1;
+            int i = 1;
+            for(; i < KLinePriceVolumeParam.REFERENCE_DAYS; i++)
+            {
+                double diff = ma5.getDiffByReversedIndex(i);
+                if (negative)
+                {
+                    if(diff < 0.0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        negative = false;
+                    }
+                }
+                else
+                {
+                    if(diff > 0.0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (m_kLineData[last - i].lowestPrice > m_lowPrice)
+                        {
+                            if (Math.Abs(m_kLineData[last - i].lowestPrice - m_lowPrice) > KLinePriceVolumeParam.PRICE_DIFF_THRESHOLD)
+                            {
+                                negative = true;
+                                continue;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+
+            if(i == KLinePriceVolumeParam.REFERENCE_DAYS)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // 放量下探 
+        public bool isVolUpPrcDown()
+        {
+            if(m_curMarketData.volumeRatio < KLinePriceVolumeParam.VOL_RATIO_UPTREND)
+            {
+                return false;
+            }
+
+            MovingAverage ma5 = getMAData(5);
+
+            if (m_curMarketData.latestPrice > ma5.Last)
+            {
+                return false;
+            }
+
+            double prcDownPct = (ma5.Last - m_curMarketData.latestPrice) / ma5.Last;
+            if(prcDownPct < KLinePriceVolumeParam.PRICE_CHG_PCT_EXPLOSION)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // 高位放量破均线
+        public bool isVolUpPrcBreakMAInHighPos()
+        {
+            double pos = getCurPricePos();
+            if(pos < 1.0 - KLinePriceVolumeParam.PRICE_RELATIVE_POS)
+            {
+                return false;
+            }
+
+            MovingAverage ma5 = getMAData(5);
+            MovingAverage ma10 = getMAData(10);
+            MovingAverage ma30 = getMAData(30);
+
+            if(m_curMarketData.highestPrice > ma5.Last &&
+               m_curMarketData.highestPrice > ma10.Last &&
+               m_curMarketData.highestPrice > ma30.Last)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
