@@ -1,4 +1,6 @@
-﻿using StockAnalyzer.DataModel;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using StockAnalyzer.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,6 +113,79 @@ namespace StockAnalyzer.DataSource
                 kLines.Add(kl);
             }
             return kLines;
+        }
+
+        //public static List<StockKLine> parseKLineArrayXq(String str) {
+        //    JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+        //    bool ret = (jo["success"].Equals("true"));
+        //    if (ret) {
+        //        List<StockKLine> kLines = new List<StockKLine>();
+        //        JArray arr = JArray.Parse(jo["chartlist"].ToString());
+        //        for (int i = 0; i < arr.Count; i++) {
+        //            StockKLine kl = parseKLineDataXq(arr[i].ToString());
+        //            kLines.Add(kl);
+        //        }
+
+        //        return kLines;
+        //    }
+
+        //    return null;
+        //}
+
+        //private static StockKLine parseKLineDataXq(String str) {
+        //    JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+        //    if (jo != null) {
+        //        StockKLine kLine = new StockKLine();
+        //        kLine.highestPrice = double.Parse(jo["high"].ToString());
+        //        kLine.lowestPrice = double.Parse(jo["low"].ToString());
+        //        kLine.openPrice = double.Parse(jo["open"].ToString());
+        //        kLine.latestPrice = double.Parse(jo["close"].ToString());
+        //        kLine.volume = long.Parse(jo["volume"].ToString());
+        //        kLine.date = jo["time"].ToString();
+
+        //        return kLine;
+        //    }
+
+        //    return null;
+        //}
+
+        public static List<StockKLine> parseKLineArrayBaidu(String str)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+            bool ret = (jo["errorMsg"].ToString().Equals("SUCCESS"));
+            if (ret)
+            {
+                List<StockKLine> kLines = new List<StockKLine>();
+                JArray arr = JArray.Parse(jo["mashData"].ToString());
+                for (int i = 0; i < arr.Count; i++)
+                {
+                    StockKLine kl = parseKLineDataBaidu(arr[i].ToString());
+                    kLines.Add(kl);
+                }
+
+                return kLines;
+            }
+
+            return null;
+        }
+
+        private static StockKLine parseKLineDataBaidu(String str)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+            if (jo != null)
+            {
+                StockKLine kLine = new StockKLine();
+                kLine.highestPrice = double.Parse(jo["kline"]["high"].ToString());
+                kLine.lowestPrice = double.Parse(jo["kline"]["low"].ToString());
+                kLine.openPrice = double.Parse(jo["kline"]["open"].ToString());
+                kLine.latestPrice = double.Parse(jo["kline"]["close"].ToString());
+                kLine.volume = long.Parse(jo["kline"]["volume"].ToString());
+                kLine.date = jo["date"].ToString();
+
+                return kLine;
+            }
+
+            return null;
         }
     }
 }
