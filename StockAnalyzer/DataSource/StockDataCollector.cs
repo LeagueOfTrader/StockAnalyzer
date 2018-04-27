@@ -23,6 +23,8 @@ namespace StockAnalyzer.DataSource
 
         static string m_kLineUrlBaidu = "https://gupiao.baidu.com/api/stocks/stock{1}bar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code={0}&step=3&start=&count=320&fq_type={2}";
 
+        static string m_stockFinanceDataSina = "http://finance.sina.com.cn/realstock/company/{0}/jsvar.js";
+
         private static String httpGet(string url)
         {
             return HttpUtilManager.getInstance().requestHttpGet(url, null);
@@ -159,6 +161,13 @@ namespace StockAnalyzer.DataSource
             string url = String.Format(m_kLineUrlBaidu, stockID, "month", rightsSymbol);
 
             return httpPost(url, null);
+        }
+
+        public static String queryFinanceDataSina(string stockID)
+        {
+            string url = String.Format(m_stockFinanceDataSina, stockID);
+
+            return httpGet(url);
         }
     }
 }

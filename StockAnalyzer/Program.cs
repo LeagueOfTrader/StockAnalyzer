@@ -77,29 +77,32 @@ namespace StockAnalyzer
             return stocks;
         }
 
+        List<string> readLowPriceStocks()
+        {
+            string lowPriceStocksFile = "Intermediate/low_stocks.txt";
+            StreamReader sr = new StreamReader(lowPriceStocksFile);
+            List<string> stocks = new List<string>();
+            string stockID;
+            while((stockID = sr.ReadLine()) != null){
+                stocks.Add(stockID);
+            }
+
+            return stocks;
+        }
+
         static void Main(string[] args)
         {
-            //string stockID = "sh600050";
+            //string url = "http://finance.sina.com.cn/realstock/company/sz000876/jsvar.js";
 
-            ////Console.WriteLine(md);
-            ////dc.queryMarketDataAsync("sh600021", process);
-
-            //string url = //"https://xueqiu.com/stock/forchartk/stocklist.json?symbol=SH600000&period=1month&type=before";
-            //"https://gupiao.baidu.com/api/stocks/stockmonthbar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=sh600000&step=3&start=&count=320&fq_type=front";
-            //string ret = HttpUtilManager.getInstance().requestHttpPost(url, null);
-
-            //String klStr = StockDataCollector.queryKLineData(stockID);
-            //List<StockKLine> klData = StockDataConvertor.parseKLineArray(klStr);
-            //String mdStr = StockDataCollector.queryMarketData(stockID);
-            //StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
-            //Console.WriteLine(klStr);
-            //Console.WriteLine(mdStr);
+            //string ret = HttpUtilManager.getInstance().requestHttpGet(url, null);
+            String str = StockDataCollector.queryFinanceDataSina("sz000876");
+            StockFinanceData fd = StockDataConvertor.parseFinanceDataSina(str);
 
             StockPool.getInstance().init();
 
-            List<string> shStocks = StockPool.getInstance().allSHStocks;
+            //List<string> shStocks = StockPool.getInstance().allSHStocks;
 
-            filterStocksByPriceScaleAndPE(0.3, 40.0, "Intermediate/low_stocks.txt");
+            //filterStocksByPriceScaleAndPE(0.3, 40.0, "Intermediate/low_stocks.txt");
 
             while (true) {
                 Thread.Sleep(1000);

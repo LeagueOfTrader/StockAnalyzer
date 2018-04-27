@@ -53,6 +53,7 @@
     <Compile Include="DataModel\KLineDataProcessor.cs" />
     <Compile Include="DataModel\KLineDef.cs" />
     <Compile Include="DataModel\MovingAverage.cs" />
+    <Compile Include="DataSource\StockFinanceData.cs" />
     <Compile Include="DataSource\StockMarketData.cs" />
     <Compile Include="DataSource\StockDataCollector.cs" />
     <Compile Include="DataSource\StockDataConvertor.cs" />

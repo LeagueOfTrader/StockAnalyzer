@@ -204,5 +204,123 @@ namespace StockAnalyzer.DataSource
 
             return null;
         }
+
+        public static StockFinanceData parseFinanceDataSina(String str)
+        {
+            //string str0 = Encoding.Default.GetString(Encoding.GetEncoding("GBK").GetBytes(str));
+            string[] arr0 = str.Split(';');
+            Dictionary<string, string> contentMap = new Dictionary<string, string>();
+            foreach (string element0 in arr0) {
+                string element1 = element0.Replace("var ", "$");
+                string[] arr1 = element1.Split('$');
+                if(arr1.Length < 2)
+                {
+                    continue;
+                }
+                string element2 = arr1[1].Replace(" = ", "=");
+                string[] arr2 = element2.Split('=');
+                if(arr2.Length < 2)
+                {
+                    continue;
+                }
+
+                string keyStr = arr2[0];
+                string valStr = arr2[1];
+                //keyStr.Trim();
+                //valStr.Trim();
+                if(valStr[0] == '\'')
+                {
+                    valStr = valStr.Substring(1, valStr.Length - 2);
+                }
+
+                contentMap.Add(keyStr, valStr);
+            }
+
+            //// debug
+            //foreach(KeyValuePair<string, string> keyVal in contentMap)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(keyVal.Key + "," + keyVal.Value);
+            //}
+
+            StockFinanceData data = new StockFinanceData();
+            try
+            {
+                //data.last5DayVolPerMinute = double.Parse(contentMap["lastfive"]);
+                string val;
+                if (contentMap.TryGetValue("lastfive", out val))
+                {
+                    data.last5DayVolPerMinute = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("totalcapital", out val))
+                {
+                    data.totalCapital = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("currcapital", out val))
+                {
+                    data.currCapital = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("a_code", out val))
+                {
+                    data.stockCode = val;
+                }
+                if (contentMap.TryGetValue("fourQ_mgsy", out val))
+                {
+                    data.eps4Quarter = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("lastyear_mgsy", out val))
+                {
+                    data.epsLastYear = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("exchangerate", out val))
+                {
+                    data.exchangeRate = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("price_5_ago", out val))
+                {
+                    data.price5Ago = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("price_10_ago", out val))
+                {
+                    data.price10Ago = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("price_20_ago", out val))
+                {
+                    data.price20Ago = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("price_60_ago", out val))
+                {
+                    data.price60Ago = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("price_120_ago", out val))
+                {
+                    data.price120Ago = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("price_250_ago", out val))
+                {
+                    data.price250Ago = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("mgjzc", out val))
+                {
+                    data.naps = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("profit", out val))
+                {
+                    data.profit = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("profit_four", out val))
+                {
+                    data.profit4Quarter = double.Parse(val);
+                }
+                if (contentMap.TryGetValue("stockname", out val))
+                {
+                    data.stockName = val;
+                }
+            }
+            catch (Exception e) {
+                //
+            }
+
+            return data;
+        }
     }
 }
