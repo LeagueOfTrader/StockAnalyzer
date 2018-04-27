@@ -4,6 +4,7 @@ using StockAnalyzer.DataSource;
 using StockAnalyzer.Util;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,6 +14,69 @@ namespace StockAnalyzer
 {
     class Program
     {
+        static void debugOutput(String info)
+        {
+            Console.WriteLine(info);
+            System.Diagnostics.Debug.WriteLine(info);
+        }
+
+        static void filterStocksByPriceScaleAndPE(double ratio, double pe, string filepath) {
+            List<string> stocks = filterStocksByPriceScaleAndPE(ratio, pe);
+
+            if(stocks.Count == 0)
+            {
+                return;
+            }
+
+            StreamWriter sw = new StreamWriter(filepath);
+            foreach(string stock in stocks)
+            {
+                sw.WriteLine(stock);
+            }
+
+            sw.Close();
+        }         
+
+        static List<string> filterStocksByPriceScaleAndPE(double ratio, double pe) {
+            List<string> stocks = new List<string>();
+
+            List<string> shStocks = StockPool.getInstance().allSHStocks;
+            foreach (string name in shStocks)
+            {
+                string stockID = "sh" + name;
+                String mdStr = StockDataCollector.queryMarketData(stockID);
+                StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
+
+                if (md != null &&
+                    md.PE <= pe &&
+                    md.PE > 0 &&
+                    PriceAnalyzer.isPriceScaleSatisfied(stockID, md.latestPrice, ratio))
+                {
+                    stocks.Add(stockID);
+                    debugOutput(stockID);
+                }
+            }
+
+            List<string> szStocks = StockPool.getInstance().allSZStocks;
+            foreach (string name in szStocks)
+            {
+                string stockID = "sz" + name;
+                String mdStr = StockDataCollector.queryMarketData(stockID);
+                StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
+
+                if (md != null &&
+                    md.PE <= pe &&
+                    md.PE > 0 &&
+                    PriceAnalyzer.isPriceScaleSatisfied(stockID, md.latestPrice, ratio))
+                {
+                    stocks.Add(stockID);
+                    debugOutput(stockID);
+                }
+            }
+
+            return stocks;
+        }
+
         static void Main(string[] args)
         {
             //string stockID = "sh600050";
@@ -35,19 +99,7 @@ namespace StockAnalyzer
 
             List<string> shStocks = StockPool.getInstance().allSHStocks;
 
-            foreach (string name in shStocks)
-            {
-                string stockID = "sh" + name;
-                string monthKStr = StockDataCollector.queryMonthlyKLineDataBaidu(stockID);
-                List<StockKLine> monthKData = StockDataConvertor.parseKLineArrayBaidu(monthKStr);
-                String mdStr = StockDataCollector.queryMarketData(stockID);
-                StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
-                double ratio = PriceAnalyzer.getPriceScale(monthKData, md.latestPrice, "20120101");
-                if (ratio < 0.3 && ratio > 0.0 && md.latestPrice > 0.0)
-                {
-                    Console.WriteLine(stockID + " : " + ratio);
-                }
-            }
+            filterStocksByPriceScaleAndPE(0.3, 40.0, "Intermediate/low_stocks.txt");
 
             while (true) {
                 Thread.Sleep(1000);

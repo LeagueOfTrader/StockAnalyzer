@@ -24,45 +24,59 @@ namespace StockAnalyzer.DataSource
             {
                 return null;
             }
-
-            StockMarketData md = new StockMarketData();
-            md.stockName = arr[1];
-            md.stockCode = arr[2];
-            md.latestPrice = double.Parse(arr[3]);
-            md.closePriceYesterday = double.Parse(arr[4]);
-            md.openPrice = double.Parse(arr[5]);
-            md.volume = long.Parse(arr[6]);
-
-            int index = 9;
-            for(int i = 0; i < 5; i++)
+            try
             {
-                md.bidList[i] = new BidOrderInfo();
-                md.bidList[i].price = double.Parse(arr[index++]);
-                md.bidList[i].amount = long.Parse(arr[index++]);
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                md.askList[i] = new BidOrderInfo();
-                md.askList[i].price = double.Parse(arr[index++]);
-                md.askList[i].amount = long.Parse(arr[index++]);
-            }
-            // transaction data ignored...
-            md.date = arr[30];
-            md.changing = double.Parse(arr[31]);
-            md.chgPercent = double.Parse(arr[32]);
-            md.highestPrice = double.Parse(arr[33]);
-            md.lowestPrice = double.Parse(arr[34]);
-            //
-            md.turnoverVol = long.Parse(arr[36]);
-            md.exchangeRate = double.Parse(arr[38]);
-            md.PE = double.Parse(arr[39]);
-            md.amplitude = double.Parse(arr[43]);
-            md.circulateCapitalisation = double.Parse(arr[44]);
-            md.totalCapitalisation = double.Parse(arr[45]);
-            md.PB = double.Parse(arr[46]);
-            md.volumeRatio = double.Parse(arr[49]);
+                StockMarketData md = new StockMarketData();
+                md.stockName = arr[1];
+                md.stockCode = arr[2];
+                md.latestPrice = double.Parse(arr[3]);
+                md.closePriceYesterday = double.Parse(arr[4]);
+                md.openPrice = double.Parse(arr[5]);
+                md.volume = long.Parse(arr[6]);
 
-            return md;
+                int index = 9;
+                for (int i = 0; i < 5; i++)
+                {
+                    md.bidList[i] = new BidOrderInfo();
+                    md.bidList[i].price = double.Parse(arr[index++]);
+                    md.bidList[i].amount = long.Parse(arr[index++]);
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    md.askList[i] = new BidOrderInfo();
+                    md.askList[i].price = double.Parse(arr[index++]);
+                    md.askList[i].amount = long.Parse(arr[index++]);
+                }
+                // transaction data ignored...
+                md.date = arr[30];
+                md.changing = double.Parse(arr[31]);
+                md.chgPercent = double.Parse(arr[32]);
+                md.highestPrice = double.Parse(arr[33]);
+                md.lowestPrice = double.Parse(arr[34]);
+                //
+                md.turnoverVol = long.Parse(arr[36]);
+                if (arr[38].Length > 0)
+                {
+                    md.exchangeRate = double.Parse(arr[38]);
+                }
+                else
+                {
+                    md.exchangeRate = 0;
+                }
+
+                md.PE = double.Parse(arr[39]);
+                md.amplitude = double.Parse(arr[43]);
+                md.circulateCapitalisation = double.Parse(arr[44]);
+                md.totalCapitalisation = double.Parse(arr[45]);
+                md.PB = double.Parse(arr[46]);
+                md.volumeRatio = double.Parse(arr[49]);
+
+                return md;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
         }
 
         private static StockKLine parseKLineData(String str)
@@ -156,11 +170,14 @@ namespace StockAnalyzer.DataSource
             if (ret)
             {
                 List<StockKLine> kLines = new List<StockKLine>();
-                JArray arr = JArray.Parse(jo["mashData"].ToString());
-                for (int i = 0; i < arr.Count; i++)
+                if (jo.Property("mashData") != null)
                 {
-                    StockKLine kl = parseKLineDataBaidu(arr[i].ToString());
-                    kLines.Add(kl);
+                    JArray arr = JArray.Parse(jo["mashData"].ToString());
+                    for (int i = 0; i < arr.Count; i++)
+                    {
+                        StockKLine kl = parseKLineDataBaidu(arr[i].ToString());
+                        kLines.Add(kl);
+                    }
                 }
 
                 return kLines;
