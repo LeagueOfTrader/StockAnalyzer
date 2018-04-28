@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="DataAnalyze\PriceAnalyzer.cs" />
+    <Compile Include="DataFilter\StockFilter.cs" />
     <Compile Include="DataModel\KLine.cs" />
     <Compile Include="DataModel\KLineAnalyzer.cs" />
     <Compile Include="DataModel\KLineDataProcessor.cs" />
@@ -58,6 +59,8 @@
     <Compile Include="DataSource\StockDataCollector.cs" />
     <Compile Include="DataSource\StockDataConvertor.cs" />
     <Compile Include="DataSource\StockPool.cs" />
+    <Compile Include="Assist\Logger.cs" />
+    <Compile Include="Integration\StockDataIntegration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\DateUtil.cs" />
@@ -67,6 +70,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

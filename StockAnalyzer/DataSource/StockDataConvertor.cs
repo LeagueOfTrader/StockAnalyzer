@@ -318,6 +318,7 @@ namespace StockAnalyzer.DataSource
             }
             catch (Exception e) {
                 //
+                return null;
             }
 
             return data;

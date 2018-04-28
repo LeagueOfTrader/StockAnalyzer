@@ -32,11 +32,11 @@ namespace StockAnalyzer.DataSource
             m_allSHStocks.Clear();
             m_allSZStocks.Clear();
 
-            loadStocks(m_stockListFileSH, m_allSHStocks);
-            loadStocks(m_stockListFileSZ, m_allSZStocks);
+            loadStocks(m_stockListFileSH, m_allSHStocks, "sh");
+            loadStocks(m_stockListFileSZ, m_allSZStocks, "sz");
         }
 
-        private void loadStocks(string filepath, List<string> container) {
+        private void loadStocks(string filepath, List<string> container, string prefix) {
             StreamReader sr = new StreamReader(filepath, Encoding.UTF8);
             string str;
             string content = "";
@@ -48,11 +48,24 @@ namespace StockAnalyzer.DataSource
             //arr.Length;
             for (int i = 0; i < arr.Length; i++) {
                 string[] items = arr[i].Split('(');
+                
                 if(items.Length >= 2){
-                    m_stockNameMap.Add(items[1], items[0]);
-                    container.Add(items[1]);
+                    string stockCode = prefix + items[1];
+                    m_stockNameMap.Add(stockCode, items[0]);
+                    container.Add(stockCode);
                 }                
             }
+        }
+
+        public string getStockName(string stockCode)
+        {
+            string name = null;
+            if(m_stockNameMap.TryGetValue(stockCode, out name))
+            {
+                return name;    
+            }
+
+            return null;
         }
     }
 }
