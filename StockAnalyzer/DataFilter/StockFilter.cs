@@ -10,74 +10,23 @@ using System.IO;
 
 namespace StockAnalyzer.DataFilter
 {
-    class StockFilter
+    abstract class StockFilter : IStockFilter
     {
-        public static List<string> filterStocksByPriceScaleAndPE(List<string> targetStocks, double ratio, double pe)
+        public List<string> filter(List<string> src)
         {
-            List<string> stocks = new List<string>();
+            List<string> target = new List<string>();
 
-            foreach (string stockID in targetStocks)
+            foreach (string stockID in src)
             {
-                String mdStr = StockDataCollector.queryMarketData(stockID);
-                StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
-
-                if (md != null &&
-                    md.PE <= pe &&
-                    md.PE > 0 &&
-                    PriceAnalyzer.isPriceScaleSatisfied(stockID, md.latestPrice, ratio))
+                if (filterMethod(stockID))
                 {
-                    stocks.Add(stockID);
-                    Logger.debugOutput(stockID);
+                    target.Add(stockID);
                 }
             }
 
-            return stocks;
+            return target;
         }
 
-        public static bool isSTStock(string stockID)
-        {
-            string stockName = StockPool.getInstance().getStockName(stockID);
-            if(stockName == null)
-            {
-                return false;
-            }
-
-            if (stockName.Contains("ST"))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private static double getEPSChanging(string stockID)
-        {
-            String str = StockDataCollector.queryFinanceDataSina(stockID);
-            StockFinanceData fd = StockDataConvertor.parseFinanceDataSina(str);
-
-            double epsTTM = fd.eps4Quarter;
-            double epsLastYear = fd.epsLastYear;
-
-            //if(Math.Abs(epsLastYear) < double.Epsilon)
-            //{
-            //    return -1.0;
-            //}
-
-            return (epsTTM - epsLastYear) / epsLastYear;
-        }
-
-        public static List<string> filterStocksByEPSPeformance(List<string> targetStocks, double epsChgLimit)
-        {
-            List<string> stocks = new List<string>();
-            foreach (string stockID in targetStocks) {
-                double epsChg = getEPSChanging(stockID);
-                if(epsChg > epsChgLimit)
-                {
-                    stocks.Add(stockID);
-                }
-            }
-
-            return stocks;
-        }
+        public abstract bool filterMethod(string stockID);
     }
 }

@@ -3,7 +3,7 @@ using StockAnalyzer.DataAnalyze;
 using StockAnalyzer.DataFilter;
 using StockAnalyzer.DataModel;
 using StockAnalyzer.DataSource;
-using StockAnalyzer.Integration;
+using StockAnalyzer.SelectionStrategy;
 using StockAnalyzer.Util;
 using System;
 using System.Collections.Generic;
@@ -21,9 +21,22 @@ namespace StockAnalyzer
         {
             StockPool.getInstance().init();
 
-            List<string> stocks = StockDataIntegration.filterStocksByEPSinLowPriceInstruments(0.2);
+            //LowLevelCheapPESelector s = new LowLevelCheapPESelector();
 
-            foreach(string stockCode in stocks)
+            //List<string> stocks = s.screen();
+
+            List<string> src = new List<string>();
+            src.Add("sh600097");
+            PEFilter peFilter = new PEFilter(40);
+            IndustryFilter indFilter = new IndustryFilter();
+            EPSPerfFilter epsFilter = new EPSPerfFilter(0.2);
+
+            List<string> r0 = peFilter.filter(src);
+            List<string> r1 = indFilter.filter(r0);
+
+            List<string> stocks = epsFilter.filter(r1);
+
+            foreach (string stockCode in stocks)
             {
                 Logger.debugOutput(stockCode);
             }

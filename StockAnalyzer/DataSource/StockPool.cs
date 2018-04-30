@@ -1,4 +1,5 @@
 ﻿using StockAnalyzer.Common;
+using StockAnalyzer.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,7 @@ namespace StockAnalyzer.DataSource
         private List<string> m_allSZStocks = new List<string>();
         private List<string> m_allSHStocks = new List<string>();
         private Dictionary<string, string> m_stockNameMap = new Dictionary<string, string>();
+        private Dictionary<string, string> m_stockIndustryMap = new Dictionary<string, string>();
 
         const string m_stockListFileSH = "Data/StockListSH.txt";
         const string m_stockListFileSZ = "Data/StockListSZ.txt";
@@ -31,9 +33,11 @@ namespace StockAnalyzer.DataSource
             m_stockNameMap.Clear();
             m_allSHStocks.Clear();
             m_allSZStocks.Clear();
+            m_stockIndustryMap.Clear();
 
             loadStocks(m_stockListFileSH, m_allSHStocks, "sh");
             loadStocks(m_stockListFileSZ, m_allSZStocks, "sz");
+            loadIndustry();
         }
 
         private void loadStocks(string filepath, List<string> container, string prefix) {
@@ -57,12 +61,38 @@ namespace StockAnalyzer.DataSource
             }
         }
 
+        private void loadIndustry()
+        {
+            List<List<string>> info = CSVFileReader.readCSV("Data/StockIndustry.txt", '\t');
+            for(int i = 0; i < info.Count; i++)
+            {
+                List<string> arr = info[i];
+                if(arr.Count < 3)
+                {
+                    continue;
+                }
+                m_stockIndustryMap.Add(arr[0], arr[2]);
+            }
+        }
+
         public string getStockName(string stockCode)
         {
             string name = null;
             if(m_stockNameMap.TryGetValue(stockCode, out name))
             {
                 return name;    
+            }
+
+            return null;
+        }
+
+        public string getStockIndustry(string stockCode)
+        {
+            string industryName = null;
+            string code = stockCode.Substring(2, 6);
+            if(m_stockIndustryMap.TryGetValue(code, out industryName))
+            {
+                return industryName;
             }
 
             return null;
