@@ -89,7 +89,7 @@ namespace StockAnalyzer.DataSource
         public string getStockIndustry(string stockCode)
         {
             string industryName = null;
-            string code = stockCode.Substring(2, 6);
+            string code = StockIDUtil.getPureCode(stockCode);
             if(m_stockIndustryMap.TryGetValue(code, out industryName))
             {
                 return industryName;
