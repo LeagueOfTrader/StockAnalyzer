@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource.TushareData
 {
-    class StockTushareData
+    class StockReportData
     {
         public string code;
         public string name;

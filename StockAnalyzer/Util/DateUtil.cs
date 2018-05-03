@@ -71,5 +71,15 @@ namespace StockAnalyzer.Util
             string str = date.Substring(start, len);
             return int.Parse(str);
         }
+
+        public static bool matchYearMonth(string date, string year, string month)
+        {
+            int sy = getDateYear(date);
+            int sm = getDateMonth(date);
+            int ty = int.Parse(year);
+            int tm = int.Parse(month);
+
+            return (sy == ty && sm == tm);
+        }
     }
 }

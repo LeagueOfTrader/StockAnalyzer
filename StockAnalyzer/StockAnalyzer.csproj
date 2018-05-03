@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>3rdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -48,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="DataAnalyze\PriceAnalyzer.cs" />
+    <Compile Include="DataFilter\CostPerfFilter.cs" />
     <Compile Include="DataFilter\EPSPerfFilter.cs" />
     <Compile Include="DataFilter\IndustryFilter.cs" />
     <Compile Include="DataFilter\IStockFilter.cs" />
@@ -66,6 +68,9 @@
     <Compile Include="DataSource\StockDataConvertor.cs" />
     <Compile Include="DataSource\StockPool.cs" />
     <Compile Include="Assist\Logger.cs" />
+    <Compile Include="DataSource\TushareData\StockDBVisitor.cs" />
+    <Compile Include="DataSource\TushareData\StockTushareData.cs" />
+    <Compile Include="DataSource\TushareData\TushareDataConvertor.cs" />
     <Compile Include="IntermediateProcedure\IntermediateExporter.cs" />
     <Compile Include="IntermediateProcedure\IntermediateImporter.cs" />
     <Compile Include="Program.cs" />
@@ -76,6 +81,9 @@
     <Compile Include="Util\DateUtil.cs" />
     <Compile Include="Util\HttpAsyncReq.cs" />
     <Compile Include="Util\HttpUtilManager.cs" />
+    <Compile Include="Util\MySqlDBReader.cs" />
+    <Compile Include="Util\StockDataUtil.cs" />
+    <Compile Include="Util\StockIDUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
