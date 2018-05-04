@@ -12,16 +12,14 @@ namespace StockAnalyzer.DataFilter
 {
     class CostPerfFilter : StockFilter
     {
-        private string m_srcYear = "2013";
-        private string m_srcSeason = "1";
-        private string m_targetYear = "2018";
-        private string m_targetSeason = "1";
-        private double m_ratio = 0.0;
+        protected string m_targetYear = "2018";
+        protected string m_targetSeason = "1";
+        protected double m_ratio = 0.0;
 
-        public CostPerfFilter(string srcYear, string srcSeason, string targetYear, string targetSeason, double ratio)
+        protected const int m_startYear = 2007;
+
+        public CostPerfFilter(string targetYear, string targetSeason, double ratio)
         {
-            m_srcYear = srcYear;
-            m_srcSeason = srcSeason;
             m_targetYear = targetYear;
             m_targetSeason = targetSeason;
             m_ratio = ratio;
@@ -29,7 +27,7 @@ namespace StockAnalyzer.DataFilter
 
         public override bool filterMethod(string stockID)
         {
-            double srcVal = calcCostRefValue(stockID, m_srcYear, m_srcSeason);
+            double srcVal = getSrcValue(stockID);
             double targetVal = calcCostRefValue(stockID, m_targetYear, m_targetSeason);
 
             if(srcVal < double.Epsilon)
@@ -46,6 +44,50 @@ namespace StockAnalyzer.DataFilter
             return false;
         }
 
+        protected virtual double getSrcValue(string stockID)
+        {
+            double srcVal = getMaxCostRefValueBefore(stockID, m_targetYear, m_targetSeason);
+            return srcVal;
+        }
+
+        public static double getMaxCostRefValueBefore(string stockID, string year, string season)
+        {
+            int endYear = int.Parse(year);
+            int maxYear = 0;// endYear;
+            int maxQuarter = 0;// int.Parse(season);
+            double maxVal = 0.0;
+            for(int i = m_startYear; i < endYear; i++)
+            {
+                string yr = i.ToString();
+                for(int j = 1; j <= 4; j++)
+                {
+                    string qt = j.ToString();
+                    double val = calcCostRefValue(stockID, yr, qt);
+                    if(val > maxVal)
+                    {
+                        maxVal = val;
+                        maxYear = i;
+                        maxQuarter = j;
+                    }
+                }
+            }
+
+            int endQuarter = int.Parse(season);
+            for(int i = 1; i < endQuarter; i++)
+            {
+                string qt = i.ToString();
+                double val = calcCostRefValue(stockID, year, qt);
+                if (val > maxVal)
+                {
+                    maxVal = val;
+                    maxYear = endYear;
+                    maxQuarter = i;
+                }
+            }
+
+            return maxVal;
+        }
+
         public static double calcCostRefValue(string stockID, string year, string season)
         {
             double costRefVal = 0.0;
@@ -55,15 +97,16 @@ namespace StockAnalyzer.DataFilter
             List<StockKLine> mk = StockDataConvertor.parseKLineArray(str);
             string targetMonth = convertMonthBySeason(season);
             StockKLine kl = StockDataUtil.getMonthKLineByYearMonth(mk, year, targetMonth);
+            int quarter = int.Parse(season);
             if(rd != null && kl != null)
             {
-                costRefVal = rd.eps / kl.latestPrice;
+                costRefVal = (rd.eps / kl.latestPrice) / quarter * 4;
             }
 
             return costRefVal;
         }
 
-        private static string convertMonthBySeason(string season)
+        protected static string convertMonthBySeason(string season)
         {
             string month = "12";
             if(season == "1")

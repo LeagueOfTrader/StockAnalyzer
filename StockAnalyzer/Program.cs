@@ -45,15 +45,19 @@ namespace StockAnalyzer
             // #3
             string curYear = "2018";
             string curSeason = "1";
-            string targetYear = "2013";
-            string targetSeason = "1";
+            //string targetYear = "2013";
+            //string targetSeason = "1";
             string stc1 = "sh600995";
             string stc2 = "sz000883";
             double curVal1 = CostPerfFilter.calcCostRefValue(stc1, curYear, curSeason);
             double curVal2 = CostPerfFilter.calcCostRefValue(stc2, curYear, curSeason);
-            double targVal1 = CostPerfFilter.calcCostRefValue(stc1, targetYear, targetSeason);
-            double targVal2 = CostPerfFilter.calcCostRefValue(stc2, targetYear, targetSeason);
-            double param = curVal1 / targVal1 - curVal2 / targVal2;
+            //double targVal1 = CostPerfFilter.calcCostRefValue(stc1, targetYear, targetSeason);
+            //double targVal2 = CostPerfFilter.calcCostRefValue(stc2, targetYear, targetSeason);
+            //double param = curVal1 / targVal1 - curVal2 / targVal2;
+            double histVal1 = CostPerfFilter.getMaxCostRefValueBefore(stc1, curYear, curSeason);
+            double histVal2 = CostPerfFilter.getMaxCostRefValueBefore(stc2, curYear, curSeason);
+
+            double param = curVal1 / histVal1 - curVal2 / histVal2;
 
             while (true) {
                 Thread.Sleep(1000);
