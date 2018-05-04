@@ -11,7 +11,7 @@ namespace StockAnalyzer.Util
 {
     class MySqlDBReader
     {
-        private static string connStr = "server=127.0.0.1;port=3306;user=root;password=123456; database=stock_ts;";
+        private static string connStr = "server=127.0.0.1;port=3306;user=root;password=123456; database=stock;";
 
         public static List<string> querySql(string sql)
         {
