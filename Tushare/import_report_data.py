@@ -31,6 +31,8 @@ def get_report_data(code):
 		else:
 			sarr = [etree.tostring(node) for node in res]
 		sarr = ''.join(sarr)
+		if len(sarr) == 0:
+			return None
 		sarr = '<table>%s</table>'%sarr
 		df = pd.read_html(sarr)[0]
 		df = df.drop(11, axis=1)
@@ -85,6 +87,8 @@ def save_report_data(code, name, eps, eps_yoy, bvps, roe, epcf, net_profits, pro
 	
 def achieve_report_data(code):
 	df = get_report_data(code)
+	if df is None:
+		return
 	for i in range(0, len(df)):		
 		date = str(df['report_date'][i])
 		if date == 'nan':
