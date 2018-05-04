@@ -72,10 +72,35 @@ namespace StockAnalyzer.Util
             return int.Parse(str);
         }
 
+        public static int getShortDateYear(string date)
+        {
+            int year = getDateValue(date, 0, 2);
+            if(year > 90)
+            {
+                year = 1900 + year;
+            }
+            else
+            {
+                year = 2000 + year;
+            }
+
+            return year;
+        }
+
+        public static int getShortDateMonth(string date)
+        {
+            return getDateValue(date, 2, 2);
+        }
+
+        public static int getShortDateDay(string date)
+        {
+            return getDateValue(date, 4, 2);
+        }
+
         public static bool matchYearMonth(string date, string year, string month)
         {
-            int sy = getDateYear(date);
-            int sm = getDateMonth(date);
+            int sy = getShortDateYear(date);
+            int sm = getShortDateMonth(date);
             int ty = int.Parse(year);
             int tm = int.Parse(month);
 

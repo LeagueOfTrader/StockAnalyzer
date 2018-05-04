@@ -13,7 +13,8 @@ namespace StockAnalyzer.DataSource.TushareData
         public StockReportData getStockReportData(string stockID, string year, string season)
         {
             string table = "stock_report_" + year + "s" + season;
-            string sql = "select * from " + table + "where code=" + stockID;
+            string code = StockIDUtil.getPureCode(stockID);
+            string sql = "select * from " + table + " where code='" + code + "'";
             List<string> rs = MySqlDBReader.querySql(sql);
             if(rs != null && rs.Count > 0)
             {
@@ -25,7 +26,8 @@ namespace StockAnalyzer.DataSource.TushareData
         public StockGrowthData getStockGrowthData(string stockID, string year, string season)
         {
             string table = "stock_growth_" + year + "s" + season;
-            string sql = "select * from " + table + "where code=" + stockID;
+            string code = StockIDUtil.getPureCode(stockID);
+            string sql = "select * from " + table + " where code='" + code + "'";
             List<string> rs = MySqlDBReader.querySql(sql);
             if (rs != null && rs.Count > 0)
             {
@@ -37,7 +39,8 @@ namespace StockAnalyzer.DataSource.TushareData
         public StockCashflowData getStockCashflowData(string stockID, string year, string season)
         {
             string table = "stock_cashflow_" + year + "s" + season;
-            string sql = "select * from " + table + "where code=" + stockID;
+            string code = StockIDUtil.getPureCode(stockID);
+            string sql = "select * from " + table + " where code='" + code + "'";
             List<string> rs = MySqlDBReader.querySql(sql);
             if (rs != null && rs.Count > 0)
             {

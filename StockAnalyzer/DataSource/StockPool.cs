@@ -63,7 +63,7 @@ namespace StockAnalyzer.DataSource
 
         private void loadIndustry()
         {
-            List<List<string>> info = CSVFileReader.readCSV("Data/StockIndustry.txt", '\t');
+            List<List<string>> info = CSVFileUtil.readCSV("Data/StockIndustry.txt", '\t');
             for(int i = 0; i < info.Count; i++)
             {
                 List<string> arr = info[i];

@@ -3,16 +3,20 @@ import pymysql as MySQLdb
 from sqlalchemy import create_engine
 import tushare as ts
 
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf-8') 
+
 def get_stock_report_manual(year, season):
 	frame = ts.get_report_data(year, season)
 	table_name = 'stock_report_' + str(year) + 's' + str(season)
-	db = MySQLdb.connect("localhost","root","123456",'stock_ts',charset='utf8')
+	db = MySQLdb.connect(host='localhost',port=3306,user='root',passwd='123456',db='stock_ts',charset='utf8')
 	cursor = db.cursor()
 	createDBSql = 'create table if not exists ' + table_name + '(code varchar(10), name varchar(16), eps text, eps_yoy text, bvps text, roe text, epcf text, net_profits text, profits_yoy text, distrib text, report_date text)'
 	cursor.execute(createDBSql)
 	for i in range(0, len(frame)):		
-		prefix = 'insert into ' + table_name + '(code, name, eps, eps_yoy, bvps, roe, epcf, net_profits, profits_yoy, distrib, report_date) values(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', %s)'
-		sql = prefix % (frame['code'][i], str(frame['name'][i]), float(frame['eps'][i]), float(frame['eps_yoy'][i]), float(frame['bvps'][i]), float(frame['roe'][i]), float(frame['epcf'][i]), float(frame['net_profits'][i]), float(frame['profits_yoy'][i]), frame['distrib'][i], str(frame['report_date'][i]))
+		prefix = 'insert into ' + table_name + '(code, name, eps, eps_yoy, bvps, roe, epcf, net_profits, profits_yoy, distrib, report_date) values(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')'
+		sql = prefix % (frame['code'][i], str(frame['name'][i]), float(frame['eps'][i]), float(frame['eps_yoy'][i]), float(frame['bvps'][i]), float(frame['roe'][i]), float(frame['epcf'][i]), float(frame['net_profits'][i]), float(frame['profits_yoy'][i]), str(frame['distrib'][i]), str(frame['report_date'][i]))
 		#print(sql)
 		cursor.execute(sql)
 		db.commit()
