@@ -59,7 +59,7 @@ namespace StockAnalyzer.DataFilter
             }
 
             Logger.log("Best single quarter cost for " + stockID + " before " + year + "Q" + season + ": " + maxYear + "Q" + maxQuarter);
-            return maxVal;
+            return maxVal * 4.0;
         }
 
         public static double calcCostRefValueForQuarter(string stockID, string year, string season)

@@ -94,11 +94,11 @@ namespace StockAnalyzer
             //}
 
             // #6
-            string stockID = "sh600676";
+            string stockID = "sz002215";
             double curVal = CostPerfFilter.calcCurCostRefValue(stockID, "2018", "1");
             double refValByReport = CostPerfFilter.getMaxCostRefValueBefore(stockID, "2018", "1");
-            double refValByQuarter = QuarterCostPerfFilter.getMaxQuarterCostRefValueBefore(stockID, "2018", "1");
-            double refVal = Math.Max(refValByReport, refValByQuarter * 4.0);
+            double refValByAnnual = AnnualCostPerfFilter.getMaxAnnualCostRefValueBefore(stockID, "2018");
+            double refVal = Math.Max(refValByReport, refValByAnnual);
             double ratio = curVal / refVal;
 
             while (true) {

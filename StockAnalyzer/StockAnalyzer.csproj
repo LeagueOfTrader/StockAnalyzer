@@ -49,7 +49,9 @@
   <ItemGroup>
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="DataAnalyze\PriceAnalyzer.cs" />
+    <Compile Include="DataFilter\AnnualCostPerfFilter.cs" />
     <Compile Include="DataFilter\CostPerfFilter.cs" />
+    <Compile Include="DataFilter\CostPerfYoyFilter.cs" />
     <Compile Include="DataFilter\EPSPerfFilter.cs" />
     <Compile Include="DataFilter\IndustryFilter.cs" />
     <Compile Include="DataFilter\IStockFilter.cs" />
