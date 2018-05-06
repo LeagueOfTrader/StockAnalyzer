@@ -34,7 +34,7 @@ namespace StockAnalyzer.Util
             }
             catch (MySqlException ex)
             {
-                Logger.debugOutput(ex.Message);
+                Logger.log(ex.Message);
             }
             finally
             {

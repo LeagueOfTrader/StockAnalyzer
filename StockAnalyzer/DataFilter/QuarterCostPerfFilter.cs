@@ -1,4 +1,5 @@
-﻿using StockAnalyzer.DataModel;
+﻿using StockAnalyzer.Assist;
+using StockAnalyzer.DataModel;
 using StockAnalyzer.DataSource;
 using StockAnalyzer.DataSource.TushareData;
 using StockAnalyzer.Util;
@@ -34,7 +35,7 @@ namespace StockAnalyzer.DataFilter
                 for (int j = 1; j <= 4; j++)
                 {
                     string qt = j.ToString();
-                    double val = calcCostRefValue(stockID, yr, qt);
+                    double val = calcCostRefValueForQuarter(stockID, yr, qt);
                     if (val > maxVal)
                     {
                         maxVal = val;
@@ -48,7 +49,7 @@ namespace StockAnalyzer.DataFilter
             for (int i = 1; i < endQuarter; i++)
             {
                 string qt = i.ToString();
-                double val = calcCostRefValue(stockID, year, qt);
+                double val = calcCostRefValueForQuarter(stockID, year, qt);
                 if (val > maxVal)
                 {
                     maxVal = val;
@@ -57,6 +58,7 @@ namespace StockAnalyzer.DataFilter
                 }
             }
 
+            Logger.log("Best single quarter cost for " + stockID + " before " + year + "Q" + season + ": " + maxYear + "Q" + maxQuarter);
             return maxVal;
         }
 
@@ -65,12 +67,13 @@ namespace StockAnalyzer.DataFilter
             double costRefVal = 0.0;
             StockReportData rd = StockDBVisitor.getInstance().getStockReportData(stockID, year, season);
             int qt = int.Parse(season);
-            double eps = rd.eps;
+            
             if (rd == null)
             {
                 return 0.0;
             }
 
+            double eps = rd.eps;
             if (qt > 1)
             {
                 int prevQuarter = qt - 1;

@@ -9,7 +9,7 @@ namespace StockAnalyzer.Assist
 {
     class Logger
     {
-        public static void debugOutput(string info)
+        public static void log(string info)
         {
             Console.WriteLine(info);
             System.Diagnostics.Debug.WriteLine(info);

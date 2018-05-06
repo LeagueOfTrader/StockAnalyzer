@@ -1,4 +1,5 @@
-﻿using StockAnalyzer.DataModel;
+﻿using StockAnalyzer.Assist;
+using StockAnalyzer.DataModel;
 using StockAnalyzer.DataSource;
 using StockAnalyzer.DataSource.TushareData;
 using StockAnalyzer.Util;
@@ -28,7 +29,7 @@ namespace StockAnalyzer.DataFilter
         public override bool filterMethod(string stockID)
         {
             double srcVal = getSrcValue(stockID);
-            double targetVal = calcCostRefValue(stockID, m_targetYear, m_targetSeason);
+            double targetVal = calcCurCostRefValue(stockID, m_targetYear, m_targetSeason);
 
             if(srcVal < double.Epsilon)
             {
@@ -85,6 +86,8 @@ namespace StockAnalyzer.DataFilter
                 }
             }
 
+            Logger.log("Best forecast annual cost for " + stockID + " before " + year + "Q" + season + ": " + maxYear + "Q" + maxQuarter);
+
             return maxVal;
         }
 
@@ -101,6 +104,22 @@ namespace StockAnalyzer.DataFilter
             if(rd != null && kl != null)
             {
                 costRefVal = (rd.eps / kl.latestPrice) / quarter * 4;
+            }
+
+            return costRefVal;
+        }
+
+        public static double calcCurCostRefValue(string stockID, string year, string season)
+        {
+            double costRefVal = 0.0;
+            StockReportData rd = StockDBVisitor.getInstance().getStockReportData(stockID, year, season);
+
+            string str = StockDataCollector.queryMarketData(stockID);
+            StockMarketData md = StockDataConvertor.parseMarketData(str);
+            int quarter = int.Parse(season);
+            if (rd != null && md != null)
+            {
+                costRefVal = (rd.eps / md.latestPrice) / quarter * 4;
             }
 
             return costRefVal;

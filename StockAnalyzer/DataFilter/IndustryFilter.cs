@@ -53,5 +53,11 @@ namespace StockAnalyzer.DataFilter
 
             return false;
         }
+
+        public static bool isStockInIndustry(string stockID, string inddustry)
+        {
+            string industryName = StockPool.getInstance().getStockIndustry(stockID);
+            return (inddustry == industryName);
+        }
     }
 }

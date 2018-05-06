@@ -1,5 +1,7 @@
 ﻿using StockAnalyzer.DataFilter;
 using StockAnalyzer.DataSource;
+using StockAnalyzer.SelectionStrategy;
+using StockAnalyzer.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,18 +25,14 @@ namespace StockAnalyzer.IntermediateProcedure
             stocks.AddRange(shStocks);
             stocks.AddRange(szStocks);
 
-            if (stocks.Count == 0)
-            {
-                return;
-            }
+            StockListFileUtil.writeStocksToFile(stocks, filepath);
+        }
 
-            StreamWriter sw = new StreamWriter(filepath);
-            foreach (string stock in stocks)
-            {
-                sw.WriteLine(stock);
-            }
-
-            sw.Close();
+        public static void filterStocksByHighCostPerf()
+        {
+            HighCostPerfNotHighPosSelector s = new HighCostPerfNotHighPosSelector();
+            List<string> stocks = s.screen();
+            StockListFileUtil.writeStocksToFile(stocks, "Intermediate/cheap_stocks.txt");
         }
     }
 }
