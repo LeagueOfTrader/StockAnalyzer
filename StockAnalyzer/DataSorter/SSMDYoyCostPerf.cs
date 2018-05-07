@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSorter
 {
-    class SSDMYoyCostPerf : StockSortableMetadata
+    class SSMDYoyCostPerf : StockSortableMetadata
     {
-        public SSDMYoyCostPerf(string code) : base(code)
+        public SSMDYoyCostPerf(string code) : base(code)
         {
         }
 

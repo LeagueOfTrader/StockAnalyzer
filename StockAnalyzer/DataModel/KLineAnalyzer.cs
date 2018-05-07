@@ -32,7 +32,7 @@ namespace StockAnalyzer.DataModel
             for(int i = 0; i < m_maDays.Length; i++)
             {
                 int days = m_maDays[i];
-                m_maDataMap.Add(days, new MovingAverage(m_kLineData, days));
+                m_maDataMap.Add(days, new KLineMA(m_kLineData, days));
             }
         }
 

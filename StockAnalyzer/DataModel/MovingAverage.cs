@@ -8,26 +8,26 @@ namespace StockAnalyzer.DataModel
 {
     class MovingAverage
     {
-        private double m_high = 0.0;
-        private double m_low = 0.0;
+        protected double m_high = 0.0;
+        protected double m_low = 0.0;
 
-        private List<double> m_maData = new List<double>();
+        protected List<double> m_maData = new List<double>();
         public List<double> Data
         {
             get { return m_maData; }
         }
 
-        private int m_days = 1;
+        protected int m_days = 1;
         public int Days
         {
             get { return m_days; }
             set { m_days = value; }
         }
 
-        public MovingAverage(List<KLine> kLineData, int days)
+        public MovingAverage(List<double> arr, int days)
         {
             m_days = days;
-            m_maData = KLineDataProcessor.calcMAData(kLineData, days);
+            m_maData = calcMAData(arr, days);
 
             m_high = 0.0;
             m_low = double.MaxValue;
@@ -45,25 +45,9 @@ namespace StockAnalyzer.DataModel
             }
         }
 
-        public MovingAverage(List<StockKLine> kLineData, int days)
+        protected MovingAverage()
         {
-            m_days = days;
-            m_maData = KLineDataProcessor.calcMAData(kLineData, days);
-
-            m_high = 0.0;
-            m_low = double.MaxValue;
-            for (int i = 0; i < m_maData.Count; i++)
-            {
-                if (m_maData[i] > m_high)
-                {
-                    m_high = m_maData[i];
-                }
-
-                if (m_maData[i] < m_low)
-                {
-                    m_low = m_maData[i];
-                }
-            }
+            // for KLineMA
         }
 
         public double Last
@@ -119,6 +103,27 @@ namespace StockAnalyzer.DataModel
             }
 
             return m_maData[last - index] - m_maData[last - index - 1];
+        }
+
+        protected List<double> calcMAData(List<double> arr, int days)
+        {
+            List<double> maArr = new List<double>();
+
+            if (arr.Count >= days)
+            {
+                for (int i = days - 1; i < arr.Count; i++)
+                {
+                    double accumVal = 0.0;
+                    for (int j = 0; j < days; j++)
+                    {
+                        accumVal += arr[i - j];
+                    }
+                    double maVal = accumVal / days;
+                    maArr.Add(maVal);
+                }
+            }
+
+            return maArr;
         }
     }
 }
