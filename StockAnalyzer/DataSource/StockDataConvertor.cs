@@ -180,6 +180,8 @@ namespace StockAnalyzer.DataSource
                     }
                 }
 
+                kLines.Reverse();
+
                 return kLines;
             }
 
