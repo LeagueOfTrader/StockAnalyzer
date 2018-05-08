@@ -110,40 +110,54 @@ namespace StockAnalyzer
             //double ratio = curVal / refVal;
 
             // #7
-            List<string> selfSelectedList = OptionalStocks.getInstance().optionalStockList;
-            List<StockSortableMetadata> selfSelectSortByQuarter = new List<StockSortableMetadata>();
-            List<StockSortableMetadata> selfSelectSortByYoy = new List<StockSortableMetadata>();
-            List<StockSortableMetadata> selfSelectSortByNormal = new List<StockSortableMetadata>();
-            List<StockSortableMetadata> selfSelectSortByAnnual = new List<StockSortableMetadata>();
-            foreach (string stockCode in selfSelectedList)
+            //List<string> selfSelectedList = OptionalStocks.getInstance().optionalStockList;
+            //List<StockSortableMetadata> selfSelectSortByQuarter = new List<StockSortableMetadata>();
+            //List<StockSortableMetadata> selfSelectSortByYoy = new List<StockSortableMetadata>();
+            //List<StockSortableMetadata> selfSelectSortByNormal = new List<StockSortableMetadata>();
+            //List<StockSortableMetadata> selfSelectSortByAnnual = new List<StockSortableMetadata>();
+            //foreach (string stockCode in selfSelectedList)
+            //{
+            //    StockSortableMetadata sdn = new SSMDCostPerf(stockCode);
+            //    StockSortableMetadata sdq = new SSMDQuarterCostPerf(stockCode);
+            //    StockSortableMetadata sdy = new SSMDCostPerf(stockCode);
+            //    StockSortableMetadata sda = new SSMDAnnualCostPerf(stockCode);
+            //    selfSelectSortByQuarter.Add(sdq);
+            //    selfSelectSortByNormal.Add(sdn);
+            //    selfSelectSortByYoy.Add(sdy);
+            //    selfSelectSortByAnnual.Add(sda);
+            //}
+
+            //selfSelectSortByQuarter.Sort();
+            //selfSelectSortByQuarter.Reverse();
+            //selfSelectSortByNormal.Sort();
+            //selfSelectSortByNormal.Reverse();
+            //selfSelectSortByYoy.Sort();
+            //selfSelectSortByYoy.Reverse();
+            //selfSelectSortByAnnual.Sort();
+            //selfSelectSortByAnnual.Reverse();
+
+            //Logger.log("Normal sort: ");
+            //outputSortData(selfSelectSortByNormal);
+            //Logger.log("Quarter sort: ");
+            //outputSortData(selfSelectSortByQuarter);
+            //Logger.log("Yoy sort: ");
+            //outputSortData(selfSelectSortByYoy);
+            //Logger.log("Annual sort: ");
+            //outputSortData(selfSelectSortByAnnual);
+
+            // #8
+            List<string> src = IntermediateImporter.readMidRepGrowthStocks();
+            AnnualCostPerfFilter acpFilter = new AnnualCostPerfFilter("2018", "1", 0.0);
+            PriceScaleFilter pcFilter = new PriceScaleFilter(0.5);
+            List<string> stocks = pcFilter.filter(acpFilter.filter(src));
+            List<StockSortableMetadata> arr = new List<StockSortableMetadata>();
+            foreach(string code in stocks)
             {
-                StockSortableMetadata sdn = new SSMDCostPerf(stockCode);
-                StockSortableMetadata sdq = new SSMDQuarterCostPerf(stockCode);
-                StockSortableMetadata sdy = new SSMDCostPerf(stockCode);
-                StockSortableMetadata sda = new SSMDAnnualCostPerf(stockCode);
-                selfSelectSortByQuarter.Add(sdq);
-                selfSelectSortByNormal.Add(sdn);
-                selfSelectSortByYoy.Add(sdy);
-                selfSelectSortByAnnual.Add(sda);
+                StockSortableMetadata sda = new SSMDAnnualCostPerf(code);
+                arr.Add(sda);
             }
-
-            selfSelectSortByQuarter.Sort();
-            selfSelectSortByQuarter.Reverse();
-            selfSelectSortByNormal.Sort();
-            selfSelectSortByNormal.Reverse();
-            selfSelectSortByYoy.Sort();
-            selfSelectSortByYoy.Reverse();
-            selfSelectSortByAnnual.Sort();
-            selfSelectSortByAnnual.Reverse();
-
-            Logger.log("Normal sort: ");
-            outputSortData(selfSelectSortByNormal);
-            Logger.log("Quarter sort: ");
-            outputSortData(selfSelectSortByQuarter);
-            Logger.log("Yoy sort: ");
-            outputSortData(selfSelectSortByYoy);
-            Logger.log("Annual sort: ");
-            outputSortData(selfSelectSortByAnnual);
+            arr.Sort();
+            outputSortData(arr);
 
             while (true) {
                 Thread.Sleep(1000);

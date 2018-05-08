@@ -21,5 +21,11 @@ namespace StockAnalyzer.IntermediateProcedure
             string cheapStocksFile = "Intermediate/cheap_stocks.txt";
             return StockListFileUtil.readStocksFromFile(cheapStocksFile);
         }
+
+        public static List<string> readMidRepGrowthStocks()
+        {
+            string midRepGrowStocksFile = "Intermediate/18midrep_growth_stocks.txt";
+            return StockListFileUtil.readStocksFromFile(midRepGrowStocksFile);
+        }
     }
 }
