@@ -1,4 +1,5 @@
 ﻿using StockAnalyzer.DataModel;
+using StockAnalyzer.DataSource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace StockAnalyzer.DataAnalyze.Pattern
 {
     abstract class KLinePattern
     {
-        public abstract bool isMatch(List<StockKLine> kLineData);
+        public abstract bool isMatch(List<StockKLineBaidu> kLineData);
 
-        protected int getLowestPositionIndex(List<StockKLine> arr)
+        protected int getLowestPositionIndex(List<StockKLineBaidu> arr)
         {
             if(arr == null)
             {
@@ -33,7 +34,7 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             return index;
         }
 
-        protected int getHighestPositionIndex(List<StockKLine> arr)
+        protected int getHighestPositionIndex(List<StockKLineBaidu> arr)
         {
             if (arr == null)
             {
@@ -54,5 +55,40 @@ namespace StockAnalyzer.DataAnalyze.Pattern
 
             return index;
         }
+
+        protected double getMADiffRatio(List<StockKLineBaidu> arr, int days, int index)
+        {
+            if(arr == null || arr.Count < index)
+            {
+                return 0.0;
+            }
+
+            double curMA = 0.0;
+            double nextMA = 0.0;
+            switch (days)
+            {
+                case 5:
+                    curMA = arr[index].ma5.avgPrice;
+                    nextMA = arr[index + 1].ma5.avgPrice;
+                    break;
+                case 10:
+                    curMA = arr[index].ma10.avgPrice;
+                    nextMA = arr[index + 1].ma10.avgPrice;
+                    break;
+                case 20:
+                    curMA = arr[index].ma20.avgPrice;
+                    nextMA = arr[index + 1].ma20.avgPrice;
+                    break;
+                default:
+                    curMA = arr[index].ma5.avgPrice;
+                    nextMA = arr[index + 1].ma5.avgPrice;
+                    break;
+            }
+
+            double val = (nextMA - curMA) / curMA;
+            return val;
+        }
+
+        //protected bool isTrend
     }
 }

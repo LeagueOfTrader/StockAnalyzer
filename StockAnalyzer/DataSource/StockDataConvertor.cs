@@ -207,6 +207,120 @@ namespace StockAnalyzer.DataSource
             return null;
         }
 
+        public static List<StockKLineBaidu> parseKLineArrayBaiduAdvanced(String str)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+            bool ret = (jo["errorMsg"].ToString().Equals("SUCCESS"));
+            if (ret)
+            {
+                List<StockKLineBaidu> kLines = new List<StockKLineBaidu>();
+                if (jo.Property("mashData") != null)
+                {
+                    JArray arr = JArray.Parse(jo["mashData"].ToString());
+                    for (int i = 0; i < arr.Count; i++)
+                    {
+                        StockKLineBaidu kl = parseKLineDataBaiduAdvanced(arr[i].ToString());
+                        kLines.Add(kl);
+                    }
+                }
+
+                kLines.Reverse();
+
+                return kLines;
+            }
+
+            return null;
+        }
+
+        private static StockKLineBaidu parseKLineDataBaiduAdvanced(String str)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+            if (jo != null)
+            {
+                StockKLineBaidu kLine = new StockKLineBaidu();
+                kLine.highestPrice = double.Parse(jo["kline"]["high"].ToString());
+                kLine.lowestPrice = double.Parse(jo["kline"]["low"].ToString());
+                kLine.openPrice = double.Parse(jo["kline"]["open"].ToString());
+                kLine.latestPrice = double.Parse(jo["kline"]["close"].ToString());
+                kLine.volume = long.Parse(jo["kline"]["volume"].ToString());
+                kLine.date = jo["date"].ToString();
+
+                kLine.ma5 = parseMABaidu(jo["ma5"].ToString());
+                kLine.ma10 = parseMABaidu(jo["ma10"].ToString());
+                kLine.ma20 = parseMABaidu(jo["ma20"].ToString());
+                kLine.macd = parseMACDBaidu(jo["macd"].ToString());
+                kLine.kdj = parseKDJBaidu(jo["kdj"].ToString());
+                kLine.rsi = parseRSIBaidu(jo["rsi"].ToString());
+
+                return kLine;
+            }
+
+            return null;
+        }
+
+        private static MAData parseMABaidu(string str)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+            if (jo != null)
+            {
+                MAData ma = new MAData();
+                ma.volume = double.Parse(jo["volume"].ToString());
+                ma.avgPrice = double.Parse(jo["avgPrice"].ToString());
+                //ccl
+
+                return ma;
+            }
+
+            return null;
+        }
+
+        private static MACDData parseMACDBaidu(string str)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+            if (jo != null)
+            {
+                MACDData macd = new MACDData();
+                macd.diff = double.Parse(jo["diff"].ToString());
+                macd.dea = double.Parse(jo["dea"].ToString());
+                macd.macd = double.Parse(jo["macd"].ToString());
+                return macd;
+            }
+
+            return null;
+        }
+
+        private static KDJData parseKDJBaidu(string str)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+            if (jo != null)
+            {
+                KDJData kdj = new KDJData();
+                kdj.k = double.Parse(jo["k"].ToString());
+                kdj.d = double.Parse(jo["d"].ToString());
+                kdj.j = double.Parse(jo["j"].ToString());
+
+                return kdj;
+            }
+
+            return null;
+        }
+
+        private static RSIData parseRSIBaidu(string str)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(str);
+            if (jo != null)
+            {
+                RSIData rsi = new RSIData();
+                rsi.rsi1 = double.Parse(jo["rsi1"].ToString());
+                rsi.rsi2 = double.Parse(jo["rsi2"].ToString());
+                rsi.rsi3 = double.Parse(jo["rsi3"].ToString());
+
+                return rsi;
+            }
+
+            return null;
+        }
+
         public static StockFinanceData parseFinanceDataSina(String str)
         {
             //string str0 = Encoding.Default.GetString(Encoding.GetEncoding("GBK").GetBytes(str));

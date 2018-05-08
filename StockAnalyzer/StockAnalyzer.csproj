@@ -77,6 +77,7 @@
     <Compile Include="DataSorter\StockComparer.cs" />
     <Compile Include="DataSorter\StockSortableMetadata.cs" />
     <Compile Include="DataSource\StockFinanceData.cs" />
+    <Compile Include="DataSource\StockKLineBaidu.cs" />
     <Compile Include="DataSource\StockMarketData.cs" />
     <Compile Include="DataSource\StockDataCollector.cs" />
     <Compile Include="DataSource\StockDataConvertor.cs" />

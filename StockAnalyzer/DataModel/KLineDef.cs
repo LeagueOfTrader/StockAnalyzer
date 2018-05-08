@@ -50,4 +50,13 @@ namespace StockAnalyzer.DataModel
         public const double PRICE_POLE_POS = 0.1;
         public const double PRICE_RELATIVE_POS = 0.2;
     }
+
+    enum TrendType
+    {
+        TT_Down = -2,
+        TT_NotUp = -1,
+        TT_Sideway = 0,
+        TT_NotDown = 1,
+        TT_Up = 2
+    }
 }
