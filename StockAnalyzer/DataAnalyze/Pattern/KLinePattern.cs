@@ -10,6 +10,16 @@ namespace StockAnalyzer.DataAnalyze.Pattern
 {
     abstract class KLinePattern
     {
+        const double m_sidewayRangeCeilMA = 0.025;
+        const double m_trendRangeFloorMA = 0.05;
+        const double m_sidewayRangeCeilPrice = 0.05;
+        const double m_trendRangeFloorPrice = 0.075;
+
+        const double m_sidewayAmplitudeCeilMA = 0.025;
+        const double m_trendAmplitudeFloorMA = 0.05;
+        const double m_sidewayAmplitudeCeilPrice = 0.03;
+        const double m_trendAmplitudeFloorPrice = 0.0;
+
         public abstract bool isMatch(List<StockKLineBaidu> kLineData);
 
         protected int getLowestPositionIndex(List<StockKLineBaidu> arr)
@@ -89,6 +99,43 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             return val;
         }
 
-        //protected bool isTrend
+        protected bool accordTrend(List<StockKLineBaidu> arr, TrendType trend) {
+            bool ret = false;
+            switch (trend)
+            {
+                case TrendType.TT_Down:
+                    ret = isMAWithin(arr, -m_sidewayRange, -m_trendRange);
+                    break;
+                case TrendType.TT_NotUp:
+                    ret = isMAWithin(arr, m_sidewayRange, -m_trendRange);
+                    break;
+                case TrendType.TT_Sideway:
+                    ret = isMAWithin(arr, -m_trendRange, -m_trendRange);
+                    break;
+                case TrendType.TT_NotDown:
+                    break;
+                case TrendType.TT_Up:
+                    break;
+                default:
+                    break;
+            }
+
+            return ret;
+        }
+
+        protected bool isMABeyond(List<StockKLineBaidu> arr, double diff, double diff5)
+        {
+            return false;
+        }
+
+        protected bool isMAWithin(List<StockKLineBaidu> arr, double diff, double diff5)
+        {
+            return false;
+        }
+
+        protected bool isMAInBox(List<StockKLineBaidu> arr, double diff)
+        {
+            return false;
+        }
     }
 }
