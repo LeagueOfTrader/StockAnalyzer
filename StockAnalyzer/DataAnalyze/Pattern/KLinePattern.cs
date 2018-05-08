@@ -13,12 +13,12 @@ namespace StockAnalyzer.DataAnalyze.Pattern
         const double m_sidewayRangeCeilMA = 0.025;
         const double m_trendRangeFloorMA = 0.05;
         const double m_sidewayRangeCeilPrice = 0.05;
-        const double m_trendRangeFloorPrice = 0.075;
+        const double m_trendRangeFloorPrice = 0.07;
 
         const double m_sidewayAmplitudeCeilMA = 0.025;
-        const double m_trendAmplitudeFloorMA = 0.05;
+        const double m_trendAmplitudeFloorMA = 0.01;
         const double m_sidewayAmplitudeCeilPrice = 0.03;
-        const double m_trendAmplitudeFloorPrice = 0.0;
+        const double m_trendAmplitudeFloorPrice = 0.01;
 
         public abstract bool isMatch(List<StockKLineBaidu> kLineData);
 
@@ -104,13 +104,13 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             switch (trend)
             {
                 case TrendType.TT_Down:
-                    ret = isMAWithin(arr, -m_sidewayRange, -m_trendRange);
+                    //ret = isMAWithin(arr, -m_sidewayRange, -m_trendRange);
                     break;
                 case TrendType.TT_NotUp:
-                    ret = isMAWithin(arr, m_sidewayRange, -m_trendRange);
+                    //ret = isMAWithin(arr, m_sidewayRange, -m_trendRange);
                     break;
                 case TrendType.TT_Sideway:
-                    ret = isMAWithin(arr, -m_trendRange, -m_trendRange);
+                    //ret = isMAWithin(arr, -m_trendRange, -m_trendRange);
                     break;
                 case TrendType.TT_NotDown:
                     break;
@@ -123,19 +123,19 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             return ret;
         }
 
-        protected bool isMABeyond(List<StockKLineBaidu> arr, double diff, double diff5)
-        {
-            return false;
-        }
+        //protected bool isMABeyond(List<StockKLineBaidu> arr, double diff, double diff5)
+        //{
+        //    return false;
+        //}
 
-        protected bool isMAWithin(List<StockKLineBaidu> arr, double diff, double diff5)
-        {
-            return false;
-        }
+        //protected bool isMAWithin(List<StockKLineBaidu> arr, double diff, double diff5)
+        //{
+        //    return false;
+        //}
 
-        protected bool isMAInBox(List<StockKLineBaidu> arr, double diff)
-        {
-            return false;
-        }
+        //protected bool isMAInBox(List<StockKLineBaidu> arr, double diff)
+        //{
+        //    return false;
+        //}
     }
 }

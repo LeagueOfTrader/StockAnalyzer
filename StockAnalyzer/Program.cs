@@ -102,12 +102,12 @@ namespace StockAnalyzer
             //}
 
             // #6
-            //string stockID = "sz002215";
-            //double curVal = CostPerfFilter.calcCurCostRefValue(stockID, "2018", "1");
-            //double refValByReport = CostPerfFilter.getMaxCostRefValueBefore(stockID, "2018", "1");
-            //double refValByAnnual = AnnualCostPerfFilter.getMaxAnnualCostRefValueBefore(stockID, "2018");
-            //double refVal = Math.Max(refValByReport, refValByAnnual);
-            //double ratio = curVal / refVal;
+            string stockID = "sh600795";
+            double curVal = CostPerfFilter.calcCurCostRefValue(stockID, "2018", "1");
+            double refValByReport = CostPerfFilter.getMaxCostRefValueBefore(stockID, "2018", "1");
+            double refValByAnnual = AnnualCostPerfFilter.getMaxAnnualCostRefValueBefore(stockID, "2018");
+            double refVal = Math.Max(refValByReport, refValByAnnual);
+            double ratio = curVal / refVal;
 
             // #7
             //List<string> selfSelectedList = OptionalStocks.getInstance().optionalStockList;
@@ -146,18 +146,18 @@ namespace StockAnalyzer
             //outputSortData(selfSelectSortByAnnual);
 
             // #8
-            List<string> src = IntermediateImporter.readMidRepGrowthStocks();
-            AnnualCostPerfFilter acpFilter = new AnnualCostPerfFilter("2018", "1", 0.0);
-            PriceScaleFilter pcFilter = new PriceScaleFilter(0.5);
-            List<string> stocks = pcFilter.filter(acpFilter.filter(src));
-            List<StockSortableMetadata> arr = new List<StockSortableMetadata>();
-            foreach(string code in stocks)
-            {
-                StockSortableMetadata sda = new SSMDAnnualCostPerf(code);
-                arr.Add(sda);
-            }
-            arr.Sort();
-            outputSortData(arr);
+            //List<string> src = IntermediateImporter.readMidRepGrowthStocks();
+            //AnnualCostPerfFilter acpFilter = new AnnualCostPerfFilter("2018", "1", 0.0);
+            //PriceScaleFilter pcFilter = new PriceScaleFilter(0.5);
+            //List<string> stocks = pcFilter.filter(acpFilter.filter(src));
+            //List<StockSortableMetadata> arr = new List<StockSortableMetadata>();
+            //foreach(string code in stocks)
+            //{
+            //    StockSortableMetadata sda = new SSMDAnnualCostPerf(code);
+            //    arr.Add(sda);
+            //}
+            //arr.Sort();
+            //outputSortData(arr);
 
             while (true) {
                 Thread.Sleep(1000);
