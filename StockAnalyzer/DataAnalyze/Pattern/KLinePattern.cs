@@ -107,7 +107,7 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             {
                 case TrendType.TT_Down:
                     //ret = isMAWithin(arr, -m_sidewayRange, -m_trendRange);
-                    ret = isDiffBeyond(arr, );
+                    //isRangeBeyond(arr, -m_trendMinAmount, getCenterPrice, false);
                     break;
                 case TrendType.TT_NotUp:
                     //ret = isMAWithin(arr, m_sidewayRange, -m_trendRange);
