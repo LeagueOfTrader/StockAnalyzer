@@ -10,15 +10,17 @@ namespace StockAnalyzer.DataAnalyze.Pattern
 {
     abstract class KLinePattern
     {
-        const double m_sidewayRangeCeilMA = 0.025;
-        const double m_trendRangeFloorMA = 0.05;
-        const double m_sidewayRangeCeilPrice = 0.05;
-        const double m_trendRangeFloorPrice = 0.07;
+        const double m_sidewayRangeMA = 0.025;
+        const double m_trendMinAmountMA = 0.05;
+        const double m_sidewayRange = 0.05;
+        const double m_trendMinAmount = 0.07;
 
-        const double m_sidewayAmplitudeCeilMA = 0.025;
-        const double m_trendAmplitudeFloorMA = 0.01;
-        const double m_sidewayAmplitudeCeilPrice = 0.03;
-        const double m_trendAmplitudeFloorPrice = 0.01;
+        const double m_sidewayMaxAmplitudeMA = 0.02;
+        const double m_trendAmplitudeMA = 0.01;
+        const double m_sidewayMaxAmplitude = 0.02;
+        const double m_trendAmplitude = 0.015;
+
+        public delegate double extractDataMethod(StockKLineBaidu kl);
 
         public abstract bool isMatch(List<StockKLineBaidu> kLineData);
 
@@ -105,6 +107,7 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             {
                 case TrendType.TT_Down:
                     //ret = isMAWithin(arr, -m_sidewayRange, -m_trendRange);
+                    ret = isDiffBeyond(arr, );
                     break;
                 case TrendType.TT_NotUp:
                     //ret = isMAWithin(arr, m_sidewayRange, -m_trendRange);
@@ -123,6 +126,123 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             return ret;
         }
 
+        protected bool isRangeBeyond(List<StockKLineBaidu> arr, double range, extractDataMethod method, bool positive = true)
+        {
+            if(arr == null || arr.Count < 2)
+            {
+                return false;
+            }
+
+            double startVal = method(arr[0]);
+            double endVal = method(arr.Last());
+
+            double val = (endVal - startVal) / startVal;
+            if (positive)
+            {
+                return (val > range);
+            }
+            else
+            {
+                return (val < range);
+            }
+        }
+
+        protected bool isRangeWithin(List<StockKLineBaidu> arr, double range, extractDataMethod method)
+        {
+            if (arr == null || arr.Count < 2)
+            {
+                return false;
+            }
+
+            double startVal = method(arr[0]);
+            double endVal = method(arr.Last());
+
+            double val = (endVal - startVal) / startVal;
+            return (Math.Abs(val) <= range);
+        }
+
+        protected bool isDiffBeyond(List<StockKLineBaidu> arr, double diff, extractDataMethod method, bool positive = true)
+        {
+            if (arr == null || method == null) {
+                return false;
+            }
+
+            int i = 0;
+            for(i = 0; i < arr.Count - 1; i++)
+            {
+                double curVal = method(arr[i]);
+                double nextVal = method(arr[i + 1]);
+
+                double val = (nextVal - curVal) / curVal;
+                if (positive)
+                {
+                    if (val < diff)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if(val > diff)
+                    {
+                        break;
+                    }
+                }
+            }
+            if(i < arr.Count - 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected bool isDiffWithin(List<StockKLineBaidu> arr, double diff, extractDataMethod method, bool positive = true)
+        {
+            if (arr == null || method == null)
+            {
+                return false;
+            }
+
+            int i = 0;
+            for (i = 0; i < arr.Count - 1; i++)
+            {
+                double curVal = method(arr[i]);
+                double nextVal = method(arr[i + 1]);
+
+                double val = (nextVal - curVal) / curVal;
+                if (positive)
+                {
+                    if (val > diff)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (val < diff)
+                    {
+                        break;
+                    }
+                }
+            }
+            if (i < arr.Count - 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected static double getCenterPrice(StockKLineBaidu kl)
+        {
+            return kl.getCenterPrice();
+        }
+
+        protected static double getMA5Value(StockKLineBaidu kl)
+        {
+            return kl.ma5.avgPrice;
+        }
         //protected bool isMABeyond(List<StockKLineBaidu> arr, double diff, double diff5)
         //{
         //    return false;

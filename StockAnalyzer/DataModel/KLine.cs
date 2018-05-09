@@ -169,6 +169,12 @@ namespace StockAnalyzer.DataModel
             double chgPct = getChange() / openPrice;
             return chgPct;
         }
+
+        public double getCenterPrice()
+        {
+            double centerPrice = (openPrice + latestPrice) / 2.0;
+            return centerPrice;
+        }
     }
 
     class StockKLine : KLine

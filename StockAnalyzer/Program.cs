@@ -102,7 +102,7 @@ namespace StockAnalyzer
             //}
 
             // #6
-            string stockID = "sh600795";
+            string stockID = "sh600352";
             double curVal = CostPerfFilter.calcCurCostRefValue(stockID, "2018", "1");
             double refValByReport = CostPerfFilter.getMaxCostRefValueBefore(stockID, "2018", "1");
             double refValByAnnual = AnnualCostPerfFilter.getMaxAnnualCostRefValueBefore(stockID, "2018");
