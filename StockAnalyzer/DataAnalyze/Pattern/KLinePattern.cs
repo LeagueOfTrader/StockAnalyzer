@@ -103,17 +103,23 @@ namespace StockAnalyzer.DataAnalyze.Pattern
 
         protected bool accordTrend(List<StockKLineBaidu> arr, TrendType trend) {
             bool ret = false;
+            bool rangeRet = false;
+            bool diffRet = false;
             switch (trend)
             {
                 case TrendType.TT_Down:
-                    //ret = isMAWithin(arr, -m_sidewayRange, -m_trendRange);
-                    //isRangeBeyond(arr, -m_trendMinAmount, getCenterPrice, false);
+                    rangeRet = isRangeBeyond(arr, -m_trendMinAmount, getCenterPrice, false);
+                    diffRet = isDiffBeyond(arr, -m_trendAmplitude, getCenterPrice, -m_trendAmplitudeMA, getMA5Value, false);
+                    //ret = (rangeRet & diffRet);
                     break;
                 case TrendType.TT_NotUp:
-                    //ret = isMAWithin(arr, m_sidewayRange, -m_trendRange);
+                    rangeRet = isRangeBeyond(arr, -m_trendMinAmount, getCenterPrice, false);
+                    diffRet = isDiffBeyond(arr, m_sidewayMaxAmplitude, getCenterPrice, -m_trendAmplitudeMA, getMA5Value, false);
+                    //ret = (rangeRet & diffRet);
                     break;
                 case TrendType.TT_Sideway:
-                    //ret = isMAWithin(arr, -m_trendRange, -m_trendRange);
+                    rangeRet = isRangeWithin(arr, -m_trendMinAmount, getCenterPrice);
+                    diffRet = isDiffBeyond(arr, m_sidewayMaxAmplitude, getCenterPrice, -m_trendAmplitudeMA, getMA5Value, false);
                     break;
                 case TrendType.TT_NotDown:
                     break;
@@ -122,6 +128,8 @@ namespace StockAnalyzer.DataAnalyze.Pattern
                 default:
                     break;
             }
+
+            ret = (rangeRet & diffRet);
 
             return ret;
         }
@@ -161,43 +169,8 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             return (Math.Abs(val) <= range);
         }
 
-        protected bool isDiffBeyond(List<StockKLineBaidu> arr, double diff, extractDataMethod method, bool positive = true)
-        {
-            if (arr == null || method == null) {
-                return false;
-            }
-
-            int i = 0;
-            for(i = 0; i < arr.Count - 1; i++)
-            {
-                double curVal = method(arr[i]);
-                double nextVal = method(arr[i + 1]);
-
-                double val = (nextVal - curVal) / curVal;
-                if (positive)
-                {
-                    if (val < diff)
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    if(val > diff)
-                    {
-                        break;
-                    }
-                }
-            }
-            if(i < arr.Count - 1)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        protected bool isDiffWithin(List<StockKLineBaidu> arr, double diff, extractDataMethod method, bool positive = true)
+        protected bool isDiffBeyond(List<StockKLineBaidu> arr, double diff, extractDataMethod method,
+                            double subDiff, extractDataMethod subMethod, bool positive = true)
         {
             if (arr == null || method == null)
             {
@@ -209,22 +182,66 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             {
                 double curVal = method(arr[i]);
                 double nextVal = method(arr[i + 1]);
+                double curSubVal = subMethod(arr[i]);
+                double nextSubVal = subMethod(arr[i + 1]);
 
                 double val = (nextVal - curVal) / curVal;
+                double subVal = (nextSubVal - curSubVal) / curSubVal;
                 if (positive)
                 {
-                    if (val > diff)
+                    if (val < diff)
                     {
-                        break;
+                        if (subVal < subDiff)
+                        {
+                            break;
+                        }
                     }
                 }
                 else
                 {
-                    if (val < diff)
+                    if (val > diff)
+                    {
+                        if (subVal > subDiff)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            if (i < arr.Count - 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected bool isDiffWithin(List<StockKLineBaidu> arr, double diff, extractDataMethod method, 
+                                    double subDiff, extractDataMethod subMethod, bool positive = true)
+        {
+            if (arr == null || method == null)
+            {
+                return false;
+            }
+
+            int i = 0;
+            for (i = 0; i < arr.Count - 1; i++)
+            {
+                double curVal = method(arr[i]);
+                double nextVal = method(arr[i + 1]);
+                double curSubVal = subMethod(arr[i]);
+                double nextSubVal = subMethod(arr[i + 1]);
+
+                double val = (nextVal - curVal) / curVal;
+                double subVal = (nextSubVal - curSubVal) / curSubVal;
+                if(Math.Abs(val) > diff)
+                {
+                    if(Math.Abs(subVal) > subDiff)
                     {
                         break;
                     }
                 }
+                
             }
             if (i < arr.Count - 1)
             {
@@ -243,19 +260,5 @@ namespace StockAnalyzer.DataAnalyze.Pattern
         {
             return kl.ma5.avgPrice;
         }
-        //protected bool isMABeyond(List<StockKLineBaidu> arr, double diff, double diff5)
-        //{
-        //    return false;
-        //}
-
-        //protected bool isMAWithin(List<StockKLineBaidu> arr, double diff, double diff5)
-        //{
-        //    return false;
-        //}
-
-        //protected bool isMAInBox(List<StockKLineBaidu> arr, double diff)
-        //{
-        //    return false;
-        //}
     }
 }

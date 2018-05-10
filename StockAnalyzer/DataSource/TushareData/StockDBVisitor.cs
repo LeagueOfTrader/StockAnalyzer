@@ -48,5 +48,18 @@ namespace StockAnalyzer.DataSource.TushareData
             }
             return null;
         }
+
+        public StockDistribData getDistribData(string stockID, string year, string season)
+        {
+            string table = "stock_report_" + year + "q" + season;
+            string code = StockIDUtil.getPureCode(stockID);
+            string sql = "select distrib from " + table + " where code='" + code + "'";
+            List<string> rs = MySqlDBReader.querySql(sql);
+            if (rs != null && rs.Count > 0)
+            {
+                return TushareDataConvertor.parseStockDistribData(rs[0], code);
+            }
+            return null;
+        }
     }
 }

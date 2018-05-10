@@ -79,5 +79,37 @@ namespace StockAnalyzer.DataSource.TushareData
             }
             return target;
         }
+
+        public static StockDistribData parseStockDistribData(string src, string code = null)
+        {
+            StockDistribData dd = new StockDistribData();
+            if(code != null)
+            {
+                dd.code = code;
+            }
+            string bonusStr = "派";
+            string deliverStr = "送";
+            string transferStr = "转";
+            if(src != null && src.Length > 0)
+            {
+                string[] arr0 = src.Split(new String[] { bonusStr }, StringSplitOptions.None);                
+                if(arr0.Length > 1)
+                {
+                    dd.bonus = double.Parse(arr0[1]);
+                }
+                string[] arr1 = arr0[0].Split(new String[] { deliverStr }, StringSplitOptions.None);
+                if(arr1.Length > 1)
+                {
+                    dd.deliver = int.Parse(arr1[1]);
+                }
+                string[] arr2 = arr1[0].Split(new String[] { transferStr }, StringSplitOptions.None);
+                if(arr2.Length > 1)
+                {
+                    dd.transfer = int.Parse(arr2[1]);
+                }
+            }
+
+            return dd;
+        }
     }
 }

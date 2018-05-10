@@ -43,4 +43,13 @@ namespace StockAnalyzer.DataSource.TushareData
         public double cf_liabilities;
         public double cashflowRatio;
     }
+
+    class StockDistribData
+    {
+        public string code;
+        public string rawData;
+        public double bonus = 0.0; //现金
+        public int deliver = 0; //送股
+        public int transfer = 0;  //转增
+    }
 }
