@@ -20,6 +20,8 @@ namespace StockAnalyzer.DataAnalyze.Pattern
         const double m_sidewayMaxAmplitude = 0.02;
         const double m_trendAmplitude = 0.015;
 
+        const double m_inflectionLimit = 0.005;
+
         public delegate double extractDataMethod(StockKLineBaidu kl);
 
         public abstract bool isMatch(List<StockKLineBaidu> kLineData);
@@ -101,6 +103,76 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             return val;
         }
 
+        protected int getInflectionPoint(List<StockKLineBaidu> arr, int startIndex, TrendType trend, bool reversed = false)
+        {
+            int index = -1;
+            int i = 0;
+            double diff = m_inflectionLimit;
+            double subDiff = m_inflectionLimit;
+            if (!reversed)
+            {
+                index = arr.Count;
+                for (i = startIndex; i < arr.Count - 1; i++)
+                {
+                    double curVal = getCenterPrice(arr[i]);
+                    double nextVal = getCenterPrice(arr[i + 1]);
+                    double curSubVal = getMA5Value(arr[i]);
+                    double nextSubVal = getMA5Value(arr[i + 1]);
+
+                    double val = (nextVal - curVal) / curVal;
+                    double subVal = (nextSubVal - curSubVal) / curSubVal;
+                    if (trend == TrendType.TT_Up)
+                    {
+                        if (val < diff &&subVal < subDiff)
+                        {
+                            index = i + 1;
+                            break;
+                        }                        
+                    }
+                    else if(trend == TrendType.TT_Down)
+                    {
+                        if (val > -diff && subVal < -subDiff)
+                        {
+                            index = i + 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                index = 0;
+                for (i = startIndex; i > 0; i--)
+                {
+                    double curVal = getCenterPrice(arr[i]);
+                    double prevVal = getCenterPrice(arr[i - 1]);
+                    double curSubVal = getMA5Value(arr[i]);
+                    double prevSubVal = getMA5Value(arr[i - 1]);
+
+                    double val = (curVal - prevVal) / prevVal;
+                    double subVal = (curSubVal - prevSubVal) / prevSubVal;
+                    if (trend == TrendType.TT_Up)
+                    {
+                        if (val < diff && subVal < subDiff)
+                        {
+                            index = i - 1;
+                            break;
+                        }
+                    }
+                    else if (trend == TrendType.TT_Down)
+                    {
+                        if (val > -diff && subVal < -subDiff)
+                        {
+                            index = i - 1;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return index;
+        }
+
         protected bool accordTrend(List<StockKLineBaidu> arr, TrendType trend) {
             bool ret = false;
             bool rangeRet = false;
@@ -119,11 +191,15 @@ namespace StockAnalyzer.DataAnalyze.Pattern
                     break;
                 case TrendType.TT_Sideway:
                     rangeRet = isRangeWithin(arr, -m_trendMinAmount, getCenterPrice);
-                    diffRet = isDiffBeyond(arr, m_sidewayMaxAmplitude, getCenterPrice, -m_trendAmplitudeMA, getMA5Value, false);
+                    diffRet = isDiffWithin(arr, m_sidewayMaxAmplitude, getCenterPrice, m_sidewayMaxAmplitudeMA, getMA5Value);
                     break;
                 case TrendType.TT_NotDown:
+                    rangeRet = isRangeBeyond(arr, m_trendMinAmount, getCenterPrice);
+                    diffRet = isDiffBeyond(arr, -m_sidewayMaxAmplitude, getCenterPrice, m_trendAmplitudeMA, getMA5Value);
                     break;
                 case TrendType.TT_Up:
+                    rangeRet = isRangeBeyond(arr, m_trendMinAmount, getCenterPrice);
+                    diffRet = isDiffBeyond(arr, m_trendAmplitude, getCenterPrice, m_trendAmplitudeMA, getMA5Value);
                     break;
                 default:
                     break;
@@ -217,7 +293,7 @@ namespace StockAnalyzer.DataAnalyze.Pattern
         }
 
         protected bool isDiffWithin(List<StockKLineBaidu> arr, double diff, extractDataMethod method, 
-                                    double subDiff, extractDataMethod subMethod, bool positive = true)
+                                    double subDiff, extractDataMethod subMethod)
         {
             if (arr == null || method == null)
             {

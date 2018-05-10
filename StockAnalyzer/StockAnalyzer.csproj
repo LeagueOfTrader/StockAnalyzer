@@ -54,6 +54,7 @@
     <Compile Include="DataFilter\AnnualCostPerfFilter.cs" />
     <Compile Include="DataFilter\CostPerfFilter.cs" />
     <Compile Include="DataFilter\CostPerfYoyFilter.cs" />
+    <Compile Include="DataFilter\DistribBonusFilter.cs" />
     <Compile Include="DataFilter\EPSPerfFilter.cs" />
     <Compile Include="DataFilter\IndustryFilter.cs" />
     <Compile Include="DataFilter\IStockFilter.cs" />

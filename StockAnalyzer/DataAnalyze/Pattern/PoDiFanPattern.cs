@@ -22,6 +22,34 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             int prevLowIndex = getLowestPositionIndex(prevKLineData);
             List<StockKLineBaidu> midKLineData = prevKLineData.GetRange(prevLowIndex, prevKLineData.Count - prevLowIndex);
             int recoverHighIndex = prevLowIndex + getHighestPositionIndex(midKLineData);
+
+            int startIndex = getInflectionPoint(prevKLineData, prevKLineData.Count - 1, TrendType.TT_Down, true);
+            if(kLineData[startIndex].getCenterPrice() < kLineData[recoverHighIndex].getCenterPrice() ||
+                kLineData[startIndex].lowestPrice < kLineData[recoverHighIndex].lowestPrice ||
+                kLineData[startIndex].latestPrice < kLineData[recoverHighIndex].latestPrice)
+            {
+                return false;
+            }
+
+            //double centerVal = (kLineData[prevLowIndex].getCenterPrice() - kLineData[lowIndex].getCenterPrice()) / kLineData[lowIndex].getCenterPrice();
+            double lowVal = (kLineData[prevLowIndex].lowestPrice - kLineData[lowIndex].lowestPrice) / kLineData[lowIndex].lowestPrice;
+            if(lowVal > 0.1)
+            {
+                return false;
+            }
+
+            List<StockKLineBaidu> recoverPhase = kLineData.GetRange(prevLowIndex, recoverHighIndex - prevLowIndex + 1);
+            if (!accordTrend(recoverPhase, TrendType.TT_NotDown))
+            {
+                return false;
+            }
+
+            List<StockKLineBaidu> againDownPhase = kLineData.GetRange(recoverHighIndex, lowIndex);
+            if(!accordTrend(againDownPhase, TrendType.TT_Down))
+            {
+                return false;
+            }
+
             //
 
             return false;

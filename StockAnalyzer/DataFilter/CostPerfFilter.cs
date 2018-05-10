@@ -15,9 +15,7 @@ namespace StockAnalyzer.DataFilter
     {
         protected string m_targetYear = "2018";
         protected string m_targetSeason = "1";
-        protected double m_ratio = 0.0;
-
-        protected const int m_startYear = 2007;
+        protected double m_ratio = 0.0;  
 
         public CostPerfFilter(string targetYear, string targetSeason, double ratio)
         {
@@ -123,25 +121,6 @@ namespace StockAnalyzer.DataFilter
             }
 
             return costRefVal;
-        }
-
-        protected static string convertMonthBySeason(string season)
-        {
-            string month = "12";
-            if(season == "1")
-            {
-                month = "3";
-            }
-            else if(season == "2")
-            {
-                month = "6";
-            }
-            else if(season == "3")
-            {
-                month = "9";
-            }
-
-            return month;
         }
     }
 }
