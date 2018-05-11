@@ -12,18 +12,18 @@ namespace StockAnalyzer.DataAnalyze.Pattern
     {
         public override bool isMatch(List<StockKLineBaidu> kLineData)
         {
-            int lowIndex = getLowestPositionIndex(kLineData);
+            int lowIndex = TrendAnalyzer.getLowestPositionIndex(kLineData);
             if(lowIndex < 6)
             {
                 return false;
             }
 
             List<StockKLineBaidu> prevKLineData = kLineData.GetRange(0, lowIndex + 1);
-            int prevLowIndex = getLowestPositionIndex(prevKLineData);
+            int prevLowIndex = TrendAnalyzer.getLowestPositionIndex(prevKLineData);
             List<StockKLineBaidu> midKLineData = prevKLineData.GetRange(prevLowIndex, prevKLineData.Count - prevLowIndex);
-            int recoverHighIndex = prevLowIndex + getHighestPositionIndex(midKLineData);
+            int recoverHighIndex = prevLowIndex + TrendAnalyzer.getHighestPositionIndex(midKLineData);
 
-            int startIndex = getInflectionPoint(prevKLineData, prevKLineData.Count - 1, TrendType.TT_Down, true);
+            int startIndex = TrendAnalyzer.getInflectionPoint(prevKLineData, prevKLineData.Count - 1, TrendType.TT_Down, true);
             if(kLineData[startIndex].getCenterPrice() < kLineData[recoverHighIndex].getCenterPrice() ||
                 kLineData[startIndex].lowestPrice < kLineData[recoverHighIndex].lowestPrice ||
                 kLineData[startIndex].latestPrice < kLineData[recoverHighIndex].latestPrice)
@@ -39,20 +39,34 @@ namespace StockAnalyzer.DataAnalyze.Pattern
             }
 
             List<StockKLineBaidu> recoverPhase = kLineData.GetRange(prevLowIndex, recoverHighIndex - prevLowIndex + 1);
-            if (!accordTrend(recoverPhase, TrendType.TT_NotDown))
+            if (!TrendAnalyzer.accordTrend(recoverPhase, TrendType.TT_Up))
             {
                 return false;
             }
 
             List<StockKLineBaidu> againDownPhase = kLineData.GetRange(recoverHighIndex, lowIndex);
-            if(!accordTrend(againDownPhase, TrendType.TT_Down))
+            if(!TrendAnalyzer.accordTrend(againDownPhase, TrendType.TT_Down))
             {
                 return false;
             }
 
-            //
+            List<StockKLineBaidu> lastPhase = kLineData.GetRange(lowIndex, kLineData.Count - lowIndex);
+            int passRecoverHighPosIndex = TrendAnalyzer.getInflectionPoint(kLineData, lowIndex, TrendType.TT_Up);//getHighestPositionIndex(lastPhase);
 
-            return false;
+            List<StockKLineBaidu> reversalPhase = kLineData.GetRange(lowIndex, passRecoverHighPosIndex - lowIndex + 1);
+            if(!TrendAnalyzer.accordTrend(reversalPhase, TrendType.TT_NotDown))
+            {
+                return false;
+            }
+
+            if(kLineData[lowIndex].latestPrice >= kLineData[passRecoverHighPosIndex].latestPrice)
+            {
+                return false;
+            }
+
+            //if(kLineData[passRecoverHighPosIndex].volume)
+
+            return true;
         }
     }
 }

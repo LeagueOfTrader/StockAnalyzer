@@ -15,6 +15,7 @@ namespace StockAnalyzer.DataSource
         private List<string> m_allSHStocks = new List<string>();
         private Dictionary<string, string> m_stockNameMap = new Dictionary<string, string>();
         private Dictionary<string, string> m_stockIndustryMap = new Dictionary<string, string>();
+        private Dictionary<string, List<string>> m_stocksInIndustry = new Dictionary<string, List<string>>();
 
         const string m_stockListFileSH = "Data/StockListSH.txt";
         const string m_stockListFileSZ = "Data/StockListSZ.txt";
@@ -72,6 +73,13 @@ namespace StockAnalyzer.DataSource
                     continue;
                 }
                 m_stockIndustryMap.Add(arr[0], arr[2]);
+
+                if (!m_stocksInIndustry.ContainsKey(arr[2]))
+                {
+                    List<string> stockList = new List<string>();
+                    m_stocksInIndustry.Add(arr[2], stockList);
+                }
+                m_stocksInIndustry[arr[2]].Add(arr[0]);
             }
         }
 
@@ -93,6 +101,16 @@ namespace StockAnalyzer.DataSource
             if(m_stockIndustryMap.TryGetValue(code, out industryName))
             {
                 return industryName;
+            }
+
+            return null;
+        }
+
+        public List<string> getStocksInIndustry(string industryName)
+        {
+            if (m_stocksInIndustry.ContainsKey(industryName))
+            {
+                return m_stocksInIndustry[industryName];
             }
 
             return null;

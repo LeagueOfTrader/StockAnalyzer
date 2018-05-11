@@ -175,6 +175,16 @@ namespace StockAnalyzer.DataModel
             double centerPrice = (openPrice + latestPrice) / 2.0;
             return centerPrice;
         }
+
+        public double getSolidCeil()
+        {
+            return Math.Max(openPrice, latestPrice);
+        }
+
+        public double getSolidFloor()
+        {
+            return Math.Min(openPrice, latestPrice);
+        }
     }
 
     class StockKLine : KLine
