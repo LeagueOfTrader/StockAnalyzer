@@ -64,7 +64,11 @@ namespace StockAnalyzer.DataAnalyze.Pattern
                 return false;
             }
 
-            //if(kLineData[passRecoverHighPosIndex].volume)
+            double volMA5 = TrendAnalyzer.getAvgVolume(kLineData, passRecoverHighPosIndex, 5);
+            if(kLineData[passRecoverHighPosIndex].volume / volMA5 < 1.2)
+            {
+                return false;
+            }
 
             return true;
         }

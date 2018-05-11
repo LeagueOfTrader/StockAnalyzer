@@ -604,7 +604,18 @@ namespace StockAnalyzer.DataAnalyze.Pattern
 
         public static double getAvgVolume(List<StockKLineBaidu> arr, int index, int days = 5)
         {
-            int count = (arr.Count - index);
+            int count = Math.Min(index, days);
+            int startIndex = index - count;
+            long accumVol = 0;
+            for(int i = startIndex; i < count + startIndex; i++)
+            {
+                accumVol += arr[i].volume;
+            }
+
+            if(count > 0)
+            {
+                return accumVol / count;
+            }
             return 0.0;
         }
     }

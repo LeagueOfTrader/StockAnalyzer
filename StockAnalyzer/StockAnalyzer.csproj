@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="DataAnalyze\Pattern\KLinePattern.cs" />
+    <Compile Include="DataAnalyze\Pattern\Oversold2Day.cs" />
     <Compile Include="DataAnalyze\Pattern\PoDiFanPattern.cs" />
     <Compile Include="DataAnalyze\Pattern\TrendAnalyzer.cs" />
     <Compile Include="DataAnalyze\PriceAnalyzer.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="DataFilter\EPSPerfFilter.cs" />
     <Compile Include="DataFilter\IndustryFilter.cs" />
     <Compile Include="DataFilter\IStockFilter.cs" />
+    <Compile Include="DataFilter\KLinePatternFilter.cs" />
     <Compile Include="DataFilter\PriceScaleFilter.cs" />
     <Compile Include="DataFilter\QuarterCostPerfFilter.cs" />
     <Compile Include="DataFilter\SpecifiedCostPerfFilter.cs" />
