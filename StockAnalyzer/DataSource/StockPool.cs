@@ -41,6 +41,16 @@ namespace StockAnalyzer.DataSource
             loadIndustry();
         }
 
+        public List<string> getAllStocks()
+        {
+            List<string> stocks = new List<string>();
+
+            stocks.AddRange(allSHStocks);
+            stocks.AddRange(allSZStocks);
+
+            return stocks;
+        }
+
         private void loadStocks(string filepath, List<string> container, string prefix) {
             StreamReader sr = new StreamReader(filepath, Encoding.UTF8);
             string str;

@@ -13,13 +13,7 @@ namespace StockAnalyzer.SelectionStrategy
     {
         public List<string> screen()
         {
-            List<string> stocks = new List<string>();
-
-            List<string> shStocks = StockPool.getInstance().allSHStocks;
-            List<string> szStocks = StockPool.getInstance().allSZStocks;
-
-            stocks.AddRange(shStocks);
-            stocks.AddRange(szStocks);
+            List<string> stocks = StockPool.getInstance().getAllStocks();
             
 
             return filterStocksByCostPerf_PricePos_PE(stocks, "2018", "1", 0.05, 0.5, 40.0);

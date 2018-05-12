@@ -8,7 +8,7 @@ namespace StockAnalyzer.DataModel
 {
     enum KLineType
     {
-        LT_None = 0,
+        LT_Cross = 0,
         LT_Yin = -1,
         LT_Yang = 1
     }
@@ -23,9 +23,11 @@ namespace StockAnalyzer.DataModel
 
     class KLineConstant
     {
-        public const double FLUCTUATION_LV1 = 0.005;
-        public const double FLUCTUATION_LV2 = 0.015;
-        public const double FLUCTUATION_LV3 = 0.035;
+        public const double STRG_MICRO = 0.008;
+        public const double STRG_SMALL = 0.02;
+        public const double STRG_LARGE = 0.05;
+
+        public const double STRG_IMPACT = 0.03;
 
         public const double SHADOW_SOLID_RATIO_THRESHOLD = 1.5;
         public const double SHADOW_PRICE_RATIO_THRESHOLD = 0.02;

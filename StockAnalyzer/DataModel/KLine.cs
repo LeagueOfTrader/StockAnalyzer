@@ -54,22 +54,22 @@ namespace StockAnalyzer.DataModel
                 return KLineType.LT_Yin;
             }
 
-            return KLineType.LT_None;
+            return KLineType.LT_Cross;
         }
 
         public KLineStrength getKLineStrength()
         {
             var val = Math.Abs(latestPrice - openPrice);
             var ratio = val / openPrice;
-            if (ratio < KLineConstant.FLUCTUATION_LV1)
+            if (ratio < KLineConstant.STRG_MICRO)
             {
                 return KLineStrength.LS_Micro;
             }
-            else if (ratio < KLineConstant.FLUCTUATION_LV2)
+            else if (ratio < KLineConstant.STRG_SMALL)
             {
                 return KLineStrength.LS_Small;
             }
-            else if (ratio < KLineConstant.FLUCTUATION_LV3)
+            else if (ratio < KLineConstant.STRG_LARGE)
             {
                 return KLineStrength.LS_Medium;
             }

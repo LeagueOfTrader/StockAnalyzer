@@ -99,6 +99,7 @@
     <Compile Include="SelectionStrategy\IStockSelector.cs" />
     <Compile Include="SelectionStrategy\LowLevelCheapPESelector.cs" />
     <Compile Include="SelectionStrategy\OptionalStocks.cs" />
+    <Compile Include="SelectionStrategy\OversoldSelector.cs" />
     <Compile Include="Util\CSVFileUtil.cs" />
     <Compile Include="Util\DateUtil.cs" />
     <Compile Include="Util\HttpAsyncReq.cs" />

@@ -106,5 +106,29 @@ namespace StockAnalyzer.Util
 
             return (sy == ty && sm == tm);
         }
+
+        public static bool matchDate(string srcDate, string targetDate)
+        {
+            int sy = getDateYear(srcDate);
+            int sm = getDateMonth(srcDate);
+            int sd = getDateDay(srcDate);
+            int ty = 0;
+            int tm = 0;
+            int td = 0;
+            if(targetDate.Length > 6)
+            {
+                ty = getDateYear(targetDate);
+                tm = getDateMonth(targetDate);
+                td = getDateDay(targetDate);
+            }
+            else
+            {
+                ty = getShortDateYear(targetDate);
+                tm = getShortDateMonth(targetDate);
+                td = getShortDateDay(targetDate);
+            }
+
+            return (sy == ty && sm == tm && sd == td);
+        }
     }
 }

@@ -13,11 +13,14 @@ except ImportError:
 import sys
 import math
 
-limitYear = 2007
-items = ['name', 'report_date', 'eps', 'eps_yoy', 'bvps', 'roe', 'epcf', 'net_profits', 'profits_yoy', 'distrib', 'pub_date']
+startYear = 2007
+endYear = 2018
+endQuarter = 1
+
+items = ['code', 'name', 'inst_count', 'count_chg', 'hold_ratio', 'hold_chg', 'prop_of_circulation', 'poc_chg']
 isPy3 = (sys.version_info[0] >= 3)
 
-def get_report_data(code, year, quarter):
+def get_inst_pos_data(code, year, quarter):
 	url = 'http://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml?symbol=%s&reportdate=%s&quarter=%s' % (code, year, quarter)
 	try:
 		request = Request(url)
@@ -35,13 +38,14 @@ def get_report_data(code, year, quarter):
 			return None
 		sarr = '<table>%s</table>'%sarr
 		df = pd.read_html(sarr)[0]
-		df = df.drop(11, axis=1)
+		df = df.drop(8, axis=1)
 		df.columns = items
 		#arr = arr.append(df, ignore_index=True)
 		nextPage = html.xpath('//div[@class=\"pages\"]/a[last()]/@onclick')		
 		return df
 	except Exception as e:
 		print('error: ' + e.message)
+		return None
 		pass
     #raise IOError('error 2311')
 	
@@ -66,18 +70,16 @@ def get_date_quarter(date):
 	else:
 		return '0'
 		
-def save_report_data(code, name, eps, eps_yoy, bvps, roe, epcf, net_profits, profits_yoy, distrib, report_date):
-	year = get_date_year(report_date)
-	season = get_date_quarter(report_date)
+def save_inst_pos_data(code, name, inst_count, count_chg, hold_ratio, hold_chg, prop_of_circulation, poc_chg, year, season):
 	if season == '0':
 		return
-	table_name = 'stock_report_' + str(year) + 'q' + str(season)
+	table_name = 'stock_institution_positions_' + str(year) + 'q' + str(season)
 	db = MySQLdb.connect(host='localhost',port=3306,user='root',passwd='123456',db='stock',charset='utf8')
 	cursor = db.cursor()
-	createDBSql = 'create table if not exists ' + table_name + '(code varchar(10) not null primary key, name varchar(16), eps text, eps_yoy text, bvps text, roe text, epcf text, net_profits text, profits_yoy text, distrib text, report_date text)'
+	createDBSql = 'create table if not exists ' + table_name + '(code varchar(10) not null primary key, name varchar(16), inst_count text, count_chg text, hold_ratio text, hold_chg text, prop_of_circulation text, poc_chg text)'
 	cursor.execute(createDBSql)			
-	prefix = 'insert into ' + table_name + '(code, name, eps, eps_yoy, bvps, roe, epcf, net_profits, profits_yoy, distrib, report_date) values(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')'
-	sql = prefix % (code, name, eps, eps_yoy, bvps, roe, epcf, net_profits, profits_yoy, distrib, report_date)
+	prefix = 'insert into ' + table_name + '(code, name, inst_count, count_chg, hold_ratio, hold_chg, prop_of_circulation, poc_chg) values(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')'
+	sql = prefix % (code, name, inst_count, count_chg, hold_ratio, hold_chg, prop_of_circulation, poc_chg)
 	#print(sql)
 	cursor.execute(sql)
 	db.commit()
@@ -85,34 +87,32 @@ def save_report_data(code, name, eps, eps_yoy, bvps, roe, epcf, net_profits, pro
 		
 	db.close()
 	
-def achieve_report_data(code):
-	df = get_report_data(code)
+def achieve_inst_pos_data(code, year, quarter):
+	df = get_inst_pos_data(code, year, quarter)
 	if df is None:
 		return
 	for i in range(0, len(df)):		
-		date = str(df['report_date'][i])
-		if date == 'nan':
-			continue
-		year = int(get_date_year(date))
-		if year < limitYear:
-			continue
-		distrib = str(df['distrib'][i])
-		if distrib == 'nan':
-			distrib = ''
 		try:
-			save_report_data(code, df['name'][i], df['eps'][i], df['eps_yoy'][i], df['bvps'][i], df['roe'][i], df['epcf'][i], df['net_profits'][i], df['profits_yoy'][i], distrib, date)
+			save_inst_pos_data(code, df['name'][i], df['inst_count'][i], df['count_chg'][i], df['hold_ratio'][i], df['hold_chg'][i], df['prop_of_circulation'][i], df['poc_chg'][i], year, quarter)
 		except Exception as e:
 			pass
 
-def achieve_all_report_data():
+def achieve_all_inst_pos_data():
 	f = open("stock_codes.txt")
 	for line in f:
 		code = line.strip()
-		achieve_report_data(code)
-	print('Finish achieve all report.')
+		for y in range(startYear, endYear):
+			for q in range(1, 5):
+				achieve_inst_pos_data(code, y, q)
+		for cq in range(1, endQuarter + 1):
+			achieve_inst_pos_data(code, endYear, cq)
+			
+	print('Finish achieve all inst hold.')
 		
 if isPy3 == False:
 	reload(sys)  
 	sys.setdefaultencoding('utf-8') 
-achieve_all_report_data()
+achieve_all_inst_pos_data()
+#achieve_inst_pos_data('sz300498', 2015, 1)
+print('Finish!')
 	

@@ -22,11 +22,7 @@ namespace StockAnalyzer.SelectionStrategy
             }
             else
             {
-                List<string> shStocks = StockPool.getInstance().allSHStocks;
-                List<string> szStocks = StockPool.getInstance().allSZStocks;
-
-                stocks.AddRange(shStocks);
-                stocks.AddRange(szStocks);
+                stocks = StockPool.getInstance().getAllStocks();
             }
 
             return filterStocksByPriceScale_PE_Eps(stocks, 0.3, 40.0, 0.2);
