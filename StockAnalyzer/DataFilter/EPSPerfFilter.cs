@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class EPSPerfFilter : StockFilter
+    class EPSPerfFilter : NumericStockFilter
     {
         private double m_epsChgLimit = 0.2;
         public EPSPerfFilter(double epsChgLimit)
@@ -33,22 +33,13 @@ namespace StockAnalyzer.DataFilter
 
         public override bool filterMethod(string stockID)
         {
-            String str = StockDataCollector.queryFinanceDataSina(stockID);
-            StockFinanceData fd = StockDataConvertor.parseFinanceDataSina(str);
+            double epsChg = 0.0;
+            bool ret = getNumericValue(stockID, out epsChg);
 
-            double epsTTM = fd.eps4Quarter;
-            double epsLastYear = fd.epsLastYear;
-
-            if(epsTTM < 0.0)
+            if (!ret)
             {
                 return false;
             }
-
-            if (epsLastYear < 0.0 && epsTTM > double.Epsilon) {
-                return true;
-            }
-
-            double epsChg = (epsTTM - epsLastYear) / epsLastYear;
 
             if (epsChg > m_epsChgLimit)
             {
@@ -57,5 +48,30 @@ namespace StockAnalyzer.DataFilter
 
             return false;
         }
+
+        public override bool getNumericValue(string stockID, out double val)
+        {
+            String str = StockDataCollector.queryFinanceDataSina(stockID);
+            StockFinanceData fd = StockDataConvertor.parseFinanceDataSina(str);
+
+            double epsTTM = fd.eps4Quarter;
+            double epsLastYear = fd.epsLastYear;
+
+            val = 0.0;
+            if (epsTTM < 0.0)
+            {
+                return false;
+            }
+
+            if (epsLastYear < 0.0 && epsTTM > double.Epsilon)
+            {
+                return true;
+            }
+
+            val = (epsTTM - epsLastYear) / epsLastYear;
+
+            return false;
+        }
+
     }
 }

@@ -61,8 +61,10 @@
     <Compile Include="DataFilter\IndustryFilter.cs" />
     <Compile Include="DataFilter\IStockFilter.cs" />
     <Compile Include="DataFilter\KLinePatternFilter.cs" />
+    <Compile Include="DataFilter\NumericStockFilter.cs" />
     <Compile Include="DataFilter\PriceScaleFilter.cs" />
     <Compile Include="DataFilter\QuarterCostPerfFilter.cs" />
+    <Compile Include="DataFilter\RankInIndustryFilter.cs" />
     <Compile Include="DataFilter\SpecifiedCostPerfFilter.cs" />
     <Compile Include="DataFilter\STFilter.cs" />
     <Compile Include="DataFilter\StockFilter.cs" />

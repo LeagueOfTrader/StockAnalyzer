@@ -59,7 +59,7 @@ namespace StockAnalyzer.DataAnalyze.Pattern
 
             double volChg = (double)(kLineData[lastIndex].volume - kLineData[lastIndex - 1].volume) / (double)kLineData[lastIndex - 1].volume;
 
-            if (volChg > -0.1) {
+            if (volChg > 0.5) {
                 return false;
             }
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class CostPerfFilter : StockFilter
+    class CostPerfFilter : NumericStockFilter
     {
         protected string m_targetYear = "2018";
         protected string m_targetSeason = "1";
@@ -26,15 +26,13 @@ namespace StockAnalyzer.DataFilter
 
         public override bool filterMethod(string stockID)
         {
-            double srcVal = getSrcValue(stockID);
-            double targetVal = calcCurCostRefValue(stockID, m_targetYear, m_targetSeason);
-
-            if(srcVal < double.Epsilon)
+            double chg = 0.0;
+            bool ret = getNumericValue(stockID, out chg);
+            if (!ret)
             {
                 return false;
             }
 
-            double chg = (targetVal - srcVal) / srcVal;
             if(chg > m_ratio)
             {
                 return true;
@@ -121,6 +119,21 @@ namespace StockAnalyzer.DataFilter
             }
 
             return costRefVal;
+        }
+
+        public override bool getNumericValue(string stockID, out double val)
+        {
+            double srcVal = getSrcValue(stockID);
+            double targetVal = calcCurCostRefValue(stockID, m_targetYear, m_targetSeason);
+
+            val = 0.0;
+            if (srcVal < double.Epsilon)
+            {
+                return false;
+            }
+
+            val = (targetVal - srcVal) / srcVal;
+            return true;
         }
     }
 }
