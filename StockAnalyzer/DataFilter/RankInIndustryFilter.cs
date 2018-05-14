@@ -30,8 +30,8 @@ namespace StockAnalyzer.DataFilter
 
     class RankInIndustryFilter : StockFilter
     {
-        public int m_rank = 0;
-        public NumericStockFilter m_comparer = null;
+        private int m_rank = 0;
+        private NumericStockFilter m_comparer = null;
 
         public RankInIndustryFilter(NumericStockFilter comparer, int rank = 10)
         {
@@ -41,6 +41,11 @@ namespace StockAnalyzer.DataFilter
         public override bool filterMethod(string stockID)
         {
             int rank = calcRankInIndustry(stockID);
+
+            if(rank < 0)
+            {
+                return false;
+            }
 
             if(rank >= m_rank)
             {
@@ -54,7 +59,7 @@ namespace StockAnalyzer.DataFilter
         {
             if (m_comparer == null)
             {
-                return int.MaxValue;
+                return -1;
             }
 
             string industryName = StockPool.getInstance().getStockIndustry(stockID);
@@ -81,7 +86,12 @@ namespace StockAnalyzer.DataFilter
                 }
             }
 
-            return i;
+            if(i == sortableArr.Count)
+            {
+                return -1;
+            }
+
+            return i + 1;
         }
     }
 }

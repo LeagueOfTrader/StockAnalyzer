@@ -54,10 +54,15 @@ namespace StockAnalyzer.DataFilter
             String str = StockDataCollector.queryFinanceDataSina(stockID);
             StockFinanceData fd = StockDataConvertor.parseFinanceDataSina(str);
 
+            val = 0.0;
+            if(fd == null)
+            {
+                return false;
+            }
+
             double epsTTM = fd.eps4Quarter;
             double epsLastYear = fd.epsLastYear;
-
-            val = 0.0;
+            
             if (epsTTM < 0.0)
             {
                 return false;
