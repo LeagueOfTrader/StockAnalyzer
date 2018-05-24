@@ -16,7 +16,7 @@ namespace StockAnalyzer.SelectionStrategy
             List<string> src = StockPool.getInstance().getAllStocks();
 
             STFilter stFlt = new STFilter();
-            IndustryFilter indFlt = new IndustryFilter();
+            IndustryExcludeFilter indFlt = new IndustryExcludeFilter();
             KLinePatternFilter osFlt = new KLinePatternFilter(new Oversold2Day());
             PriceScaleFilter psFlt = new PriceScaleFilter(0.5);
             List<string> stocks = psFlt.filter(osFlt.filter(indFlt.filter(stFlt.filter(src))));

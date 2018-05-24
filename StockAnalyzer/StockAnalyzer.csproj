@@ -63,7 +63,7 @@
     <Compile Include="DataFilter\EPSPerfFilter.cs" />
     <Compile Include="DataFilter\EPSPriceFilter.cs" />
     <Compile Include="DataFilter\ForecastFilter.cs" />
-    <Compile Include="DataFilter\IndustryFilter.cs" />
+    <Compile Include="DataFilter\IndustryExcludeFilter.cs" />
     <Compile Include="DataFilter\IStockFilter.cs" />
     <Compile Include="DataFilter\KLinePatternFilter.cs" />
     <Compile Include="DataFilter\NetProfitRatioFilter.cs" />

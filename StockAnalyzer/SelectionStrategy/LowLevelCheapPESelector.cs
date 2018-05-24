@@ -42,7 +42,7 @@ namespace StockAnalyzer.SelectionStrategy
             }
             PEFilter peFilter = new PEFilter(pe);
             STFilter stFilter = new STFilter();
-            IndustryFilter indFilter = new IndustryFilter();
+            IndustryExcludeFilter indFilter = new IndustryExcludeFilter();
             EPSPerfFilter epsFilter = new EPSPerfFilter(epsChg);
 
             return epsFilter.filter(peFilter.filter(indFilter.filter(stFilter.filter(lowStocks))));

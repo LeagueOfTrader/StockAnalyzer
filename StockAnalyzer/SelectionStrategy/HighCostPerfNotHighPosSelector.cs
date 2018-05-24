@@ -23,7 +23,7 @@ namespace StockAnalyzer.SelectionStrategy
         {
             PEFilter peFilter = new PEFilter(pe);
             STFilter stFilter = new STFilter();
-            IndustryFilter indFilter = new IndustryFilter();
+            IndustryExcludeFilter indFilter = new IndustryExcludeFilter();
             CostPerfFilter cpFilter = new CostPerfFilter(year, quarter, costDiffRatio);
             PriceScaleFilter psFilter = new PriceScaleFilter(priceRatio);
 
