@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataModel
 {
-    class KLineMA : MovingAverage
+    public class KLineMA : MovingAverage
     {
         public KLineMA(List<KLine> kLineData, int days)
         {

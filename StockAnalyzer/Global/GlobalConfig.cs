@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.Global
 {
-    class GlobalConfig : Singleton<GlobalConfig>
+    public class GlobalConfig : Singleton<GlobalConfig>
     {
         public string curYear = "2018";
         public string curMonth = "5";

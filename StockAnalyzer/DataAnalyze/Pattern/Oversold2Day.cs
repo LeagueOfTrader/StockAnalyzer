@@ -8,7 +8,7 @@ using StockAnalyzer.DataSource;
 
 namespace StockAnalyzer.DataAnalyze.Pattern
 {
-    class Oversold2Day : KLinePattern
+    public class Oversold2Day : KLinePattern
     {
         public override bool isMatch(List<StockKLineBaidu> kLineData)
         {

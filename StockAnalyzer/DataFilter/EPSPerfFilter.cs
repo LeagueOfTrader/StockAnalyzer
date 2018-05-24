@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class EPSPerfFilter : NumericStockFilter
+    public class EPSPerfFilter : NumericStockFilter
     {
         private double m_epsChgLimit = 0.2;
         public EPSPerfFilter(double epsChgLimit)
         {
             m_epsChgLimit = epsChgLimit;
+            m_filterDesc = "EPSPerf";
         }
 
         public static double getEPSChanging(string stockID)

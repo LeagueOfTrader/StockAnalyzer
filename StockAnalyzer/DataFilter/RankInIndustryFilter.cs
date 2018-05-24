@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class RankMetadata : StockSortableMetadata
+    public class RankMetadata : StockSortableMetadata
     {
         public RankMetadata(string code, double data) : base(code)
         {

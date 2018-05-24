@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.Util
 {
-    class CSVFileUtil
+    public class CSVFileUtil
     {
         public static List<List<string>> readCSV(string filepath, char splitter)
         {

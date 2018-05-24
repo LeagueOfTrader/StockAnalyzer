@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource.TushareData
 {
-    class TushareDataConvertor
+    public class TushareDataConvertor
     {
         public static StockReportData parseStockReportData(List<string> src)
         {
@@ -110,6 +110,133 @@ namespace StockAnalyzer.DataSource.TushareData
             }
 
             return dd;
+        }
+
+        public static StockProfitData parseStockProfitData(List<string> src)
+        {
+            StockProfitData data = null;
+            if(src != null && src.Count < 9)
+            {
+                try
+                {
+                    data = new StockProfitData();
+                    data.code = src[0];
+                    data.name = src[1];
+                    data.roe = double.Parse(src[2]);
+                    data.net_profit_ratio = double.Parse(src[3]);
+                    data.gross_profit_ratio = double.Parse(src[4]);
+                    data.net_profit = double.Parse(src[5]);
+                    data.eps = double.Parse(src[6]);
+                    data.income = double.Parse(src[7]);
+                    data.ips = double.Parse(src[8]);
+                }
+                catch (Exception e)
+                {
+                    //
+                }
+            }
+
+            return data;
+        }
+
+        protected static StockPerformanceForecastType parseForecastType(string str)
+        {
+            StockPerformanceForecastType type = StockPerformanceForecastType.PFT_Alert;
+            if(str == "预增")
+            {
+                type = StockPerformanceForecastType.PFT_Increase;
+            }
+            else if(str == "预升")
+            {
+                type = StockPerformanceForecastType.PFT_Advance;
+            }
+            else if (str == "预盈")
+            {
+                type = StockPerformanceForecastType.PFT_Profit;
+            }
+            else if (str == "预亏")
+            {
+                type = StockPerformanceForecastType.PFT_Loss;
+            }
+            else if (str == "预减")
+            {
+                type = StockPerformanceForecastType.PFT_Recede;
+            }
+            else if (str == "预降")
+            {
+                type = StockPerformanceForecastType.PFT_Decrease;
+            }
+            else if (str == "预警")
+            {
+                type = StockPerformanceForecastType.PFT_Alert;
+            }
+
+            return type;
+        }
+
+        protected static void parseForecastRange(string str, out double floor, out double ceil)
+        {
+            floor = 0.0;
+            ceil = 0.0;
+            if(str == null)
+            {
+                return;
+            }
+
+            if(str == "nan")
+            {
+                return;
+            }
+
+            string[] strArr = str.Split('~');
+            string strFloor = null;
+            string strCeil = null;
+            if(strArr.Length == 1)
+            {
+                strFloor = strArr[0];
+                strCeil = strArr[0];
+            }
+            else if(strArr.Length == 2)
+            {
+                strFloor = strArr[0];
+                strCeil = strArr[1];
+            }
+
+            if(strFloor.Last() == '%')
+            {
+                strFloor = strFloor.Substring(0, strFloor.Length - 1);
+            }
+            floor = double.Parse(strFloor);
+            floor *= 0.01;
+
+            if(strCeil.Last() == '%')
+            {
+                strCeil = strCeil.Substring(0, strCeil.Length - 1);
+            }
+            ceil = double.Parse(strCeil);
+            ceil *= 0.01;
+        }
+
+        public static StockForecastData parseStockForecastData(List<string> src)
+        {
+            StockForecastData data = null;
+            try
+            {
+                data = new StockForecastData();
+                data.code = src[0];
+                data.name = src[1];
+                data.type = parseForecastType(src[2]);
+                data.report_date = src[3];
+                data.summary = src[4];
+                data.previous_eps = double.Parse(src[5]);
+                parseForecastRange(src[6], out data.forecast_chg_floor, out data.forecast_chg_ceil);
+            }
+            catch(Exception e)
+            {
+                //
+            }
+
+            return data;
         }
     }
 }

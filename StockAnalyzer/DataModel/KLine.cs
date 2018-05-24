@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataModel
 {
-    class KLine
+    public class KLine
     {
         public double openPrice;
         public double latestPrice; // == closePrice
@@ -187,7 +187,7 @@ namespace StockAnalyzer.DataModel
         }
     }
 
-    class StockKLine : KLine
+    public class StockKLine : KLine
     {
         public string date;
         public long volume;

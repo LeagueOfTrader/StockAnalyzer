@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataModel
 {
-    enum KLineType
+    public enum KLineType
     {
         LT_Cross = 0,
         LT_Yin = -1,
         LT_Yang = 1
     }
 
-    enum KLineStrength
+    public enum KLineStrength
     {
         LS_Micro,
         LS_Small,
@@ -21,7 +21,7 @@ namespace StockAnalyzer.DataModel
         LS_Large
     }
 
-    class KLineConstant
+    public class KLineConstant
     {
         public const double STRG_MICRO = 0.008;
         public const double STRG_SMALL = 0.02;
@@ -39,7 +39,7 @@ namespace StockAnalyzer.DataModel
         public const double LINE_LENGTH_LIMIT_RATIO_THRESHOLD = 0.05;
     }
 
-    class KLinePriceVolumeParam
+    public class KLinePriceVolumeParam
     {
         public const int REFERENCE_DAYS = 20;
         public const double PRICE_CHG_PCT = 0.01;
@@ -53,7 +53,7 @@ namespace StockAnalyzer.DataModel
         public const double PRICE_RELATIVE_POS = 0.2;
     }
 
-    enum TrendType
+    public enum TrendType
     {
         TT_Down = -2,
         TT_NotUp = -1,

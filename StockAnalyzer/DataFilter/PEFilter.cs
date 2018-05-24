@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class PEFilter : NumericStockFilter
+    public class PEFilter : NumericStockFilter
     {
         private double m_limitPE = 40.0;
 
         public PEFilter(double limitPE)
         {
             m_limitPE = limitPE;
+
+            m_filterDesc = "StaticPE";
         }
 
         public override bool filterMethod(string stockID)
@@ -36,8 +38,7 @@ namespace StockAnalyzer.DataFilter
 
         public override bool getNumericValue(string stockID, out double val)
         {
-            String mdStr = StockDataCollector.queryMarketData(stockID);
-            StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
+            StockMarketData md = StockDataCenter.getInstance().getMarketData(stockID);
 
             val = 0.0;
             if (md != null)

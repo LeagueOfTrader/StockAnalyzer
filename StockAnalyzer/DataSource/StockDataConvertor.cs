@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource
 {
-    class StockDataConvertor
+    public class StockDataConvertor
     {
         public static StockMarketData parseMarketData(String str)
         {

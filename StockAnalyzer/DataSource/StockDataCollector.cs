@@ -8,7 +8,7 @@ using static StockAnalyzer.Util.HttpAsyncReq;
 
 namespace StockAnalyzer.DataSource
 {
-    class StockDataCollector
+    public class StockDataCollector
     {
         static string m_marketDataUrl = "http://qt.gtimg.cn/q=";
         static string m_depthDataUrl = "http://qt.gtimg.cn/q=s_pk";

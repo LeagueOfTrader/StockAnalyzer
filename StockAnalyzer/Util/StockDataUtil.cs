@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.Util
 {
-    class StockDataUtil
+    public class StockDataUtil
     {
         public static StockKLine getMonthKLineByYearMonth(List<StockKLine> klArr, string year, string month)
         {
@@ -44,6 +44,21 @@ namespace StockAnalyzer.Util
             }
 
             return index;
+        }
+
+        public static void getNextQuarter(string srcYear, string srcQuarter, out string targetYear, out string targetQuarter)
+        {
+            if(srcQuarter == "4")
+            {
+                int ty = int.Parse(srcYear) + 1;
+                targetYear = ty.ToString();
+                targetQuarter = "1";
+                return;
+            }
+
+            int tq = int.Parse(srcQuarter) + 1;
+            targetYear = srcYear;
+            targetQuarter = tq.ToString();
         }
     }
 }

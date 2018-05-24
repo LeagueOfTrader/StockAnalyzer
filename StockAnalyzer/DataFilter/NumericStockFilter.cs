@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    abstract class NumericStockFilter : StockFilter
+    public abstract class NumericStockFilter : StockFilter
     {
+        protected string m_filterDesc = "";
+
+        public string getFilterDesc()
+        {
+            return m_filterDesc;
+        }
+
         public abstract bool getNumericValue(string stockID, out double val);
     }
 }

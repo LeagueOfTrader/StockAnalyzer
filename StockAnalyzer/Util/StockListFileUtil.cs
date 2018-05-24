@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.Util
 {
-    class StockListFileUtil
+    public class StockListFileUtil
     {
         public static List<string> readStocksFromFile(string filepath)
         {

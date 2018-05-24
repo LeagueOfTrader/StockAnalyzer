@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.Util
 {
-    class StockIDUtil
+    public class StockIDUtil
     {
         public static string getPureCode(string stockID)
         {

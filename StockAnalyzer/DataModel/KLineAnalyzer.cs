@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataModel
 {
-    class KLineAnalyzer
+    public class KLineAnalyzer
     {
         readonly int[] m_maDays = {5, 10 , 20, 21, 30, 60, 68};
         double m_lowPrice = 0.0;

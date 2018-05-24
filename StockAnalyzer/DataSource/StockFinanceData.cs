@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace StockAnalyzer.DataSource
 {
     // sina finance data
-    class StockFinanceData
+    public class StockFinanceData
     {
         public string stockCode = "";
         public double totalCapital = 0;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSorter
 {
-    class SSMDSpecCostPerf : StockSortableMetadata
+    public class SSMDSpecCostPerf : StockSortableMetadata
     {
         string m_refYear;
         string m_refQuarter;

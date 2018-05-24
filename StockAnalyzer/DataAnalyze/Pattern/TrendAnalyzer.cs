@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataAnalyze.Pattern
 {
-    class TrendAnalyzer
+    public class TrendAnalyzer
     {
         const double m_inflectionLimit = 0.005;
 

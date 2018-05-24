@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource.TushareData
 {
-    class StockDBVisitor : Singleton<StockDBVisitor>
+    public class StockDBVisitor : Singleton<StockDBVisitor>
     {
         public StockReportData getStockReportData(string stockID, string year, string season)
         {
@@ -58,6 +58,32 @@ namespace StockAnalyzer.DataSource.TushareData
             if (rs != null && rs.Count > 0)
             {
                 return TushareDataConvertor.parseStockDistribData(rs[0], code);
+            }
+            return null;
+        }
+
+        public StockProfitData getStockProfitData(string stockID, string year, string season)
+        {
+            string table = "stock_profit_" + year + "q" + season;
+            string code = StockIDUtil.getPureCode(stockID);
+            string sql = "select * from " + table + " where code='" + code + "'";
+            List<string> rs = MySqlDBReader.querySql(sql);
+            if (rs != null && rs.Count > 0)
+            {
+                return TushareDataConvertor.parseStockProfitData(rs);
+            }
+            return null;
+        }
+
+        public StockForecastData getStockForecastData(string stockID, string year, string season)
+        {
+            string table = "stock_forecast_" + year + "q" + season;
+            string code = StockIDUtil.getPureCode(stockID);
+            string sql = "select * from " + table + " where code='" + code + "'";
+            List<string> rs = MySqlDBReader.querySql(sql);
+            if (rs != null && rs.Count > 0)
+            {
+                return TushareDataConvertor.parseStockForecastData(rs);
             }
             return null;
         }

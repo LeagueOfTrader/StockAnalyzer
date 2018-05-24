@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class KLinePatternFilter : StockFilter
+    public class KLinePatternFilter : StockFilter
     {
         bool m_definiteDays = true;
         int m_maxDays = 20;
@@ -29,9 +29,8 @@ namespace StockAnalyzer.DataFilter
             {
                 return false;
             }
-
-            string str = StockDataCollector.queryKLineDataBaidu(stockID);
-            List<StockKLineBaidu> arr = StockDataConvertor.parseKLineArrayBaiduAdvanced(str);
+            
+            List<StockKLineBaidu> arr = StockDataCenter.getInstance().getKLineBaidu(stockID);
             if(arr == null)
             {
                 return false;

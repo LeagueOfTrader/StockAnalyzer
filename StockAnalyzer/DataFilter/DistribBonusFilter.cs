@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class DistribBonusFilter : StockFilter
+    public class DistribBonusFilter : StockFilter
     {
         protected string m_targetYear = "2018";
         protected string m_targetSeason = "1";
@@ -27,7 +27,8 @@ namespace StockAnalyzer.DataFilter
         public override bool filterMethod(string stockID)
         {
             double curVal = getLatestBonusRefValueInOneYear(stockID, m_targetYear, m_targetSeason);
-            double histVal = getBestBonusRefValueBefore(stockID, m_targetYear, m_targetSeason);
+            int maxYear = 0, maxQuarter = 0;
+            double histVal = getBestBonusRefValueBefore(stockID, m_targetYear, m_targetSeason, out maxYear, out maxQuarter);
 
             if (histVal < double.Epsilon)
             {
@@ -47,11 +48,11 @@ namespace StockAnalyzer.DataFilter
             return chg > m_ratio;
         }
 
-        public static double getBestBonusRefValueBefore(string stockID, string year, string season)
+        public static double getBestBonusRefValueBefore(string stockID, string year, string season, out int maxYear, out int maxQuarter)
         {
             int endYear = int.Parse(year);
-            int maxYear = 0;// endYear;
-            int maxQuarter = 0;// int.Parse(season);
+            maxYear = 0;// endYear;
+            maxQuarter = 0;// int.Parse(season);
             double maxVal = 0.0;
             for (int i = m_startYear; i < endYear; i++)
             {
@@ -92,8 +93,7 @@ namespace StockAnalyzer.DataFilter
             double bonus = 0;
             if(getDistribBonus(stockID, year, season, out bonus))
             {
-                string str = StockDataCollector.queryMonthlyKLineData(stockID);
-                List<StockKLine> mk = StockDataConvertor.parseKLineArray(str);
+                List<StockKLine> mk = StockDataCenter.getInstance().getMonthKLine(stockID);
                 string targetMonth = convertMonthBySeason(season);
                 StockKLine kl = StockDataUtil.getMonthKLineByYearMonth(mk, year, targetMonth);
 

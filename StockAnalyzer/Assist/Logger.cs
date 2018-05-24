@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.Assist
 {
-    class Logger
+    public class Logger
     {
         public static void log(string info)
         {

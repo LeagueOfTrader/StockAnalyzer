@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.IntermediateProcedure
 {
-    class IntermediateImporter
+    public class IntermediateImporter
     {
         public static List<string> readLowPriceStocks()
         {

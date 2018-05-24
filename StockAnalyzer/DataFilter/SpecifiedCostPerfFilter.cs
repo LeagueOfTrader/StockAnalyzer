@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class SpecifiedCostPerfFilter : CostPerfFilter
+    public class SpecifiedCostPerfFilter : CostPerfFilter
     {
         private string m_srcYear = "2013";
         private string m_srcSeason = "1";

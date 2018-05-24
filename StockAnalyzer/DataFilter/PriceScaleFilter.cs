@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class PriceScaleFilter : StockFilter
+    public class PriceScaleFilter : StockFilter
     {
         private double m_ratio = 0.3;
 
@@ -18,8 +18,7 @@ namespace StockAnalyzer.DataFilter
 
         public override bool filterMethod(string stockID)
         {
-            String mdStr = StockDataCollector.queryMarketData(stockID);
-            StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
+            StockMarketData md = StockDataCenter.getInstance().getMarketData(stockID);
 
             if (md != null &&
                 PriceAnalyzer.isPriceScaleSatisfied(stockID, md.latestPrice, m_ratio))

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class STFilter : StockFilter
+    public class STFilter : StockFilter
     {
         public static bool isSTStock(string stockID)
         {

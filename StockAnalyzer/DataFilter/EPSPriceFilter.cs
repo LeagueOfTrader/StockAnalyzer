@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class EPSPriceFilter : EPSPerfFilter
+    public class EPSPriceFilter : EPSPerfFilter
     {
         public EPSPriceFilter(double epsChgLimit) : base(epsChgLimit)
         {
+            m_filterDesc = "EPSPrice";
         }
 
         public override bool getNumericValue(string stockID, out double val)
         {
-            String str = StockDataCollector.queryFinanceDataSina(stockID);
-            StockFinanceData fd = StockDataConvertor.parseFinanceDataSina(str);
-            str = StockDataCollector.queryMarketData(stockID);
-            StockMarketData md = StockDataConvertor.parseMarketData(str);
+            StockFinanceData fd = StockDataCenter.getInstance().getFinanceData(stockID);
+            StockMarketData md = StockDataCenter.getInstance().getMarketData(stockID);
 
             val = 0.0;
             if(fd == null || md == null)

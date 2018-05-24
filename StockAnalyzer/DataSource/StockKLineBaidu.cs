@@ -7,35 +7,35 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource
 {
-    class MAData
+    public class MAData
     {
         public double volume;
         public double avgPrice;
         public double ccl;
-    } 
+    }
 
-    class MACDData
+    public class MACDData
     {
         public double diff;
         public double dea;
         public double macd;
     }
 
-    class KDJData
+    public class KDJData
     {
         public double k;
         public double d;
         public double j;
     }
 
-    class RSIData
+    public class RSIData
     {
         public double rsi1;
         public double rsi2;
         public double rsi3;
     }
 
-    class StockKLineBaidu : StockKLine
+    public class StockKLineBaidu : StockKLine
     {
         public MAData ma5 = new MAData();
         public MAData ma10 = new MAData();

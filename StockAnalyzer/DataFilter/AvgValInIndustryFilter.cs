@@ -1,4 +1,5 @@
-﻿using StockAnalyzer.DataSource;
+﻿using StockAnalyzer.DataFilter.DataCache;
+using StockAnalyzer.DataSource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class AvgValInIndustryFilter : StockFilter
+    public class AvgValInIndustryFilter : StockFilter
     {
         private NumericStockFilter m_comparer = null;
         private double m_ratio = 0.0;
@@ -64,28 +65,39 @@ namespace StockAnalyzer.DataFilter
             {
                 return false;
             }
-
-            double accumVal = 0.0;
-            int accumCount = 0;
+           
             string industryName = StockPool.getInstance().getStockIndustry(stockID);
-            List<string> stocksInIndustry = StockPool.getInstance().getStocksInIndustry(industryName);
-            foreach(string code in stocksInIndustry)
+            string comparerName = m_comparer.getFilterDesc();
+            bool ret = true;
+
+            if(!StockDataCache.getInstance().getAvgValInIndustry(comparerName, industryName, out val))
             {
-                double curVal = 0.0;
-                if(m_comparer.getNumericValue(code, out curVal))
+                double accumVal = 0.0;
+                int accumCount = 0;
+
+                List<string> stocksInIndustry = StockPool.getInstance().getStocksInIndustry(industryName);
+                foreach (string code in stocksInIndustry)
                 {
-                    accumVal += curVal;
-                    accumCount++;
+                    double curVal = 0.0;
+                    if (m_comparer.getNumericValue(code, out curVal))
+                    {
+                        accumVal += curVal;
+                        accumCount++;
+                    }
+                }
+
+                if (accumCount > 0)
+                {
+                    val = accumVal / accumCount;
+                    StockDataCache.getInstance().setAvgValInIndustry(comparerName, industryName, val);                    
+                }
+                else
+                {
+                    ret = false;
                 }
             }
 
-            if(accumCount > 0)
-            {
-                val = accumVal / accumCount;
-                return true;
-            }
-
-            return false;
+            return ret;
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.Util
 {
-    class HttpAsyncReq
+    public class HttpAsyncReq
     {
         public delegate void ResponseCallback(String content);
         public ResponseCallback m_callback;

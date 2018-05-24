@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource
 {
-    class StockPool : Singleton<StockPool>
+    public class StockPool : Singleton<StockPool>
     {
         private List<string> m_allSZStocks = new List<string>();
         private List<string> m_allSHStocks = new List<string>();

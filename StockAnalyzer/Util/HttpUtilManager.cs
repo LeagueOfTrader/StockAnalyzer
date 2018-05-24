@@ -12,7 +12,7 @@ namespace StockAnalyzer.Util
     /// <summary>
     /// 封装HTTP get post请求，简化发送http请求
     /// </summary>
-    class HttpUtilManager : Singleton<HttpUtilManager>
+    public class HttpUtilManager : Singleton<HttpUtilManager>
     {
 
         /// <summary>

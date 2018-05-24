@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    interface IStockFilter
+    public interface IStockFilter
     {
         List<string> filter(List<string> src);
     }

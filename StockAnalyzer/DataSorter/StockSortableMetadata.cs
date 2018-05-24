@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSorter
 {
-    abstract class StockSortableMetadata : IComparable<StockSortableMetadata>
+    public abstract class StockSortableMetadata : IComparable<StockSortableMetadata>
     {
         public string stockID;
         public double refData;

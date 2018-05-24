@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSorter
 {
-    class SSMDAnnualCostPerf : StockSortableMetadata
+    public class SSMDAnnualCostPerf : StockSortableMetadata
     {
         public SSMDAnnualCostPerf(string code) : base(code)
         {
@@ -19,7 +19,8 @@ namespace StockAnalyzer.DataSorter
             string year = GlobalConfig.getInstance().curYear;
             string quarter = GlobalConfig.getInstance().curQuarter;
 
-            double histData = AnnualCostPerfFilter.getMaxAnnualCostRefValueBefore(code, year);
+            int maxYear = 0;
+            double histData = AnnualCostPerfFilter.getMaxAnnualCostRefValueBefore(code, year, out maxYear);
             double curData = AnnualCostPerfFilter.calcCurCostRefValue(code, year, quarter);
 
             return curData / histData;

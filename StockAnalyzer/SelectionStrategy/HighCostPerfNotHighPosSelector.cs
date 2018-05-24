@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.SelectionStrategy
 {
-    class HighCostPerfNotHighPosSelector : IStockSelector
+    public class HighCostPerfNotHighPosSelector : IStockSelector
     {
         public List<string> screen()
         {

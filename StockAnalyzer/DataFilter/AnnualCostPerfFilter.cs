@@ -1,4 +1,5 @@
 ﻿using StockAnalyzer.Assist;
+using StockAnalyzer.DataFilter.DataCache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,22 +8,25 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class AnnualCostPerfFilter : CostPerfFilter
+    public class AnnualCostPerfFilter : CostPerfFilter
     {
         public AnnualCostPerfFilter(string targetYear, string targetSeason, double ratio) : base(targetYear, targetSeason, ratio)
         {
+            m_filterDesc = "AnnualCostPerf";
         }
 
         protected override double getSrcValue(string stockID)
         {
-            double srcVal = getMaxAnnualCostRefValueBefore(stockID, m_targetYear);
+            //int maxYear = 0;
+            //double srcVal = getMaxAnnualCostRefValueBefore(stockID, m_targetYear, out maxYear);
+            double srcVal = StockDataCache.getInstance().getMaxAnnualCostRefValueBefore(stockID, m_targetYear);
             return srcVal;
         }
 
-        public static double getMaxAnnualCostRefValueBefore(string stockID, string year)
+        public static double getMaxAnnualCostRefValueBefore(string stockID, string year, out int maxYear)
         {
             int endYear = int.Parse(year);
-            int maxYear = 0;// endYear;
+            maxYear = 0;// endYear;
             double maxVal = 0.0;
             for (int i = m_startYear; i < endYear; i++)
             {

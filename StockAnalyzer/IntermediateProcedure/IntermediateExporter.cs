@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.IntermediateProcedure
 {
-    class IntermediateExporter
+    public class IntermediateExporter
     {
         public static void filterStocksByPriceScaleAndPE(double ratio, double pe, string filepath)
         {

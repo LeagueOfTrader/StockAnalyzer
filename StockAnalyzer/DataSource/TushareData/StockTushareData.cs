@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource.TushareData
 {
-    class StockReportData
+    public class StockReportData
     {
         public string code;
         public string name;
@@ -21,7 +21,7 @@ namespace StockAnalyzer.DataSource.TushareData
         public string report_date;
     }
 
-    class StockGrowthData
+    public class StockGrowthData
     {
         public string code;
         public string name;
@@ -33,7 +33,7 @@ namespace StockAnalyzer.DataSource.TushareData
         public double seg;
     }
 
-    class StockCashflowData
+    public class StockCashflowData
     {
         public string code;
         public string name;
@@ -44,12 +44,48 @@ namespace StockAnalyzer.DataSource.TushareData
         public double cashflowRatio;
     }
 
-    class StockDistribData
+    public class StockDistribData
     {
         public string code;
         public string rawData;
         public double bonus = 0.0; //现金
         public int deliver = 0; //送股
         public int transfer = 0;  //转增
+    }
+
+    public class StockProfitData
+    {
+        public string code;
+        public string name;
+        public double roe;
+        public double net_profit_ratio;
+        public double gross_profit_ratio;
+        public double net_profit;
+        public double eps;
+        public double income;
+        public double ips;
+    }
+
+    public enum StockPerformanceForecastType
+    {
+        PFT_Increase = 3,
+        PFT_Advance = 2,        
+        PFT_Profit = 1,
+        PFT_Alert = 0,
+        PFT_Loss = -1,
+        PFT_Recede = -2,
+        PFT_Decrease = -3
+    }
+
+    public class StockForecastData
+    {
+        public string code;
+        public string name;
+        public StockPerformanceForecastType type;
+        public string report_date;
+        public string summary;
+        public double previous_eps;
+        public double forecast_chg_floor;
+        public double forecast_chg_ceil;
     }
 }

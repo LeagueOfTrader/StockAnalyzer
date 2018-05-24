@@ -1,4 +1,5 @@
 ﻿using StockAnalyzer.Assist;
+using StockAnalyzer.DataFilter.DataCache;
 using StockAnalyzer.DataModel;
 using StockAnalyzer.DataSource;
 using StockAnalyzer.DataSource.TushareData;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class CostPerfFilter : NumericStockFilter
+    public class CostPerfFilter : NumericStockFilter
     {
         protected string m_targetYear = "2018";
         protected string m_targetSeason = "1";
@@ -22,6 +23,8 @@ namespace StockAnalyzer.DataFilter
             m_targetYear = targetYear;
             m_targetSeason = targetSeason;
             m_ratio = ratio;
+
+            m_filterDesc = "DynamicCostPerf";
         }
 
         public override bool filterMethod(string stockID)
@@ -43,15 +46,17 @@ namespace StockAnalyzer.DataFilter
 
         protected virtual double getSrcValue(string stockID)
         {
-            double srcVal = getMaxCostRefValueBefore(stockID, m_targetYear, m_targetSeason);
+            //int maxYear = 0, maxQuarter = 0;
+            //double srcVal = getMaxCostRefValueBefore(stockID, m_targetYear, m_targetSeason, out maxYear, out maxQuarter);
+            double srcVal = StockDataCache.getInstance().getMaxCostRefValueBefore(stockID, m_targetYear, m_targetSeason);
             return srcVal;
         }
 
-        public static double getMaxCostRefValueBefore(string stockID, string year, string season)
+        public static double getMaxCostRefValueBefore(string stockID, string year, string season, out int maxYear, out int maxQuarter)
         {
             int endYear = int.Parse(year);
-            int maxYear = 0;// endYear;
-            int maxQuarter = 0;// int.Parse(season);
+            maxYear = 0;// endYear;
+            maxQuarter = 0;// int.Parse(season);
             double maxVal = 0.0;
             for(int i = m_startYear; i < endYear; i++)
             {
@@ -91,9 +96,8 @@ namespace StockAnalyzer.DataFilter
         {
             double costRefVal = 0.0;
             StockReportData rd = StockDBVisitor.getInstance().getStockReportData(stockID, year, season);
-            
-            string str = StockDataCollector.queryMonthlyKLineData(stockID);
-            List<StockKLine> mk = StockDataConvertor.parseKLineArray(str);
+
+            List<StockKLine> mk = StockDataCenter.getInstance().getMonthKLine(stockID);
             string targetMonth = convertMonthBySeason(season);
             StockKLine kl = StockDataUtil.getMonthKLineByYearMonth(mk, year, targetMonth);
             int quarter = int.Parse(season);
@@ -110,8 +114,7 @@ namespace StockAnalyzer.DataFilter
             double costRefVal = 0.0;
             StockReportData rd = StockDBVisitor.getInstance().getStockReportData(stockID, year, season);
 
-            string str = StockDataCollector.queryMarketData(stockID);
-            StockMarketData md = StockDataConvertor.parseMarketData(str);
+            StockMarketData md = StockDataCenter.getInstance().getMarketData(stockID);
             int quarter = int.Parse(season);
             if (rd != null && md != null)
             {

@@ -1,4 +1,5 @@
 ﻿using StockAnalyzer.Assist;
+using StockAnalyzer.DataFilter.DataCache;
 using StockAnalyzer.DataModel;
 using StockAnalyzer.DataSource;
 using StockAnalyzer.DataSource.TushareData;
@@ -11,23 +12,26 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class QuarterCostPerfFilter : CostPerfFilter
+    public class QuarterCostPerfFilter : CostPerfFilter
     {
         public QuarterCostPerfFilter(string targetYear, string targetSeason, double ratio) : base(targetYear, targetSeason, ratio)
         {
+            m_filterDesc = "QuarterCostPerf";
         }
 
         protected override double getSrcValue(string stockID)
         {
-            double srcVal = getMaxQuarterCostRefValueBefore(stockID, m_targetYear, m_targetSeason);
+            //int maxYear = 0, maxQuarter = 0;
+            //double srcVal = getMaxQuarterCostRefValueBefore(stockID, m_targetYear, m_targetSeason, out maxYear, out maxQuarter);
+            double srcVal = StockDataCache.getInstance().getMaxQuarterCostRefValueBefore(stockID, m_targetYear, m_targetSeason);
             return srcVal;
         }
 
-        public static double getMaxQuarterCostRefValueBefore(string stockID, string year, string season)
+        public static double getMaxQuarterCostRefValueBefore(string stockID, string year, string season, out int maxYear, out int maxQuarter)
         {
             int endYear = int.Parse(year);
-            int maxYear = 0;// endYear;
-            int maxQuarter = 0;// int.Parse(season);
+            maxYear = 0;// endYear;
+            maxQuarter = 0;// int.Parse(season);
             double maxVal = 0.0;
             for (int i = m_startYear; i < endYear; i++)
             {
@@ -84,8 +88,8 @@ namespace StockAnalyzer.DataFilter
                 }
             }
 
-            string str = StockDataCollector.queryMonthlyKLineData(stockID);
-            List<StockKLine> mk = StockDataConvertor.parseKLineArray(str);
+            //string str = StockDataCollector.queryMonthlyKLineData(stockID);
+            List<StockKLine> mk = StockDataCenter.getInstance().getMonthKLine(stockID); //StockDataConvertor.parseKLineArray(str);
             string targetMonth = convertMonthBySeason(season);
             StockKLine kl = StockDataUtil.getMonthKLineByYearMonth(mk, year, targetMonth);
             int quarter = int.Parse(season);

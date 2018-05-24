@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource
 {
-    class BidOrderInfo
+    public class BidOrderInfo
     {
         public double price;
         public long amount;
     }
 
-    class StockMarketData : StockKLine
+    public class StockMarketData : StockKLine
     {
         public double closePriceYesterday;
         public string stockName;

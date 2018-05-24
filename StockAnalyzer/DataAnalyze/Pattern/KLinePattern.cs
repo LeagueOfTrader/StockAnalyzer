@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataAnalyze.Pattern
 {
-    abstract class KLinePattern
+    public abstract class KLinePattern
     {
         public abstract bool isMatch(List<StockKLineBaidu> kLineData);
     }

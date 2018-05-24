@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.Util
 {
-    class DateUtil
+    public class DateUtil
     {
         public static int compareDate(string date1, string date2) {
             if (!isDateValid(date1) || !isDateValid(date2)) {

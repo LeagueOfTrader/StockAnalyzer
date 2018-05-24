@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataAnalyze
 {
-    class PriceAnalyzer
+    public class PriceAnalyzer
     {
         public static double getPriceScale(List<StockKLine> data, double curPrice, string limitDate = "20000101") {
 
@@ -43,8 +43,7 @@ namespace StockAnalyzer.DataAnalyze
 
         public static bool isPriceScaleSatisfied(string stockID, double curPrice, double ratio)
         {
-            string monthKStr = StockDataCollector.queryMonthlyKLineDataBaidu(stockID);
-            List<StockKLine> monthKData = StockDataConvertor.parseKLineArrayBaidu(monthKStr);
+            List<StockKLine> monthKData = StockDataCenter.getInstance().getMonthKLineBaidu(stockID);
 
             if (monthKData == null) {
                 return false;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.SelectionStrategy
 {
-    class LowLevelCheapPESelector : IStockSelector
+    public class LowLevelCheapPESelector : IStockSelector
     {
         private bool m_useIntermediate = true;
 

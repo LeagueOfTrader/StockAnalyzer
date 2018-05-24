@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class IndustryFilter : StockFilter
+    public class IndustryFilter : StockFilter
     {
         private static List<string> ms_uninterestIndustries = new List<string>();
         private static bool ms_loaded = false;

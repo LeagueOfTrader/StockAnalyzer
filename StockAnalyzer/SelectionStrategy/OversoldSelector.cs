@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.SelectionStrategy
 {
-    class OversoldSelector : IStockSelector
+    public class OversoldSelector : IStockSelector
     {
         public List<string> screen()
         {

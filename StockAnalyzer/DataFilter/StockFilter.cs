@@ -10,7 +10,7 @@ using System.IO;
 
 namespace StockAnalyzer.DataFilter
 {
-    abstract class StockFilter : IStockFilter
+    public abstract class StockFilter : IStockFilter
     {
         protected const int m_startYear = 2007;
 

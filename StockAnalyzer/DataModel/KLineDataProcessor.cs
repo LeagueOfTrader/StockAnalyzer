@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataModel
 {
-    class KLineDataProcessor
+    public class KLineDataProcessor
     {
         public static double calcMAValue(List<KLine> kLineData)
         {

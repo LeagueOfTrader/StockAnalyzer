@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataModel
 {
-    class MovingAverage
+    public class MovingAverage
     {
         protected double m_high = 0.0;
         protected double m_low = 0.0;

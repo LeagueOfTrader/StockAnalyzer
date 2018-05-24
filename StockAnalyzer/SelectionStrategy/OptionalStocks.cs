@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.SelectionStrategy
 {
-    class OptionalStocks : Singleton<OptionalStocks>
+    public class OptionalStocks : Singleton<OptionalStocks>
     {
         private bool m_inited = false;
         public List<string> optionalStockList = new List<string>();
