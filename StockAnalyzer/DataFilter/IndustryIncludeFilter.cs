@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class IndustryIncludeFilter : StockFilter
+    public class IndustryIncludeFilter : StockFilter
     {
         List<string> m_specifiedIndustries = new List<string>();
         public IndustryIncludeFilter(List<string> arr)
