@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{33E24EDF-6277-4875-BF0A-82BB6D5924DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StockAnalyzer</RootNamespace>
+    <AssemblyName>StockAnalyzer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>3rdParty\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Singleton.cs" />
+    <Compile Include="DataAnalyze\Pattern\KLinePattern.cs" />
+    <Compile Include="DataAnalyze\Pattern\Oversold2Day.cs" />
+    <Compile Include="DataAnalyze\Pattern\PoDiFanPattern.cs" />
+    <Compile Include="DataAnalyze\Pattern\TrendAnalyzer.cs" />
+    <Compile Include="DataAnalyze\PriceAnalyzer.cs" />
+    <Compile Include="DataFilter\AnnualCostPerfFilter.cs" />
+    <Compile Include="DataFilter\AvgValInIndustryFilter.cs" />
+    <Compile Include="DataFilter\CostPerfFilter.cs" />
+    <Compile Include="DataFilter\CostPerfYoyFilter.cs" />
+    <Compile Include="DataFilter\DataCache\StockDataCache.cs" />
+    <Compile Include="DataFilter\DistribBonusFilter.cs" />
+    <Compile Include="DataFilter\DynamicPEFilter.cs" />
+    <Compile Include="DataFilter\EPSPerfFilter.cs" />
+    <Compile Include="DataFilter\EPSPriceFilter.cs" />
+    <Compile Include="DataFilter\ForecastFilter.cs" />
+    <Compile Include="DataFilter\IndustryExcludeFilter.cs" />
+    <Compile Include="DataFilter\IndustryIncludeFilter.cs" />
+    <Compile Include="DataFilter\IStockFilter.cs" />
+    <Compile Include="DataFilter\KLinePatternFilter.cs" />
+    <Compile Include="DataFilter\NetProfitRatioFilter.cs" />
+    <Compile Include="DataFilter\NetProfitRatioSustainedFilter.cs" />
+    <Compile Include="DataFilter\NumericStockFilter.cs" />
+    <Compile Include="DataFilter\PriceScaleFilter.cs" />
+    <Compile Include="DataFilter\QuarterCostPerfFilter.cs" />
+    <Compile Include="DataFilter\RankInIndustryFilter.cs" />
+    <Compile Include="DataFilter\ROEFilter.cs" />
+    <Compile Include="DataFilter\ROESustainedFilter.cs" />
+    <Compile Include="DataFilter\SpecifiedCostPerfFilter.cs" />
+    <Compile Include="DataFilter\STFilter.cs" />
+    <Compile Include="DataFilter\StockFilter.cs" />
+    <Compile Include="DataFilter\PEFilter.cs" />
+    <Compile Include="DataModel\KLine.cs" />
+    <Compile Include="DataModel\KLineAnalyzer.cs" />
+    <Compile Include="DataModel\KLineDataProcessor.cs" />
+    <Compile Include="DataModel\KLineDef.cs" />
+    <Compile Include="DataModel\KLineMA.cs" />
+    <Compile Include="DataModel\MovingAverage.cs" />
+    <Compile Include="DataSorter\SSMDAnnualCostPerf.cs" />
+    <Compile Include="DataSorter\SSMDSpecCostPerf.cs" />
+    <Compile Include="DataSorter\SSMDYoyCostPerf.cs" />
+    <Compile Include="DataSorter\SSMDCostPerf.cs" />
+    <Compile Include="DataSorter\SSMDQuarterCostPerf.cs" />
+    <Compile Include="DataSorter\StockComparer.cs" />
+    <Compile Include="DataSorter\StockSortableMetadata.cs" />
+    <Compile Include="DataSource\StockDataCenter.cs" />
+    <Compile Include="DataSource\StockFinanceData.cs" />
+    <Compile Include="DataSource\StockKLineBaidu.cs" />
+    <Compile Include="DataSource\StockMarketData.cs" />
+    <Compile Include="DataSource\StockDataCollector.cs" />
+    <Compile Include="DataSource\StockDataConvertor.cs" />
+    <Compile Include="DataSource\StockPool.cs" />
+    <Compile Include="Assist\Logger.cs" />
+    <Compile Include="DataSource\TushareData\StockDBVisitor.cs" />
+    <Compile Include="DataSource\TushareData\StockTushareData.cs" />
+    <Compile Include="DataSource\TushareData\TushareDataConvertor.cs" />
+    <Compile Include="Global\GlobalConfig.cs" />
+    <Compile Include="IntermediateProcedure\IntermediateExporter.cs" />
+    <Compile Include="IntermediateProcedure\IntermediateImporter.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectionStrategy\HighCostPerfNotHighPosSelector.cs" />
+    <Compile Include="SelectionStrategy\IStockSelector.cs" />
+    <Compile Include="SelectionStrategy\LowLevelCheapPESelector.cs" />
+    <Compile Include="SelectionStrategy\OptionalStocks.cs" />
+    <Compile Include="SelectionStrategy\OversoldSelector.cs" />
+    <Compile Include="Util\CSVFileUtil.cs" />
+    <Compile Include="Util\DateUtil.cs" />
+    <Compile Include="Util\HttpAsyncReq.cs" />
+    <Compile Include="Util\HttpUtilManager.cs" />
+    <Compile Include="Util\MySqlDBReader.cs" />
+    <Compile Include="Util\StockDataUtil.cs" />
+    <Compile Include="Util\StockIDUtil.cs" />
+    <Compile Include="Util\StockListFileUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
