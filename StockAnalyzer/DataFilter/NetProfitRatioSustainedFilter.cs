@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class NetProfitRatioSustainedFilter : NetProfitRatioFilter
+    public class NetProfitRatioSustainedFilter : NetProfitRatioFilter
     {
         protected int m_continuousYear = 3;
 

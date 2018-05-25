@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class ROESustainedFilter : ROEFilter
+    public class ROESustainedFilter : ROEFilter
     {
         protected int m_continuousYear = 3;
 

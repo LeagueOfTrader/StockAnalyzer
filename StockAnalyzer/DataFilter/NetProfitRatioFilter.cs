@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataFilter
 {
-    class NetProfitRatioFilter : NumericStockFilter
+    public class NetProfitRatioFilter : NumericStockFilter
     {
         protected string m_targetYear = "2018";
         protected string m_targetSeason = "1";
