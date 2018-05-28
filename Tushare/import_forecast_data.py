@@ -14,10 +14,12 @@ import sys
 import math
 
 from sqlalchemy import create_engine
+import conf as config
 
-forcastYear = 2018
-forecastMonth = 6
-forecastQuarter = 2
+forcastYear = config.FORECAST_YEAR
+forecastMonth = config.FORECAST_MONTH
+forecastQuarter = config.FORECAST_QUARTER
+
 isPy3 = (sys.version_info[0] >= 3)
 	
 items = ['code', 'name', 'type', 'pub_date', 'report_date', 'summary', 'eps_last', 'forecast_chg'];

@@ -12,8 +12,9 @@ except ImportError:
     from urllib2 import urlopen, Request
 import sys
 import math
+import conf as config
 
-limitYear = 2007
+limitYear = config.FROM_YEAR
 items = ['name', 'report_date', 'eps', 'eps_yoy', 'bvps', 'roe', 'epcf', 'net_profits', 'profits_yoy', 'distrib', 'pub_date']
 isPy3 = (sys.version_info[0] >= 3)
 

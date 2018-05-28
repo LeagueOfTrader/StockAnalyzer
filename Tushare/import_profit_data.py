@@ -14,7 +14,7 @@ import sys
 import math
 
 from sqlalchemy import create_engine
-
+import conf as config
 	
 def get_profit_data(year, season):
 	frame = ts.get_profit_data(year, season)
@@ -33,10 +33,10 @@ def get_profit_data(year, season):
 		
 	db.close()
 
-startYear = 2013
-startSeason = 1
-curYear = 2018
-curSeason = 2
+startYear = config.FROM_YEAR2
+startSeason = config.FROM_QUARTER
+curYear = config.REPORT_YEAR
+curSeason = config.REPORT_QUARTER + 1
 
 def get_all_profits_data():
 	for year in range(2012, 2019):

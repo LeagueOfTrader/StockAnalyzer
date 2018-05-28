@@ -12,10 +12,11 @@ except ImportError:
     from urllib2 import urlopen, Request
 import sys
 import math
+import conf as config
 
-startYear = 2007
-endYear = 2018
-endQuarter = 1
+startYear = config.FROM_YEAR
+endYear = config.REPORT_YEAR
+endQuarter = config.REPORT_YEAR
 
 items = ['code', 'name', 'inst_count', 'count_chg', 'hold_ratio', 'hold_chg', 'prop_of_circulation', 'poc_chg']
 isPy3 = (sys.version_info[0] >= 3)

@@ -27,28 +27,35 @@ endQuarter = 1
 
 isPy3 = (sys.version_info[0] >= 3)
 
-items = ['date', 'chg', 'cur_count', 'last_count', 'count_chg', 'count_chg_ratio', 'avg_cap', 'avg_hold', 'total_cap', 'total_stock', 'stock_chg', 'chg_reason', 'pub_date']
+items = ['date', 'holders_count', 'holders_chg', 'avg_stock', 'stock_chg']
 
 def get_shareholder_data(code, year, quarter):
-	url = 'http://data.eastmoney.com/gdhs/detail/%s.html' % (code)
+	#url = 'http://data.eastmoney.com/gdhs/detail/%s.html' % (code)
+	#url = 'http://stock.jrj.com.cn/share,%s,gdhs.shtml' % (code)
+	url = 'http://quotes.money.163.com/f10/gdfx_%s.html' % (code)
+	tabClassName = 'table_bg001 border_box gudong_table'
+	print(url)
 	try:
 		request = Request(url)
 		text = urlopen(request, timeout=10).read()
-		text = text.decode('GBK')
-		text = text.replace('--', '')
+		#text = text.decode('GB2312')
+		#text = text.replace('--', '')
+		#print(text)
 		html = lxml.html.parse(StringIO(text))
-		res = html.xpath("//div/table") #("//table[@class=\"list_table\"]/tr")		
+		res = html.xpath("//table[@class=\"" + tabClassName + "\"]/tr")
+		#print(res)
 		if isPy3:
 			sarr = [etree.tostring(node).decode('utf-8') for node in res]
 		else:
 			sarr = [etree.tostring(node) for node in res]
 		sarr = ''.join(sarr)
+		#print(sarr)
 		if len(sarr) == 0:
 			return None
 		sarr = '<table>%s</table>'%sarr
 		df = pd.read_html(sarr)[0]
 		#df = df.drop(13, axis=1)
-		#df.columns = items
+		df.columns = items
 		
 		#nextPage = html.xpath('//div[@class=\"pages\"]/a[last()]/@onclick')		
 		return df
