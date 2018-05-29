@@ -35,6 +35,9 @@
             this.button_pricecomp_refresh = new System.Windows.Forms.Button();
             this.timer_pricecomparison = new System.Windows.Forms.Timer(this.components);
             this.listView_pricecomp = new System.Windows.Forms.ListView();
+            this.columnHeader_lv_pc_code = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader_lv_pc_curprice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader_lv_pc_chg = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listBox_pricecomparison
@@ -42,6 +45,7 @@
             this.listBox_pricecomparison.FormattingEnabled = true;
             this.listBox_pricecomparison.ItemHeight = 12;
             this.listBox_pricecomparison.Location = new System.Drawing.Point(12, 55);
+            this.listBox_pricecomparison.MultiColumn = true;
             this.listBox_pricecomparison.Name = "listBox_pricecomparison";
             this.listBox_pricecomparison.Size = new System.Drawing.Size(361, 436);
             this.listBox_pricecomparison.TabIndex = 0;
@@ -81,11 +85,32 @@
             // 
             // listView_pricecomp
             // 
+            this.listView_pricecomp.AllowColumnReorder = true;
+            this.listView_pricecomp.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader_lv_pc_code,
+            this.columnHeader_lv_pc_curprice,
+            this.columnHeader_lv_pc_chg});
+            this.listView_pricecomp.FullRowSelect = true;
+            this.listView_pricecomp.GridLines = true;
             this.listView_pricecomp.Location = new System.Drawing.Point(12, 55);
+            this.listView_pricecomp.MultiSelect = false;
             this.listView_pricecomp.Name = "listView_pricecomp";
             this.listView_pricecomp.Size = new System.Drawing.Size(361, 436);
             this.listView_pricecomp.TabIndex = 4;
             this.listView_pricecomp.UseCompatibleStateImageBehavior = false;
+            this.listView_pricecomp.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader_lv_pc_code
+            // 
+            this.columnHeader_lv_pc_code.Text = "代码";
+            // 
+            // columnHeader_lv_pc_curprice
+            // 
+            this.columnHeader_lv_pc_curprice.Text = "当前价";
+            // 
+            // columnHeader_lv_pc_chg
+            // 
+            this.columnHeader_lv_pc_chg.Text = "涨幅";
             // 
             // PriceComparisonForm
             // 
@@ -112,5 +137,8 @@
         private System.Windows.Forms.Button button_pricecomp_refresh;
         private System.Windows.Forms.Timer timer_pricecomparison;
         private System.Windows.Forms.ListView listView_pricecomp;
+        private System.Windows.Forms.ColumnHeader columnHeader_lv_pc_code;
+        private System.Windows.Forms.ColumnHeader columnHeader_lv_pc_curprice;
+        private System.Windows.Forms.ColumnHeader columnHeader_lv_pc_chg;
     }
 }

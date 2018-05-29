@@ -103,6 +103,7 @@
     <Compile Include="DataSource\StockMarketData.cs" />
     <Compile Include="DataSource\StockDataCollector.cs" />
     <Compile Include="DataSource\StockDataConvertor.cs" />
+    <Compile Include="DataSource\StockMarketDataUpdater.cs" />
     <Compile Include="DataSource\StockPool.cs" />
     <Compile Include="Assist\Logger.cs" />
     <Compile Include="DataSource\TushareData\StockDBVisitor.cs" />

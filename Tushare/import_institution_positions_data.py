@@ -22,6 +22,15 @@ items = ['code', 'name', 'inst_count', 'count_chg', 'hold_ratio', 'hold_chg', 'p
 isPy3 = (sys.version_info[0] >= 3)
 
 def get_inst_pos_data(code, year, quarter):
+	'''	
+	if len(code) < 6:
+		return
+	prefix = code[0:1]
+	if prefix == '6':
+		code = 'sh' + code
+	else:
+		code = 'sz' + code
+	'''
 	url = 'http://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml?symbol=%s&reportdate=%s&quarter=%s' % (code, year, quarter)
 	try:
 		request = Request(url)
@@ -84,8 +93,7 @@ def save_inst_pos_data(code, name, inst_count, count_chg, hold_ratio, hold_chg, 
 	#print(sql)
 	cursor.execute(sql)
 	db.commit()
-	print(name + ' ' + year + 'Q' + season)
-		
+	print(name + ' ' + str(year) + 'Q' + str(season))	
 	db.close()
 	
 def achieve_inst_pos_data(code, year, quarter):
@@ -94,8 +102,10 @@ def achieve_inst_pos_data(code, year, quarter):
 		return
 	for i in range(0, len(df)):		
 		try:
+			#print(df['inst_count'][i])
 			save_inst_pos_data(code, df['name'][i], df['inst_count'][i], df['count_chg'][i], df['hold_ratio'][i], df['hold_chg'][i], df['prop_of_circulation'][i], df['poc_chg'][i], year, quarter)
 		except Exception as e:
+			print('err')
 			pass
 
 def achieve_all_inst_pos_data():
@@ -113,7 +123,8 @@ def achieve_all_inst_pos_data():
 if isPy3 == False:
 	reload(sys)  
 	sys.setdefaultencoding('utf-8') 
+
 achieve_all_inst_pos_data()
-#achieve_inst_pos_data('sz300498', 2015, 1)
-print('Finish!')
+#achieve_inst_pos_data('000662', 2018, 1)
+#print('Finish!')
 	
