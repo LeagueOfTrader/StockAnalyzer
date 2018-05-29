@@ -34,6 +34,8 @@ namespace StockAnalyzerApp
         {
             InitializeComponent();
 
+            PriceComparisonForm pcForm = new PriceComparisonForm();
+            pcForm.Show();
             //this.listBox_src.DataSource = AppStockData.getInstance().m_srcList.stocks;
             //bindList_src = new BindingList<string>(AppStockData.getInstance().m_srcList.stocks);
             //this.listBox_src.DataSource = bindList_src;

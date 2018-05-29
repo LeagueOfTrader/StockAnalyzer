@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockAnalyzer.DataSource
 {
-    class StockDataCenter : Singleton<StockDataCenter>
+    public class StockDataCenter : Singleton<StockDataCenter>
     {
         public StockMarketData getMarketData(string stockID)
         {

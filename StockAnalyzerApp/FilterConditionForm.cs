@@ -195,6 +195,30 @@ namespace StockAnalyzerApp
                 item = new AppFilterItem(AppFilterType.FLTT_STStocks);
                 AppStockFilter.getInstance().addCondition(item);
             }
+
+            if (checkBox_holdercount.Checked)
+            {
+                if (radioButton_holdercount_decrease.Checked)
+                {
+                    subType = 0;
+                    if (checkBox_holdercount_allowinvariant.Checked)
+                    {
+                        param2 = true.ToString();
+                    }
+                    else
+                    {
+                        param2 = false.ToString();
+                    }
+                }
+                else if (radioButton_holdercount_accumratio.Checked)
+                {
+                    subType = 1;
+                    param2 = textBox_holdercount_ratio.Text;
+                }
+                param1 = double.Parse(textBox_holdercount_quarters.Text);
+                item = new AppFilterItem(AppFilterType.FLTT_HolderCount, subType, param1, param2);
+                AppStockFilter.getInstance().addCondition(item);
+            }
         }
 
         private void button_filter_cancel_Click(object sender, EventArgs e)

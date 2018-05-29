@@ -18,6 +18,7 @@ namespace StockAnalyzerApp.AppFilter
         FLTT_InIndustry,
         FLTT_PriceScale,
         FLTT_Distrib,
+        FLTT_HolderCount,
         FLTT_ExcludeIndustry,
         FLTT_IncludeIndustry,
         FLTT_STStocks
@@ -46,6 +47,12 @@ namespace StockAnalyzerApp.AppFilter
         IIFST_PEDynamic,
         IIFST_ROE,
         IIFST_NetProfitRatio
+    }
+
+    enum AppHolderCountFilterSubType
+    {
+        HCFST_Decrease,
+        HCFST_AccumRatio
     }
 
     class AppFilterItem
@@ -102,6 +109,33 @@ namespace StockAnalyzerApp.AppFilter
                     List<string> industries = new List<string>();
                     industries.AddRange(arr);
                     filter = new IndustryIncludeFilter(industries);
+                    break;
+                case AppFilterType.FLTT_HolderCount:
+                    filter = generateHolderCountFilter();
+                    break;
+                default:
+                    break;
+            }
+
+            return filter;
+        }
+
+        protected IStockFilter generateHolderCountFilter()
+        {
+            IStockFilter filter = null;
+            AppHolderCountFilterSubType hcfType = (AppHolderCountFilterSubType)m_subType;
+            string year = GlobalConfig.getInstance().curYear;
+            string quarter = GlobalConfig.getInstance().curQuarter;
+            int continousQuarter = (int)m_param1;
+            switch (hcfType)
+            {
+                case AppHolderCountFilterSubType.HCFST_AccumRatio:
+                    double ratio = double.Parse(m_param2);
+                    filter = new HolderChangeRatioFilter(year, quarter, ratio, continousQuarter);
+                    break;
+                case AppHolderCountFilterSubType.HCFST_Decrease:
+                    bool allowInvariant = bool.Parse(m_param2);
+                    filter = new HolderCountTrendFilter(year, quarter, continousQuarter, allowInvariant);
                     break;
                 default:
                     break;
@@ -210,6 +244,7 @@ namespace StockAnalyzerApp.AppFilter
                                                         AppFilterType.FLTT_PE,
                                                         AppFilterType.FLTT_ROE,
                                                         AppFilterType.FLTT_NetProfitRatio,
+                                                        AppFilterType.FLTT_HolderCount,
                                                         AppFilterType.FLTT_Cost,
                                                         AppFilterType.FLTT_PriceScale,
                                                         AppFilterType.FLTT_Distrib,

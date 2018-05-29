@@ -238,5 +238,43 @@ namespace StockAnalyzer.DataSource.TushareData
 
             return data;
         }
+
+        public static StockHolderData parseStockHolderData(List<string> src)
+        {
+            StockHolderData data = null;
+            try
+            {
+                data = new StockHolderData();
+                data.code = src[0];
+                data.holders_count = int.Parse(src[1]);
+                if (src[2].Equals("不变"))
+                {
+                    data.count_chg = 0;
+                }
+                else
+                {
+                    string strChg = src[2].Substring(0, src[2].Length - 1);
+                    data.count_chg = double.Parse(strChg);                    
+                }
+                string str10ThousandStocks = "万股";
+                string strStocks = src[3].Substring(0, src[3].Length - str10ThousandStocks.Length);
+                data.avg_stocks = int.Parse(strStocks);
+                if (src[4].Equals("不变"))
+                {
+                    data.avg_stocks_chg = 0;
+                }
+                else
+                {
+                    string strChg = src[4].Substring(0, src[4].Length - 1);
+                    data.avg_stocks_chg = double.Parse(strChg);
+                }
+            }
+            catch(Exception e)
+            {
+                //
+            }
+
+            return data;
+        }
     }
 }

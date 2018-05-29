@@ -88,4 +88,14 @@ namespace StockAnalyzer.DataSource.TushareData
         public double forecast_chg_floor;
         public double forecast_chg_ceil;
     }
+
+    public class StockHolderData
+    {
+        public string code;
+        public string date;
+        public int holders_count;
+        public double count_chg;
+        public int avg_stocks;
+        public double avg_stocks_chg;
+    }
 }

@@ -130,5 +130,36 @@ namespace StockAnalyzer.Util
 
             return (sy == ty && sm == tm && sd == td);
         }
+
+        public static void getNextQuarter(string srcYear, string srcQuarter, out string targetYear, out string targetQuarter)
+        {
+            if (srcQuarter == "4")
+            {
+                int ty = int.Parse(srcYear) + 1;
+                targetYear = ty.ToString();
+                targetQuarter = "1";
+                return;
+            }
+
+            int tq = int.Parse(srcQuarter) + 1;
+            targetYear = srcYear;
+            targetQuarter = tq.ToString();
+        }
+
+        public static void getPrevQuarter(string srcYear, string srcQuarter, out string targetYear, out string targetQuarter)
+        {
+            if (srcQuarter == "1")
+            {
+                int ty = int.Parse(srcYear) - 1;
+                targetYear = ty.ToString();
+                targetQuarter = "4";
+                return;
+            }
+
+            int tq = int.Parse(srcQuarter) - 1;
+            targetYear = srcYear;
+            targetQuarter = tq.ToString();
+        }
+
     }
 }

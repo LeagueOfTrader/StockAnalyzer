@@ -87,5 +87,18 @@ namespace StockAnalyzer.DataSource.TushareData
             }
             return null;
         }
+
+        public StockHolderData getStockHolderData(string stockID, string year, string season)
+        {
+            string table = "stock_stockholder_" + year + "q" + season;
+            string code = StockIDUtil.getPureCode(stockID);
+            string sql = "select * from " + table + " where code='" + code + "'";
+            List<string> rs = MySqlDBReader.querySql(sql);
+            if (rs != null && rs.Count > 0)
+            {
+                return TushareDataConvertor.parseStockHolderData(rs);
+            }
+            return null;
+        }
     }
 }

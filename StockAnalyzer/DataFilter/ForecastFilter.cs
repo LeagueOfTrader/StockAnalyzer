@@ -39,7 +39,7 @@ namespace StockAnalyzer.DataFilter
         {
             string ty = null;
             string tq = null;
-            StockDataUtil.getNextQuarter(year, season, out ty, out tq);
+            DateUtil.getNextQuarter(year, season, out ty, out tq);
 
             type = StockPerformanceForecastType.PFT_Alert;
 
