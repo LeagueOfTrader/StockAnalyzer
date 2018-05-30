@@ -28,12 +28,13 @@ namespace StockAnalyzerApp.AppPriceComparison
         {
             base.init(date);
 
-            string industryName = StockPool.getInstance().getStockIndustry(m_code);
-            StockDataCache.getInstance().getAvgValInIndustry("PE", industryName, out m_peIndustry);
-            StockDataCache.getInstance().getAvgValInIndustry("ROE", industryName, out m_roeIndustry);
-
             string year = GlobalConfig.getInstance().curYear;
             string quarter = GlobalConfig.getInstance().curQuarter;
+            AvgValInIndustryFilter peAvgFlt = new AvgValInIndustryFilter(new PEFilter(0.0), 0.0);
+            peAvgFlt.calcAvgValInIndustry(m_code, out m_peIndustry);
+            AvgValInIndustryFilter roeAvgFlt = new AvgValInIndustryFilter(new ROEFilter(year, quarter, 0.0), 0.0);
+            roeAvgFlt.calcAvgValInIndustry(m_code, out m_roeIndustry);
+
             m_roe = ROEFilter.getStockROE(m_code, year, quarter);
         }
 
