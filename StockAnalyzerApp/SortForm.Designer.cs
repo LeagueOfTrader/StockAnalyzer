@@ -30,6 +30,9 @@
         {
             this.groupBox_sort_type = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox_pricescale_refdate = new System.Windows.Forms.TextBox();
+            this.radioButton_sort_pricescale = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_spec_quarter = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,9 +43,6 @@
             this.radioButton_sort_cost_dynamic = new System.Windows.Forms.RadioButton();
             this.radioButton_sort_cost_annual = new System.Windows.Forms.RadioButton();
             this.button_sort_ok = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox_pricescale_refdate = new System.Windows.Forms.TextBox();
-            this.radioButton_sort_pricescale = new System.Windows.Forms.RadioButton();
             this.groupBox_sort_type.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +76,34 @@
             this.panel1.Size = new System.Drawing.Size(459, 255);
             this.panel1.TabIndex = 0;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(185, 182);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "日期：";
+            // 
+            // textBox_pricescale_refdate
+            // 
+            this.textBox_pricescale_refdate.Location = new System.Drawing.Point(232, 178);
+            this.textBox_pricescale_refdate.Name = "textBox_pricescale_refdate";
+            this.textBox_pricescale_refdate.Size = new System.Drawing.Size(102, 21);
+            this.textBox_pricescale_refdate.TabIndex = 10;
+            this.textBox_pricescale_refdate.Text = "20180201";
+            // 
+            // radioButton_sort_pricescale
+            // 
+            this.radioButton_sort_pricescale.AutoSize = true;
+            this.radioButton_sort_pricescale.Location = new System.Drawing.Point(23, 179);
+            this.radioButton_sort_pricescale.Name = "radioButton_sort_pricescale";
+            this.radioButton_sort_pricescale.Size = new System.Drawing.Size(83, 16);
+            this.radioButton_sort_pricescale.TabIndex = 9;
+            this.radioButton_sort_pricescale.TabStop = true;
+            this.radioButton_sort_pricescale.Text = "按相对价位";
+            this.radioButton_sort_pricescale.UseVisualStyleBackColor = true;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -87,7 +115,7 @@
             // 
             // textBox_spec_quarter
             // 
-            this.textBox_spec_quarter.Location = new System.Drawing.Point(361, 142);
+            this.textBox_spec_quarter.Location = new System.Drawing.Point(361, 146);
             this.textBox_spec_quarter.Name = "textBox_spec_quarter";
             this.textBox_spec_quarter.Size = new System.Drawing.Size(47, 21);
             this.textBox_spec_quarter.TabIndex = 7;
@@ -104,7 +132,7 @@
             // 
             // textBox_spec_year
             // 
-            this.textBox_spec_year.Location = new System.Drawing.Point(232, 143);
+            this.textBox_spec_year.Location = new System.Drawing.Point(232, 147);
             this.textBox_spec_year.Name = "textBox_spec_year";
             this.textBox_spec_year.Size = new System.Drawing.Size(47, 21);
             this.textBox_spec_year.TabIndex = 5;
@@ -173,34 +201,7 @@
             this.button_sort_ok.TabIndex = 1;
             this.button_sort_ok.Text = "确定";
             this.button_sort_ok.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(185, 182);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "日期：";
-            // 
-            // textBox_pricescale_refdate
-            // 
-            this.textBox_pricescale_refdate.Location = new System.Drawing.Point(232, 174);
-            this.textBox_pricescale_refdate.Name = "textBox_pricescale_refdate";
-            this.textBox_pricescale_refdate.Size = new System.Drawing.Size(102, 21);
-            this.textBox_pricescale_refdate.TabIndex = 10;
-            this.textBox_pricescale_refdate.Text = "20180201";
-            // 
-            // radioButton_sort_pricescale
-            // 
-            this.radioButton_sort_pricescale.AutoSize = true;
-            this.radioButton_sort_pricescale.Location = new System.Drawing.Point(23, 179);
-            this.radioButton_sort_pricescale.Name = "radioButton_sort_pricescale";
-            this.radioButton_sort_pricescale.Size = new System.Drawing.Size(83, 16);
-            this.radioButton_sort_pricescale.TabIndex = 9;
-            this.radioButton_sort_pricescale.TabStop = true;
-            this.radioButton_sort_pricescale.Text = "按相对价位";
-            this.radioButton_sort_pricescale.UseVisualStyleBackColor = true;
+            this.button_sort_ok.Click += new System.EventHandler(this.button_sort_ok_Click);
             // 
             // SortForm
             // 

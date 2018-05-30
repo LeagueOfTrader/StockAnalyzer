@@ -171,26 +171,66 @@ namespace StockAnalyzer.DataCache
             return ret;
         }
 
-        public double getLowestPriceFromDate(string stockID, string date)
+        public bool getLowestPriceFromDate(string stockID, string date, out double lowPrice)
         {
+            lowPrice = 0.0;
             string id = makeUpCacheIDWithDate(stockID, date);
             if (!m_lowestPriceCache.ContainsKey(id))
             {
-                double lowPrice = 0.0;
-                bool ret = PriceAnalyzer.getLowestPriceFromDate(stockID, date, out lowPrice);
-                if (!ret)
-                {
-                    return 0.0;
-                }
-                m_lowestPriceCache.Add(id, lowPrice);
+                return false;
             }
 
-            return m_lowestPriceCache[id];
+            lowPrice = m_lowestPriceCache[id];
+            return true;
         }
 
         private string makeUpCacheIDWithDate(string stockID, string date)
         {
             return stockID + "_" + date;
+        }
+
+        public bool getLowestPriceBetweenDate(string stockID, string beginDate, string endDate, out double lowPrice)
+        {
+            lowPrice = 0.0;
+            string id = makeUpCacheIDWithDate(stockID, beginDate, endDate);
+            if (!m_lowestPriceCache.ContainsKey(id))
+            {
+                return false;
+            }
+
+            lowPrice = m_lowestPriceCache[id];
+            return true;
+        }
+
+        private string makeUpCacheIDWithDate(string stockID, string beginDate, string endDate)
+        {
+            return stockID + "_" + beginDate + "_" + endDate;
+        }
+
+        public void setLowestPriceBetweenDate(string stockID, string beginDate, string endDate, double lowPrice)
+        {
+            string id = makeUpCacheIDWithDate(stockID, beginDate, endDate);
+            if (!m_lowestPriceCache.ContainsKey(id))
+            {
+                m_lowestPriceCache.Add(id, lowPrice);
+            }
+            else
+            {
+                m_lowestPriceCache[id] = lowPrice;
+            }
+        }
+
+        public void setLowestPriceFromDate(string stockID, string beginDate, double lowPrice)
+        {
+            string id = makeUpCacheIDWithDate(stockID, beginDate);
+            if (!m_lowestPriceCache.ContainsKey(id))
+            {
+                m_lowestPriceCache.Add(id, lowPrice);
+            }
+            else
+            {
+                m_lowestPriceCache[id] = lowPrice;
+            }
         }
     }
 }

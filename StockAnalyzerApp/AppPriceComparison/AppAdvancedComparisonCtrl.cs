@@ -24,9 +24,9 @@ namespace StockAnalyzerApp.AppPriceComparison
         {
         }
 
-        public override void init(string date)
+        public override void init(string beginDate, string endDate)
         {
-            base.init(date);
+            base.init(beginDate, endDate);
 
             string year = GlobalConfig.getInstance().curYear;
             string quarter = GlobalConfig.getInstance().curQuarter;
@@ -49,9 +49,10 @@ namespace StockAnalyzerApp.AppPriceComparison
     {
         public List<AppAdvancedCompareItem> m_compList = new List<AppAdvancedCompareItem>();
         
-        private string m_date = "20180201";
+        private string m_beginDate = "20180201";
+        private string m_endDate = "";
 
-        public void refresh(List<string> stocks, string date)
+        public void refresh(List<string> stocks, string beginDate, string endDate)
         {
             m_compList.Clear();
             foreach (string stockID in stocks)
@@ -60,7 +61,8 @@ namespace StockAnalyzerApp.AppPriceComparison
                 StockDataCenter.getInstance().subscribeMarketData(stockID);
                 m_compList.Add(item);
             }
-            m_date = date;
+            m_beginDate = beginDate;
+            m_endDate = endDate;
             reset();
         }
 
@@ -68,7 +70,7 @@ namespace StockAnalyzerApp.AppPriceComparison
         {
             foreach (AppAdvancedCompareItem item in m_compList) 
             {
-                item.init(m_date);
+                item.init(m_beginDate, m_endDate);
                 //
             }
         }

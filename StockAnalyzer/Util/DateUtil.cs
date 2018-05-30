@@ -47,9 +47,20 @@ namespace StockAnalyzer.Util
             return 0;
         }
 
-        public static bool isDateValid(string date) {
-            if (date.Length != 8) {
+        public static bool isDateValid(string date)
+        {
+            if (date == null || date.Length != 8)
+            {
                 return false;
+            }
+
+            for (int i = 0; i < date.Length; i++)
+            {
+                char c = date[i];
+                if (c < '0' || c > '9')
+                {
+                    return false;
+                }
             }
 
             return true;
@@ -161,5 +172,11 @@ namespace StockAnalyzer.Util
             targetQuarter = tq.ToString();
         }
 
+        public static string getTodayDate()
+        {
+            DateTime curTime = DateTime.Now;
+            string dateStr = string.Format("{0:D4}{1:D2}{2:D2}", curTime.Year, curTime.Month, curTime.Day);
+            return dateStr;
+        }
     }
 }

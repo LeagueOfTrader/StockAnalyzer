@@ -182,5 +182,35 @@ namespace StockAnalyzerApp
             AppStockUtil.removeItem(AppStockData.getInstance().m_srcList, val);
             refreshSrcList();
         }
+
+        private void button_src_clear_Click(object sender, EventArgs e)
+        {
+            AppStockData.getInstance().m_srcList.clear();
+            refreshSrcList();
+        }
+
+        private void button_select_clear_Click(object sender, EventArgs e)
+        {
+            AppStockData.getInstance().m_selfSelectedList.clear();
+            refreshSelfSelectList();
+        }
+
+        private void button_select_sort_Click(object sender, EventArgs e)
+        {
+            AppGlobalCache.getInstance().setTargetList(AppStockData.getInstance().m_selfSelectedList);
+            SortForm form = new SortForm();
+            form.ShowDialog();
+            AppGlobalCache.getInstance().setTargetList(null);
+            refreshSelfSelectList();
+        }
+
+        private void button_screen_sort_Click(object sender, EventArgs e)
+        {
+            AppGlobalCache.getInstance().setTargetList(AppStockData.getInstance().m_screenedList);
+            SortForm form = new SortForm();
+            form.ShowDialog();
+            AppGlobalCache.getInstance().setTargetList(null);
+            refreshScreenedList();
+        }
     }
 }

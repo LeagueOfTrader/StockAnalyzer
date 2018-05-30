@@ -90,6 +90,7 @@
     <Compile Include="DataModel\KLineDef.cs" />
     <Compile Include="DataModel\KLineMA.cs" />
     <Compile Include="DataModel\MovingAverage.cs" />
+    <Compile Include="DataSorter\SSDMPriceScale.cs" />
     <Compile Include="DataSorter\SSMDAnnualCostPerf.cs" />
     <Compile Include="DataSorter\SSMDSpecCostPerf.cs" />
     <Compile Include="DataSorter\SSMDYoyCostPerf.cs" />

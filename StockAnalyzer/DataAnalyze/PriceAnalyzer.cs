@@ -1,4 +1,5 @@
-﻿using StockAnalyzer.DataModel;
+﻿using StockAnalyzer.DataCache;
+using StockAnalyzer.DataModel;
 using StockAnalyzer.DataSource;
 using StockAnalyzer.Util;
 using System;
@@ -11,7 +12,7 @@ namespace StockAnalyzer.DataAnalyze
 {
     public class PriceAnalyzer
     {
-        public static double getPriceScale(List<StockKLine> data, double curPrice, string limitDate = "20000101") {
+        public static double getPriceScale(List<StockKLine> data, double curPrice, string beginDate = "20000101") {
 
             if (data.Count == 0) {
                 return 1.0;
@@ -20,7 +21,7 @@ namespace StockAnalyzer.DataAnalyze
             double ceil = 0.0;
             double floor = double.MaxValue;
             for (int i = 0; i < data.Count; i++) {
-                if (DateUtil.compareDate(data[i].date, limitDate) < 0) {
+                if (DateUtil.compareDate(data[i].date, beginDate) < 0) {
                     continue;
                 }
                 if (data[i].highestPrice > ceil) {
@@ -41,7 +42,7 @@ namespace StockAnalyzer.DataAnalyze
             return ret;
         }
 
-        public static double getPriceScale(List<StockKLineBaidu> data, double curPrice, string limitDate = "20000101")
+        public static double getPriceScale(List<StockKLineBaidu> data, double curPrice, string beginDate = "20000101")
         {
             if (data.Count == 0)
             {
@@ -52,7 +53,7 @@ namespace StockAnalyzer.DataAnalyze
             double floor = double.MaxValue;
             for (int i = 0; i < data.Count; i++)
             {
-                if (DateUtil.compareDate(data[i].date, limitDate) < 0)
+                if (DateUtil.compareDate(data[i].date, beginDate) < 0)
                 {
                     continue;
                 }
@@ -94,7 +95,7 @@ namespace StockAnalyzer.DataAnalyze
             return false;
         }
 
-        public static bool getPriceScaleFromDate(string stockID, string limitDate, out double ratio)
+        public static bool getPriceScaleFromDate(string stockID, string beginDate, out double ratio)
         {
             ratio = 0.0;
             StockMarketData md = StockDataCenter.getInstance().getMarketData(stockID);
@@ -111,12 +112,17 @@ namespace StockAnalyzer.DataAnalyze
                 return false;
             }
 
-            ratio = getPriceScale(arr, curPrice, limitDate);
+            ratio = getPriceScale(arr, curPrice, beginDate);
             return true;
         }
 
-        public static bool getLowestPriceFromDate(string stockID, string limitDate, out double lowestPrice)
+        public static bool getLowestPriceFromDate(string stockID, string beginDate, out double lowestPrice)
         {
+            if (StockDataCache.getInstance().getLowestPriceFromDate(stockID, beginDate, out lowestPrice))
+            {
+                return true;
+            }
+
             List<StockKLineBaidu> arr = StockDataCenter.getInstance().getKLineBaidu(stockID);
             lowestPrice = 0.0;
             if (arr == null || arr.Count == 0)
@@ -124,21 +130,47 @@ namespace StockAnalyzer.DataAnalyze
                 return false;
             }
 
-            lowestPrice = getLowestPrice(arr, limitDate);
+            lowestPrice = getLowestPrice(arr, beginDate);
+            StockDataCache.getInstance().setLowestPriceFromDate(stockID, beginDate, lowestPrice);
             return true;
         }
 
-        public static double getLowestPrice(List<StockKLineBaidu> data, string limitDate = "20000101")
+        public static bool getLowestPriceBetweenDate(string stockID, string beginDate, string endDate, out double lowestPrice)
+        {
+            if (StockDataCache.getInstance().getLowestPriceBetweenDate(stockID, beginDate, endDate, out lowestPrice))
+            {
+                return true;
+            }
+
+            List<StockKLineBaidu> arr = StockDataCenter.getInstance().getKLineBaidu(stockID);
+            lowestPrice = 0.0;
+            if (arr == null || arr.Count == 0)
+            {
+                return false;
+            }
+
+            lowestPrice = getLowestPrice(arr, beginDate, endDate);
+            StockDataCache.getInstance().setLowestPriceBetweenDate(stockID, beginDate, endDate, lowestPrice);
+            return true;
+        }
+
+        protected static double getLowestPrice(List<StockKLineBaidu> data, string beginDate = "20000101", string endDate = "")
         {
             if (data.Count == 0)
             {
                 return 0.0;
             }
 
+            if(endDate == "")
+            {
+                endDate = DateUtil.getTodayDate();
+            }
+
             double floor = double.MaxValue;
             for (int i = 0; i < data.Count; i++)
             {
-                if (DateUtil.compareDate(data[i].date, limitDate) < 0)
+                if (DateUtil.compareDate(data[i].date, beginDate) < 0 ||
+                    DateUtil.compareDate(data[i].date, endDate) > 0 )
                 {
                     continue;
                 }

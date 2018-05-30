@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.listBox_pricecomparison = new System.Windows.Forms.ListBox();
-            this.textBox_pricecomp_date = new System.Windows.Forms.TextBox();
+            this.textBox_pricecomp_begindate = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button_pricecomp_refresh = new System.Windows.Forms.Button();
             this.timer_pricecomparison = new System.Windows.Forms.Timer(this.components);
@@ -38,26 +37,17 @@
             this.columnHeader_lv_pc_code = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_lv_pc_curprice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_lv_pc_chg = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox_pricecomp_enddate = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // listBox_pricecomparison
+            // textBox_pricecomp_begindate
             // 
-            this.listBox_pricecomparison.FormattingEnabled = true;
-            this.listBox_pricecomparison.ItemHeight = 12;
-            this.listBox_pricecomparison.Location = new System.Drawing.Point(12, 55);
-            this.listBox_pricecomparison.MultiColumn = true;
-            this.listBox_pricecomparison.Name = "listBox_pricecomparison";
-            this.listBox_pricecomparison.Size = new System.Drawing.Size(361, 436);
-            this.listBox_pricecomparison.TabIndex = 0;
-            this.listBox_pricecomparison.Visible = false;
-            // 
-            // textBox_pricecomp_date
-            // 
-            this.textBox_pricecomp_date.Location = new System.Drawing.Point(83, 12);
-            this.textBox_pricecomp_date.Name = "textBox_pricecomp_date";
-            this.textBox_pricecomp_date.Size = new System.Drawing.Size(100, 21);
-            this.textBox_pricecomp_date.TabIndex = 1;
-            this.textBox_pricecomp_date.Text = "20180201";
+            this.textBox_pricecomp_begindate.Location = new System.Drawing.Point(83, 12);
+            this.textBox_pricecomp_begindate.Name = "textBox_pricecomp_begindate";
+            this.textBox_pricecomp_begindate.Size = new System.Drawing.Size(100, 21);
+            this.textBox_pricecomp_begindate.TabIndex = 1;
+            this.textBox_pricecomp_begindate.Text = "20180201";
             // 
             // label1
             // 
@@ -66,7 +56,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 2;
-            this.label1.Text = "参照日期：";
+            this.label1.Text = "起始日期：";
             // 
             // button_pricecomp_refresh
             // 
@@ -92,10 +82,10 @@
             this.columnHeader_lv_pc_chg});
             this.listView_pricecomp.FullRowSelect = true;
             this.listView_pricecomp.GridLines = true;
-            this.listView_pricecomp.Location = new System.Drawing.Point(12, 55);
+            this.listView_pricecomp.Location = new System.Drawing.Point(12, 70);
             this.listView_pricecomp.MultiSelect = false;
             this.listView_pricecomp.Name = "listView_pricecomp";
-            this.listView_pricecomp.Size = new System.Drawing.Size(361, 436);
+            this.listView_pricecomp.Size = new System.Drawing.Size(361, 421);
             this.listView_pricecomp.TabIndex = 4;
             this.listView_pricecomp.UseCompatibleStateImageBehavior = false;
             this.listView_pricecomp.View = System.Windows.Forms.View.Details;
@@ -112,16 +102,33 @@
             // 
             this.columnHeader_lv_pc_chg.Text = "涨幅";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "截止日期：";
+            // 
+            // textBox_pricecomp_enddate
+            // 
+            this.textBox_pricecomp_enddate.Location = new System.Drawing.Point(83, 43);
+            this.textBox_pricecomp_enddate.Name = "textBox_pricecomp_enddate";
+            this.textBox_pricecomp_enddate.Size = new System.Drawing.Size(100, 21);
+            this.textBox_pricecomp_enddate.TabIndex = 5;
+            // 
             // PriceComparisonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(385, 507);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.textBox_pricecomp_enddate);
             this.Controls.Add(this.listView_pricecomp);
             this.Controls.Add(this.button_pricecomp_refresh);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox_pricecomp_date);
-            this.Controls.Add(this.listBox_pricecomparison);
+            this.Controls.Add(this.textBox_pricecomp_begindate);
             this.Name = "PriceComparisonForm";
             this.Text = "价位对比";
             this.ResumeLayout(false);
@@ -130,9 +137,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox listBox_pricecomparison;
-        private System.Windows.Forms.TextBox textBox_pricecomp_date;
+        private System.Windows.Forms.TextBox textBox_pricecomp_begindate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_pricecomp_refresh;
         private System.Windows.Forms.Timer timer_pricecomparison;
@@ -140,5 +145,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader_lv_pc_code;
         private System.Windows.Forms.ColumnHeader columnHeader_lv_pc_curprice;
         private System.Windows.Forms.ColumnHeader columnHeader_lv_pc_chg;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox_pricecomp_enddate;
     }
 }

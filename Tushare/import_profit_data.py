@@ -15,6 +15,8 @@ import math
 
 from sqlalchemy import create_engine
 import conf as config
+
+isPy3 = (sys.version_info[0] >= 3)
 	
 def get_profit_data(year, season):
 	frame = ts.get_profit_data(year, season)
@@ -26,7 +28,7 @@ def get_profit_data(year, season):
 	cursor.execute(createDBSql)
 	for i in range(0, len(frame)):		
 		prefix = 'insert into ' + table_name + '(code, name, roe, net_profit_ratio, gross_profit_rate, net_profits, eps, business_income, bips) select \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\' from dual where not exists (select * from ' + table_name + ' where code = \'%s\')'
-		sql = prefix % (frame['code'][i], str(frame['name'][i]), str(frame['roe'][i]), str(frame['net_profit_ratio'][i]), str(frame['gross_profit_rate'][i]), str(frame['net_profits'][i]), str(frame['eps'][i]), str(frame['business_income'][i]), str(frame['bips'][i]), frame['code'][i])
+		sql = prefix % (frame['code'][i], frame['name'][i], str(frame['roe'][i]), str(frame['net_profit_ratio'][i]), str(frame['gross_profit_rate'][i]), str(frame['net_profits'][i]), str(frame['eps'][i]), str(frame['business_income'][i]), str(frame['bips'][i]), frame['code'][i])
 		cursor.execute(sql)
 		db.commit()
 		print(frame['name'][i])
@@ -51,5 +53,8 @@ def get_all_profits_data():
 				get_profit_data(year, season)
 			
 #get_profit_data(2018, 1)
+if isPy3 == False:
+	reload(sys) 
+	sys.setdefaultencoding('utf-8')
 get_all_profits_data()
 	

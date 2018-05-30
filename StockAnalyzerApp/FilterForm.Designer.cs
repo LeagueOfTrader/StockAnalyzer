@@ -58,6 +58,8 @@
             this.button_screen = new System.Windows.Forms.Button();
             this.button_move_to_src = new System.Windows.Forms.Button();
             this.button_add_to_select = new System.Windows.Forms.Button();
+            this.button_src_clear = new System.Windows.Forms.Button();
+            this.button_select_clear = new System.Windows.Forms.Button();
             this.appStockListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -86,6 +88,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button_src_clear);
             this.groupBox1.Controls.Add(this.button_src_defaultAll);
             this.groupBox1.Controls.Add(this.label_src_count);
             this.groupBox1.Controls.Add(this.label1);
@@ -203,6 +206,7 @@
             this.button_screen_sort.TabIndex = 7;
             this.button_screen_sort.Text = "排序";
             this.button_screen_sort.UseVisualStyleBackColor = true;
+            this.button_screen_sort.Click += new System.EventHandler(this.button_screen_sort_Click);
             // 
             // button_screen_remove
             // 
@@ -245,6 +249,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button_select_clear);
             this.groupBox3.Controls.Add(this.label_select_count);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.button_select_sort);
@@ -287,6 +292,7 @@
             this.button_select_sort.TabIndex = 8;
             this.button_select_sort.Text = "排序";
             this.button_select_sort.UseVisualStyleBackColor = true;
+            this.button_select_sort.Click += new System.EventHandler(this.button_select_sort_Click);
             // 
             // button_select_remove
             // 
@@ -367,6 +373,26 @@
             this.button_add_to_select.UseVisualStyleBackColor = true;
             this.button_add_to_select.Click += new System.EventHandler(this.button_add_to_select_Click);
             // 
+            // button_src_clear
+            // 
+            this.button_src_clear.Location = new System.Drawing.Point(170, 187);
+            this.button_src_clear.Name = "button_src_clear";
+            this.button_src_clear.Size = new System.Drawing.Size(50, 23);
+            this.button_src_clear.TabIndex = 8;
+            this.button_src_clear.Text = "清空";
+            this.button_src_clear.UseVisualStyleBackColor = true;
+            this.button_src_clear.Click += new System.EventHandler(this.button_src_clear_Click);
+            // 
+            // button_select_clear
+            // 
+            this.button_select_clear.Location = new System.Drawing.Point(170, 187);
+            this.button_select_clear.Name = "button_select_clear";
+            this.button_select_clear.Size = new System.Drawing.Size(50, 23);
+            this.button_select_clear.TabIndex = 11;
+            this.button_select_clear.Text = "清空";
+            this.button_select_clear.UseVisualStyleBackColor = true;
+            this.button_select_clear.Click += new System.EventHandler(this.button_select_clear_Click);
+            // 
             // appStockListBindingSource
             // 
             this.appStockListBindingSource.DataSource = typeof(StockAnalyzerApp.AppData.AppStockList);
@@ -427,6 +453,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.BindingSource appStockListBindingSource;
         private System.Windows.Forms.Button button_src_defaultAll;
+        private System.Windows.Forms.Button button_src_clear;
+        private System.Windows.Forms.Button button_select_clear;
     }
 }
 
