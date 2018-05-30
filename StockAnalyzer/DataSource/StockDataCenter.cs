@@ -1,5 +1,6 @@
 ﻿using StockAnalyzer.Common;
 using StockAnalyzer.DataModel;
+using StockAnalyzer.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,25 @@ namespace StockAnalyzer.DataSource
 {
     public class StockDataCenter : Singleton<StockDataCenter>
     {
-        Dictionary<string, StockMarketData> m_marketData = new Dictionary<string, StockMarketData>();
+        Dictionary<string, StockRealTimeData> m_realTimeData = new Dictionary<string, StockRealTimeData>();
         Dictionary<string, StockMarketDataUpdater> m_dataUpdaters = new Dictionary<string, StockMarketDataUpdater>();
 
         public StockMarketData getMarketData(string stockID)
         {
-            if (m_marketData.ContainsKey(stockID))
+            String mdStr = StockDataCollector.queryMarketData(stockID);
+            StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
+
+            return md;
+        }
+
+        public StockRealTimeData getMarketRealTimeData(string stockID)
+        {
+            if (m_realTimeData.ContainsKey(stockID))
             {
-                return m_marketData[stockID];
+                return m_realTimeData[stockID];
             }
 
-            return queryMarketData(stockID);
+            return null;
         }
 
         public StockFinanceData getFinanceData(string stockID)
@@ -55,17 +64,20 @@ namespace StockAnalyzer.DataSource
             return arr;
         }
 
-        public StockMarketData queryMarketData(string stockID)
+        public StockRealTimeData queryRealTimeData(string stockID)
         {
-            String mdStr = StockDataCollector.queryMarketData(stockID);
-            StockMarketData md = StockDataConvertor.parseMarketData(mdStr);
-
-            return md;
+            String str = StockDataCollector.queryMarketRealTimeDataSina(stockID);
+            StockRealTimeData rd = StockDataConvertor.parseRealTimeData(str);
+            if (rd != null)
+            {
+                rd.stockCode = StockIDUtil.getPureCode(stockID);
+            }
+            return rd;
         }
 
-        public void assignMarketData(string stockID, StockMarketData data)
+        public void assignRealTimeData(string stockID, StockRealTimeData data)
         {
-            m_marketData[stockID] = data;
+            m_realTimeData[stockID] = data;
         }
 
         public void subscribeMarketData(string stockID)

@@ -1,5 +1,7 @@
 ﻿using StockAnalyzer.DataSource;
 using StockAnalyzerApp.AppData;
+using StockAnalyzerApp.AppGlobal;
+using StockAnalyzerApp.AppUtil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,6 +32,24 @@ namespace StockAnalyzerApp
             l.Text = arr.Count.ToString();
         }
 
+        private void refreshSrcList()
+        {
+            refreshListBox(listBox_src, AppStockData.getInstance().m_srcList.stocks);
+            refreshListCount(label_src_count, AppStockData.getInstance().m_srcList.stocks);
+        }
+
+        private void refreshScreenedList()
+        {
+            refreshListBox(listBox_screened, AppStockData.getInstance().m_screenedList.stocks);
+            refreshListCount(label_screen_count, AppStockData.getInstance().m_screenedList.stocks);
+        }
+
+        private void refreshSelfSelectList()
+        {
+            refreshListBox(listBox_selfSelect, AppStockData.getInstance().m_selfSelectedList.stocks);
+            refreshListCount(label_select_count, AppStockData.getInstance().m_selfSelectedList.stocks);
+        }
+
         public FilterForm()
         {
             InitializeComponent();
@@ -43,29 +63,25 @@ namespace StockAnalyzerApp
 
         public void onFilterFinish()
         {
-            refreshListBox(listBox_screened, AppStockData.getInstance().m_screenedList.stocks);
-            refreshListCount(label_screen_count, AppStockData.getInstance().m_screenedList.stocks);
+            refreshScreenedList();
         }
 
         private void button_move_to_src_Click(object sender, EventArgs e)
         {
             AppStockData.getInstance().m_srcList.copy(AppStockData.getInstance().m_screenedList);
-            refreshListBox(listBox_src, AppStockData.getInstance().m_srcList.stocks);
-            refreshListCount(label_src_count, AppStockData.getInstance().m_srcList.stocks);
+            refreshSrcList();
         }
 
         private void button_add_to_select_Click(object sender, EventArgs e)
         {
             AppStockData.getInstance().m_selfSelectedList.append(AppStockData.getInstance().m_screenedList);
-            refreshListBox(listBox_selfSelect, AppStockData.getInstance().m_selfSelectedList.stocks);
-            refreshListCount(label_select_count, AppStockData.getInstance().m_selfSelectedList.stocks);
+            refreshSelfSelectList();
         }
 
         private void button_load_select_Click(object sender, EventArgs e)
         {
             AppStockData.getInstance().m_selfSelectedList.load("Intermediate/optional_stocks.txt");
-            refreshListBox(listBox_selfSelect, AppStockData.getInstance().m_selfSelectedList.stocks);
-            refreshListCount(label_select_count, AppStockData.getInstance().m_selfSelectedList.stocks);
+            refreshSelfSelectList();
         }
 
         private void button_save_select_Click(object sender, EventArgs e)
@@ -80,13 +96,8 @@ namespace StockAnalyzerApp
             {
                 string filepath = dlg.FileName;
                 AppStockData.getInstance().m_srcList.load(filepath);
-                //foreach(string stockID in AppStockData.getInstance().m_srcList.stocks)
-                //{
-                //    this.listBox_src.Items.Add(stockID);
-                //}
 
-                refreshListBox(listBox_src, AppStockData.getInstance().m_srcList.stocks);
-                refreshListCount(label_src_count, AppStockData.getInstance().m_srcList.stocks);
+                refreshSrcList();
             }
         }
 
@@ -121,8 +132,55 @@ namespace StockAnalyzerApp
         private void button_src_defaultAll_Click(object sender, EventArgs e)
         {
             AppStockData.getInstance().m_srcList.copy(StockPool.getInstance().getAllStocks());
-            refreshListBox(listBox_src, AppStockData.getInstance().m_srcList.stocks);
-            refreshListCount(label_src_count, AppStockData.getInstance().m_srcList.stocks);
+            refreshSrcList();
+        }        
+
+        private void button_select_remove_Click(object sender, EventArgs e)
+        {
+            string val = (string)listBox_selfSelect.SelectedItem;
+            AppStockUtil.removeItem(AppStockData.getInstance().m_selfSelectedList, val);
+            refreshSelfSelectList();
+        }
+
+        private void button_screen_remove_Click(object sender, EventArgs e)
+        {
+            string val = (string)listBox_screened.SelectedItem;
+            AppStockUtil.removeItem(AppStockData.getInstance().m_screenedList, val);
+            refreshScreenedList();
+        }
+
+        private void button_add_src_Click(object sender, EventArgs e)
+        {
+            AppGlobalCache.getInstance().setTargetList(AppStockData.getInstance().m_srcList);
+            AddStockForm addForm = new AddStockForm();
+            addForm.ShowDialog();
+            AppGlobalCache.getInstance().setTargetList(null);
+            refreshSrcList();
+        }
+
+        private void button_screen_add_Click(object sender, EventArgs e)
+        {
+            AppGlobalCache.getInstance().setTargetList(AppStockData.getInstance().m_screenedList);
+            AddStockForm addForm = new AddStockForm();
+            addForm.ShowDialog();
+            AppGlobalCache.getInstance().setTargetList(null);
+            refreshScreenedList();
+        }
+
+        private void button_select_add_Click(object sender, EventArgs e)
+        {
+            AppGlobalCache.getInstance().setTargetList(AppStockData.getInstance().m_selfSelectedList);
+            AddStockForm addForm = new AddStockForm();
+            addForm.ShowDialog();
+            AppGlobalCache.getInstance().setTargetList(null);
+            refreshSelfSelectList();
+        }
+
+        private void button_remove_src_Click(object sender, EventArgs e)
+        {
+            string val = (string)listBox_src.SelectedItem;
+            AppStockUtil.removeItem(AppStockData.getInstance().m_srcList, val);
+            refreshSrcList();
         }
     }
 }

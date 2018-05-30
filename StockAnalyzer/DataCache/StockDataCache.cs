@@ -1,13 +1,15 @@
 ﻿using StockAnalyzer.Common;
+using StockAnalyzer.DataAnalyze;
+using StockAnalyzer.DataFilter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockAnalyzer.DataFilter.DataCache
+namespace StockAnalyzer.DataCache
 {
-    class StockDataCache : Singleton<StockDataCache>
+    public class StockDataCache : Singleton<StockDataCache>
     {
         Dictionary<string, double> m_annualCostPerfCache = new Dictionary<string, double>();
         Dictionary<string, string> m_bestAnnualCostPerfYear = new Dictionary<string, string>();
@@ -22,6 +24,8 @@ namespace StockAnalyzer.DataFilter.DataCache
         Dictionary<string, string> m_bestYoyCostPerfQuarter = new Dictionary<string, string>();
 
         Dictionary<string, Dictionary<string, double>> m_avgValInIndustry = new Dictionary<string, Dictionary<string, double>>();
+
+        Dictionary<string, double> m_lowestPriceCache = new Dictionary<string, double>();
 
         public double getMaxAnnualCostRefValueBefore(string stockID, string year)
         {
@@ -165,6 +169,28 @@ namespace StockAnalyzer.DataFilter.DataCache
             }
 
             return ret;
+        }
+
+        public double getLowestPriceFromDate(string stockID, string date)
+        {
+            string id = makeUpCacheIDWithDate(stockID, date);
+            if (!m_lowestPriceCache.ContainsKey(id))
+            {
+                double lowPrice = 0.0;
+                bool ret = PriceAnalyzer.getLowestPriceFromDate(stockID, date, out lowPrice);
+                if (!ret)
+                {
+                    return 0.0;
+                }
+                m_lowestPriceCache.Add(id, lowPrice);
+            }
+
+            return m_lowestPriceCache[id];
+        }
+
+        private string makeUpCacheIDWithDate(string stockID, string date)
+        {
+            return stockID + "_" + date;
         }
     }
 }

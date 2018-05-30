@@ -1,4 +1,7 @@
-﻿using System;
+﻿using StockAnalyzer.Util;
+using StockAnalyzerApp.AppGlobal;
+using StockAnalyzerApp.AppUtil;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +18,25 @@ namespace StockAnalyzerApp
         public AddStockForm()
         {
             InitializeComponent();
+        }
+
+        private void button_add_ok_Click(object sender, EventArgs e)
+        {
+            string code = textBox_addstock_name.Text;
+            if (!StockIDUtil.isValidCode(code))
+            {
+                if (!StockIDUtil.isValidPureCode(code))
+                {
+                    MessageBox.Show("无效的股票代码！");
+                    this.Close();
+                    return;
+                }
+
+                code = StockIDUtil.complementCode(code);
+            }
+
+            AppStockUtil.addItem(AppGlobalCache.getInstance().getTargetList(), code);
+            this.Close();
         }
     }
 }

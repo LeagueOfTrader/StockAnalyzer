@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_addstock_name = new System.Windows.Forms.TextBox();
             this.button_add_ok = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBox_addstock_name
             // 
-            this.textBox1.Location = new System.Drawing.Point(29, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(96, 21);
-            this.textBox1.TabIndex = 0;
+            this.textBox_addstock_name.Location = new System.Drawing.Point(29, 25);
+            this.textBox_addstock_name.Name = "textBox_addstock_name";
+            this.textBox_addstock_name.Size = new System.Drawing.Size(96, 21);
+            this.textBox_addstock_name.TabIndex = 0;
             // 
             // button_add_ok
             // 
@@ -47,6 +47,7 @@
             this.button_add_ok.TabIndex = 1;
             this.button_add_ok.Text = "确定";
             this.button_add_ok.UseVisualStyleBackColor = true;
+            this.button_add_ok.Click += new System.EventHandler(this.button_add_ok_Click);
             // 
             // AddStockForm
             // 
@@ -54,7 +55,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(252, 73);
             this.Controls.Add(this.button_add_ok);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBox_addstock_name);
             this.Name = "AddStockForm";
             this.Text = "添加";
             this.ResumeLayout(false);
@@ -64,7 +65,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_addstock_name;
         private System.Windows.Forms.Button button_add_ok;
     }
 }

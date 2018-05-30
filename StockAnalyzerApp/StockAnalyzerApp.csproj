@@ -58,7 +58,9 @@
     <Compile Include="AppData\AppStockList.cs" />
     <Compile Include="AppFilter\AppFilterCondition.cs" />
     <Compile Include="AppFilter\AppStockFilter.cs" />
+    <Compile Include="AppGlobal\AppGlobalCache.cs" />
     <Compile Include="AppPriceComparison\AppPriceCompareCtrl.cs" />
+    <Compile Include="AppUtil\AppStockUtil.cs" />
     <Compile Include="FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,9 +132,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AppGlobal\" />
     <Folder Include="AppSorter\" />
-    <Folder Include="AppUtil\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

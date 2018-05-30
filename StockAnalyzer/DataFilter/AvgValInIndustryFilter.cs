@@ -1,4 +1,4 @@
-﻿using StockAnalyzer.DataFilter.DataCache;
+﻿using StockAnalyzer.DataCache;
 using StockAnalyzer.DataSource;
 using System;
 using System.Collections.Generic;

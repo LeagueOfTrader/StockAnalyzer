@@ -32,6 +32,7 @@
             this.listBox_src = new System.Windows.Forms.ListBox();
             this.button_import_src = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button_src_defaultAll = new System.Windows.Forms.Button();
             this.label_src_count = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button_remove_src = new System.Windows.Forms.Button();
@@ -57,7 +58,6 @@
             this.button_screen = new System.Windows.Forms.Button();
             this.button_move_to_src = new System.Windows.Forms.Button();
             this.button_add_to_select = new System.Windows.Forms.Button();
-            this.button_src_defaultAll = new System.Windows.Forms.Button();
             this.appStockListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -101,6 +101,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "候选列表";
             // 
+            // button_src_defaultAll
+            // 
+            this.button_src_defaultAll.Location = new System.Drawing.Point(170, 136);
+            this.button_src_defaultAll.Name = "button_src_defaultAll";
+            this.button_src_defaultAll.Size = new System.Drawing.Size(50, 23);
+            this.button_src_defaultAll.TabIndex = 7;
+            this.button_src_defaultAll.Text = "所有";
+            this.button_src_defaultAll.UseVisualStyleBackColor = true;
+            this.button_src_defaultAll.Click += new System.EventHandler(this.button_src_defaultAll_Click);
+            // 
             // label_src_count
             // 
             this.label_src_count.AutoSize = true;
@@ -128,6 +138,7 @@
             this.button_remove_src.TabIndex = 4;
             this.button_remove_src.Text = "删除";
             this.button_remove_src.UseVisualStyleBackColor = true;
+            this.button_remove_src.Click += new System.EventHandler(this.button_remove_src_Click);
             // 
             // button_add_src
             // 
@@ -137,6 +148,7 @@
             this.button_add_src.TabIndex = 3;
             this.button_add_src.Text = "添加";
             this.button_add_src.UseVisualStyleBackColor = true;
+            this.button_add_src.Click += new System.EventHandler(this.button_add_src_Click);
             // 
             // button_export_src
             // 
@@ -200,6 +212,7 @@
             this.button_screen_remove.TabIndex = 6;
             this.button_screen_remove.Text = "删除";
             this.button_screen_remove.UseVisualStyleBackColor = true;
+            this.button_screen_remove.Click += new System.EventHandler(this.button_screen_remove_Click);
             // 
             // button_screen_add
             // 
@@ -209,6 +222,7 @@
             this.button_screen_add.TabIndex = 5;
             this.button_screen_add.Text = "添加";
             this.button_screen_add.UseVisualStyleBackColor = true;
+            this.button_screen_add.Click += new System.EventHandler(this.button_screen_add_Click);
             // 
             // button_export_screened
             // 
@@ -282,6 +296,7 @@
             this.button_select_remove.TabIndex = 6;
             this.button_select_remove.Text = "删除";
             this.button_select_remove.UseVisualStyleBackColor = true;
+            this.button_select_remove.Click += new System.EventHandler(this.button_select_remove_Click);
             // 
             // button_select_add
             // 
@@ -291,6 +306,7 @@
             this.button_select_add.TabIndex = 5;
             this.button_select_add.Text = "添加";
             this.button_select_add.UseVisualStyleBackColor = true;
+            this.button_select_add.Click += new System.EventHandler(this.button_select_add_Click);
             // 
             // button_save_select
             // 
@@ -350,16 +366,6 @@
             this.button_add_to_select.Text = "加入==>";
             this.button_add_to_select.UseVisualStyleBackColor = true;
             this.button_add_to_select.Click += new System.EventHandler(this.button_add_to_select_Click);
-            // 
-            // button_src_defaultAll
-            // 
-            this.button_src_defaultAll.Location = new System.Drawing.Point(170, 136);
-            this.button_src_defaultAll.Name = "button_src_defaultAll";
-            this.button_src_defaultAll.Size = new System.Drawing.Size(50, 23);
-            this.button_src_defaultAll.TabIndex = 7;
-            this.button_src_defaultAll.Text = "所有";
-            this.button_src_defaultAll.UseVisualStyleBackColor = true;
-            this.button_src_defaultAll.Click += new System.EventHandler(this.button_src_defaultAll_Click);
             // 
             // appStockListBindingSource
             // 

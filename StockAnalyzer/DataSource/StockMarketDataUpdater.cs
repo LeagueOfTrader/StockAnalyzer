@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockAnalyzer.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,17 +26,7 @@ namespace StockAnalyzer.DataSource
 
         public void update(object sender, ElapsedEventArgs e)
         {
-            //if (m_timer != null)
-            //{
-            //    m_timer.Stop();
-            //}
-
-            queryMarketData();
-
-            //if (m_timer != null)
-            //{
-            //    m_timer.Start();
-            //}
+            queryMarketRealTimeData();
         }
 
         public void stop()
@@ -46,14 +37,14 @@ namespace StockAnalyzer.DataSource
             }
         }
 
-        private void queryMarketData()
+        private void queryMarketRealTimeData()
         {
             try
             {
-                StockMarketData md = StockDataCenter.getInstance().queryMarketData(m_stockID);
-                if (md != null)
-                {
-                    StockDataCenter.getInstance().assignMarketData(m_stockID, md);
+                StockRealTimeData rd = StockDataCenter.getInstance().queryRealTimeData(m_stockID);
+                if (rd != null)
+                {                 
+                    StockDataCenter.getInstance().assignRealTimeData(m_stockID, rd);
                 }
             }
             catch (Exception e)

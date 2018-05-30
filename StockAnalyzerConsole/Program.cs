@@ -63,8 +63,10 @@ namespace StockAnalyzerConsole
             StockPool.getInstance().init();
             OptionalStocks.getInstance().init();
 
-            double ratio = calcCostPerfInHistory("sh603067");
-            double r2 = calcCostPerfInHistory("sh600995");
+            //double ratio = calcCostPerfInHistory("sh603067");
+            //double r2 = calcCostPerfInHistory("sh600995");
+
+            StockRealTimeData rd = StockDataCenter.getInstance().queryRealTimeData("sz000662");
 
             while (true)
             {

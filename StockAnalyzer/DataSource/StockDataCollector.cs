@@ -13,6 +13,7 @@ namespace StockAnalyzer.DataSource
         static string m_marketDataUrl = "http://qt.gtimg.cn/q=";
         static string m_depthDataUrl = "http://qt.gtimg.cn/q=s_pk";
         static string m_fundFlowUrl = "http://qt.gtimg.cn/q=ff_";
+        static string m_marketRealTimeDataUrlSina = "http://hq.sinajs.cn/list=";
 
         static string m_timeLineUrl = "http://data.gtimg.cn/flashdata/hushen/minute/{0}.js";
         static string m_kLineUrl = "http://data.gtimg.cn/flashdata/hushen/latest/daily/{0}.js";
@@ -49,6 +50,11 @@ namespace StockAnalyzer.DataSource
         public static String queryFundFlowData(string stockID)
         {
             return httpGet(m_fundFlowUrl + stockID);
+        }
+
+        public static String queryMarketRealTimeDataSina(string stockID)
+        {
+            return httpGet(m_marketRealTimeDataUrlSina + stockID);
         }
 
         // transaction data

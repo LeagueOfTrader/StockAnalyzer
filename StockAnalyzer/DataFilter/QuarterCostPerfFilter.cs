@@ -1,5 +1,5 @@
 ﻿using StockAnalyzer.Assist;
-using StockAnalyzer.DataFilter.DataCache;
+using StockAnalyzer.DataCache;
 using StockAnalyzer.DataModel;
 using StockAnalyzer.DataSource;
 using StockAnalyzer.DataSource.TushareData;

@@ -54,7 +54,8 @@ namespace StockAnalyzer.DataSource
                 md.highestPrice = double.Parse(arr[33]);
                 md.lowestPrice = double.Parse(arr[34]);
                 //
-                md.turnoverVol = long.Parse(arr[36]);
+                //md.volume = long.Parse(arr[36]);
+                md.turnoverAmount = double.Parse(arr[37]);
                 if (arr[38].Length > 0)
                 {
                     md.exchangeRate = double.Parse(arr[38]);
@@ -74,6 +75,61 @@ namespace StockAnalyzer.DataSource
                 return md;
             }
             catch(Exception e)
+            {
+                return null;
+            }
+        }
+
+        public static StockRealTimeData parseRealTimeData(String str)
+        {
+            if(str == null)
+            {
+                return null;
+            }
+
+            int startIndex = str.IndexOf('\"');
+            int endIndex = str.LastIndexOf('\"');
+            string mainPartStr = str.Substring(startIndex, endIndex - startIndex + 1);
+            string[] arr = mainPartStr.Split(new char[] { ','});
+
+            if(arr.Length < 32)
+            {
+                return null;
+            }
+            try
+            {
+                StockRealTimeData data = new StockRealTimeData();
+                data.stockName = arr[0];
+                data.openPrice = double.Parse(arr[1]);
+                data.closePriceYesterday = double.Parse(arr[2]);
+                data.latestPrice = double.Parse(arr[3]);
+                data.highestPrice = double.Parse(arr[4]);
+                data.lowestPrice = double.Parse(arr[5]);
+                data.bidPrice = double.Parse(arr[6]);
+                data.askPrice = double.Parse(arr[7]);
+                data.volume = long.Parse(arr[8]);
+                data.turnoverAmount = double.Parse(arr[9]);
+
+                int index = 10;
+                for (int i = 0; i < 5; i++)
+                {
+                    data.bidList[i] = new BidOrderInfo();
+                    data.bidList[i].amount = long.Parse(arr[index++]);
+                    data.bidList[i].price = double.Parse(arr[index++]);                    
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    data.askList[i] = new BidOrderInfo();
+                    data.askList[i].amount = long.Parse(arr[index++]);
+                    data.askList[i].price = double.Parse(arr[index++]);                    
+                }
+
+                data.date = arr[30];
+                data.time = arr[31];
+
+                return data;
+            }
+            catch
             {
                 return null;
             }

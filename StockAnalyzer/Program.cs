@@ -103,12 +103,13 @@ namespace StockAnalyzer
             //}
 
             // #6
-            //string stockID = "sh600352";
-            //double curVal = CostPerfFilter.calcCurCostRefValue(stockID, "2018", "1");
-            //double refValByReport = CostPerfFilter.getMaxCostRefValueBefore(stockID, "2018", "1");
-            //double refValByAnnual = AnnualCostPerfFilter.getMaxAnnualCostRefValueBefore(stockID, "2018");
-            //double refVal = Math.Max(refValByReport, refValByAnnual);
-            //double ratio = curVal / refVal;
+            string stockID = "sz000034";
+            double curVal = CostPerfFilter.calcCurCostRefValue(stockID, "2018", "1");
+            int maxYearDyn = 0, maxQuarterDyn = 0, maxYearAnl = 0;
+            double refValByReport = CostPerfFilter.getMaxCostRefValueBefore(stockID, "2018", "1", out maxYearDyn, out maxQuarterDyn);
+            double refValByAnnual = AnnualCostPerfFilter.getMaxAnnualCostRefValueBefore(stockID, "2018", out maxYearAnl);
+            double refVal = Math.Max(refValByReport, refValByAnnual);
+            double ratio = curVal / refVal;
 
             // #7
             //List<string> selfSelectedList = OptionalStocks.getInstance().optionalStockList;
@@ -171,13 +172,15 @@ namespace StockAnalyzer
             //}
             //stocksSortByAnnual.Sort();
             //outputSortData(stocksSortByAnnual);
-            string stockID = "sh600703";
-            string str = StockDataCollector.queryKLineDataBaidu(stockID);
-            List<StockKLineBaidu> arr = StockDataConvertor.parseKLineArrayBaiduAdvanced(str);
-            int endIndex = StockDataUtil.getIndexByDate(arr, "20180426");
-            List<StockKLineBaidu> subArr = arr.GetRange(0, endIndex + 1);
-            Oversold2Day osp = new Oversold2Day();
-            bool ret = osp.isMatch(subArr);
+
+            // # temp
+            //string stockID = "sh600703";
+            //string str = StockDataCollector.queryKLineDataBaidu(stockID);
+            //List<StockKLineBaidu> arr = StockDataConvertor.parseKLineArrayBaiduAdvanced(str);
+            //int endIndex = StockDataUtil.getIndexByDate(arr, "20180426");
+            //List<StockKLineBaidu> subArr = arr.GetRange(0, endIndex + 1);
+            //Oversold2Day osp = new Oversold2Day();
+            //bool ret = osp.isMatch(subArr);
 
             while (true) {
                 Thread.Sleep(1000);

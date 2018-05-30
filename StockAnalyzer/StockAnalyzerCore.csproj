@@ -60,7 +60,7 @@
     <Compile Include="DataFilter\AvgValInIndustryFilter.cs" />
     <Compile Include="DataFilter\CostPerfFilter.cs" />
     <Compile Include="DataFilter\CostPerfYoyFilter.cs" />
-    <Compile Include="DataFilter\DataCache\StockDataCache.cs" />
+    <Compile Include="DataCache\StockDataCache.cs" />
     <Compile Include="DataFilter\DistribBonusFilter.cs" />
     <Compile Include="DataFilter\DynamicPEFilter.cs" />
     <Compile Include="DataFilter\EPSPerfFilter.cs" />

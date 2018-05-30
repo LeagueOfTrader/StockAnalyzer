@@ -1,5 +1,5 @@
 ﻿using StockAnalyzer.Assist;
-using StockAnalyzer.DataFilter.DataCache;
+using StockAnalyzer.DataCache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
