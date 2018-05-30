@@ -76,18 +76,7 @@ namespace StockAnalyzerApp.AppPriceComparison
         {
             foreach (AppAdvancedCompareItem item in m_compList) 
             {
-                StockRealTimeData rd = StockDataCenter.getInstance().getMarketRealTimeData(item.m_code);
-                if (rd != null)
-                {
-                    item.m_curPrice = rd.latestPrice;
-                }
-
-                if (item.m_lowestPrice > 0.0)
-                {
-                    item.calcChg();
-                }
-
-                //item.
+                item.update();
             }
         }
     }

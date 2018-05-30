@@ -65,6 +65,12 @@ namespace StockAnalyzerApp.AppPriceComparison
 
         public virtual void update()
         {
+            StockRealTimeData rd = StockDataCenter.getInstance().getMarketRealTimeData(m_code);
+            if (rd != null)
+            {
+                m_curPrice = rd.latestPrice;
+            }
+
             if (m_lowestPrice > 0.0)
             {
                 m_chgFromLowest = (m_curPrice - m_lowestPrice) / m_lowestPrice;
@@ -112,16 +118,7 @@ namespace StockAnalyzerApp.AppPriceComparison
         {
             foreach (AppPriceCompareItem item in m_priceCompList) //m_priceCompCollection)
             {
-                StockRealTimeData rd = StockDataCenter.getInstance().getMarketRealTimeData(item.m_code);
-                if (rd != null)
-                {
-                    item.m_curPrice = rd.latestPrice;
-                }
-
-                if (item.m_lowestPrice > 0.0)
-                {
-                    item.calcChg();
-                }
+                item.update();
             }
         }
     }
