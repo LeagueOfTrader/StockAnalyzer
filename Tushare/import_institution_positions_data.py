@@ -14,7 +14,7 @@ import sys
 import math
 import conf as config
 
-startYear = config.FROM_YEAR
+startYear = config.REPORT_YEAR - 1
 endYear = config.REPORT_YEAR
 endQuarter = config.REPORT_YEAR
 

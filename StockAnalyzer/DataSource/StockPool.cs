@@ -89,7 +89,8 @@ namespace StockAnalyzer.DataSource
                     List<string> stockList = new List<string>();
                     m_stocksInIndustry.Add(arr[2], stockList);
                 }
-                m_stocksInIndustry[arr[2]].Add(arr[0]);
+                string stockID = StockIDUtil.complementCode(arr[0]);
+                m_stocksInIndustry[arr[2]].Add(stockID);
             }
         }
 

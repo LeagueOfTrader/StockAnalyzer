@@ -21,7 +21,7 @@ namespace StockAnalyzer.DataFilter
             return calcDynamicPE(stockID, out val);
         }
 
-        public bool calcDynamicPE(string stockID, out double val)
+        public static bool calcDynamicPE(string stockID, out double val)
         {
             StockMarketData md = StockDataCenter.getInstance().getMarketData(stockID);
 
@@ -32,11 +32,18 @@ namespace StockAnalyzer.DataFilter
             val = 0.0;
             if (md != null && rd != null)
             {
-                val = md.latestPrice / rd.eps;
+                double profitVal = getEstimateProfitValue(rd.net_profits, quarter);
+                val = md.totalCapitalisation * 10000.0 / profitVal;
                 return true;
             }
 
             return false;
+        }
+
+        public static double getEstimateProfitValue(double profit, string quarter)
+        {
+            double quad = 4.0 / double.Parse(quarter);
+            return profit * quad;
         }
     }
 }

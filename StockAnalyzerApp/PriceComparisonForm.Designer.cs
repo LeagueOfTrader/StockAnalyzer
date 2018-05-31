@@ -39,6 +39,19 @@
             this.columnHeader_lv_pc_chg = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_pricecomp_enddate = new System.Windows.Forms.TextBox();
+            this.listView_advcomp = new System.Windows.Forms.ListView();
+            this.colHeader_advcomp_code = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_advcomp_price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_advcomp_chg = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_advcomp_roe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_advcomp_pe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_advcomp_ind_roe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_adv_ind_pe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_advcomp_npr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_advcomp_ind_npr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHead_cost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_cost_hist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader_cost_ratio = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // textBox_pricecomp_begindate
@@ -60,7 +73,7 @@
             // 
             // button_pricecomp_refresh
             // 
-            this.button_pricecomp_refresh.Location = new System.Drawing.Point(284, 10);
+            this.button_pricecomp_refresh.Location = new System.Drawing.Point(200, 12);
             this.button_pricecomp_refresh.Name = "button_pricecomp_refresh";
             this.button_pricecomp_refresh.Size = new System.Drawing.Size(75, 23);
             this.button_pricecomp_refresh.TabIndex = 3;
@@ -70,7 +83,7 @@
             // 
             // timer_pricecomparison
             // 
-            this.timer_pricecomparison.Interval = 500;
+            this.timer_pricecomparison.Interval = 1000;
             this.timer_pricecomparison.Tick += new System.EventHandler(this.timer_pricecomparison_Tick);
             // 
             // listView_pricecomp
@@ -118,11 +131,86 @@
             this.textBox_pricecomp_enddate.Size = new System.Drawing.Size(100, 21);
             this.textBox_pricecomp_enddate.TabIndex = 5;
             // 
+            // listView_advcomp
+            // 
+            this.listView_advcomp.AllowColumnReorder = true;
+            this.listView_advcomp.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colHeader_advcomp_code,
+            this.colHeader_advcomp_price,
+            this.colHeader_advcomp_chg,
+            this.colHeader_advcomp_pe,
+            this.colHeader_adv_ind_pe,
+            this.colHeader_advcomp_roe,
+            this.colHeader_advcomp_ind_roe,
+            this.colHeader_advcomp_npr,
+            this.colHeader_advcomp_ind_npr,
+            this.colHead_cost,
+            this.colHeader_cost_hist,
+            this.colHeader_cost_ratio});
+            this.listView_advcomp.FullRowSelect = true;
+            this.listView_advcomp.GridLines = true;
+            this.listView_advcomp.Location = new System.Drawing.Point(12, 69);
+            this.listView_advcomp.MultiSelect = false;
+            this.listView_advcomp.Name = "listView_advcomp";
+            this.listView_advcomp.Size = new System.Drawing.Size(728, 421);
+            this.listView_advcomp.TabIndex = 7;
+            this.listView_advcomp.UseCompatibleStateImageBehavior = false;
+            this.listView_advcomp.View = System.Windows.Forms.View.Details;
+            // 
+            // colHeader_advcomp_code
+            // 
+            this.colHeader_advcomp_code.Text = "代码";
+            // 
+            // colHeader_advcomp_price
+            // 
+            this.colHeader_advcomp_price.Text = "当前价";
+            // 
+            // colHeader_advcomp_chg
+            // 
+            this.colHeader_advcomp_chg.Text = "涨幅";
+            // 
+            // colHeader_advcomp_roe
+            // 
+            this.colHeader_advcomp_roe.Text = "ROE";
+            // 
+            // colHeader_advcomp_pe
+            // 
+            this.colHeader_advcomp_pe.Text = "PE";
+            // 
+            // colHeader_advcomp_ind_roe
+            // 
+            this.colHeader_advcomp_ind_roe.Text = "行业平均ROE";
+            // 
+            // colHeader_adv_ind_pe
+            // 
+            this.colHeader_adv_ind_pe.Text = "行业平均PE";
+            // 
+            // colHeader_advcomp_npr
+            // 
+            this.colHeader_advcomp_npr.Text = "净利润率";
+            // 
+            // colHeader_advcomp_ind_npr
+            // 
+            this.colHeader_advcomp_ind_npr.Text = "行业平均净利润率";
+            // 
+            // colHead_cost
+            // 
+            this.colHead_cost.Text = "性价比参数";
+            // 
+            // colHeader_cost_hist
+            // 
+            this.colHeader_cost_hist.Text = "历史性价比";
+            // 
+            // colHeader_cost_ratio
+            // 
+            this.colHeader_cost_ratio.Text = "性价比比值";
+            // 
             // PriceComparisonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 507);
+            this.ClientSize = new System.Drawing.Size(752, 507);
+            this.Controls.Add(this.listView_advcomp);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_pricecomp_enddate);
             this.Controls.Add(this.listView_pricecomp);
@@ -147,5 +235,18 @@
         private System.Windows.Forms.ColumnHeader columnHeader_lv_pc_chg;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox_pricecomp_enddate;
+        private System.Windows.Forms.ListView listView_advcomp;
+        private System.Windows.Forms.ColumnHeader colHeader_advcomp_code;
+        private System.Windows.Forms.ColumnHeader colHeader_advcomp_price;
+        private System.Windows.Forms.ColumnHeader colHeader_advcomp_chg;
+        private System.Windows.Forms.ColumnHeader colHeader_advcomp_roe;
+        private System.Windows.Forms.ColumnHeader colHeader_advcomp_ind_roe;
+        private System.Windows.Forms.ColumnHeader colHeader_advcomp_pe;
+        private System.Windows.Forms.ColumnHeader colHeader_adv_ind_pe;
+        private System.Windows.Forms.ColumnHeader colHeader_advcomp_npr;
+        private System.Windows.Forms.ColumnHeader colHeader_advcomp_ind_npr;
+        private System.Windows.Forms.ColumnHeader colHead_cost;
+        private System.Windows.Forms.ColumnHeader colHeader_cost_hist;
+        private System.Windows.Forms.ColumnHeader colHeader_cost_ratio;
     }
 }

@@ -115,7 +115,7 @@ namespace StockAnalyzer.DataSource.TushareData
         public static StockProfitData parseStockProfitData(List<string> src)
         {
             StockProfitData data = null;
-            if(src != null && src.Count < 9)
+            if(src != null && src.Count >= 9)
             {
                 try
                 {

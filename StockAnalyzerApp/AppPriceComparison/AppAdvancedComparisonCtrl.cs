@@ -16,71 +16,49 @@ namespace StockAnalyzerApp.AppPriceComparison
         public double m_peIndustry = 0.0;
          
         public double m_costRatio = 0.0;
+        public double m_curCost = 0.0;
+        public double m_histCost = 0.0;
          
         public double m_roe = 0.0;
         public double m_roeIndustry = 0.0;
 
-        public AppAdvancedCompareItem(string stockID) : base(stockID)
-        {
-        }
+        public double m_netProfitRatio = 0.0;
+        public double m_nprIndustry = 0.0;
 
-        public override void init(string beginDate, string endDate)
+        private bool m_basedOnAnnual = true;
+
+        public override void init(string stockID, string beginDate, string endDate)
         {
-            base.init(beginDate, endDate);
+            base.init(stockID, beginDate, endDate);
 
             string year = GlobalConfig.getInstance().curYear;
+            string curYear = year;
             string quarter = GlobalConfig.getInstance().curQuarter;
+            string curQuarter = quarter;
+            if (m_basedOnAnnual)
+            {
+                if(int.Parse(quarter) < 4)
+                {
+                    year = (int.Parse(year) - 1).ToString();
+                    quarter = "4";
+                }
+            }
+
             AvgValInIndustryFilter peAvgFlt = new AvgValInIndustryFilter(new PEFilter(0.0), 0.0);
             peAvgFlt.calcAvgValInIndustry(m_code, out m_peIndustry);
             AvgValInIndustryFilter roeAvgFlt = new AvgValInIndustryFilter(new ROEFilter(year, quarter, 0.0), 0.0);
             roeAvgFlt.calcAvgValInIndustry(m_code, out m_roeIndustry);
+            AvgValInIndustryFilter nprAvgFlt = new AvgValInIndustryFilter(new NetProfitRatioFilter(year, quarter, 0.0), 0.0);
+            nprAvgFlt.calcAvgValInIndustry(m_code, out m_nprIndustry);
 
             m_roe = ROEFilter.getStockROE(m_code, year, quarter);
-        }
+            m_netProfitRatio = NetProfitRatioFilter.getStockNetProfitRatio(m_code, year, quarter);
+            
+            m_histCost = StockDataCache.getInstance().getMaxAnnualCostRefValueBefore(m_code, curYear);
+            m_curCost = CostPerfFilter.calcCurCostRefValue(m_code, curYear, curQuarter);
+            m_costRatio = m_curCost / m_histCost;
 
-        public override void update()
-        {
-            //
-        }
-    }
-
-
-    class AppAdvancedComparisonCtrl
-    {
-        public List<AppAdvancedCompareItem> m_compList = new List<AppAdvancedCompareItem>();
-        
-        private string m_beginDate = "20180201";
-        private string m_endDate = "";
-
-        public void refresh(List<string> stocks, string beginDate, string endDate)
-        {
-            m_compList.Clear();
-            foreach (string stockID in stocks)
-            {
-                AppAdvancedCompareItem item = new AppAdvancedCompareItem(stockID);
-                StockDataCenter.getInstance().subscribeMarketData(stockID);
-                m_compList.Add(item);
-            }
-            m_beginDate = beginDate;
-            m_endDate = endDate;
-            reset();
-        }
-
-        protected void reset()
-        {
-            foreach (AppAdvancedCompareItem item in m_compList) 
-            {
-                item.init(m_beginDate, m_endDate);
-                //
-            }
-        }
-
-        public void update()
-        {
-            foreach (AppAdvancedCompareItem item in m_compList) 
-            {
-                item.update();
-            }
+            DynamicPEFilter.calcDynamicPE(m_code, out m_dynamicPE);
         }
     }
 }

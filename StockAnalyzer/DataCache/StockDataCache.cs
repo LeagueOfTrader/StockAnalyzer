@@ -165,6 +165,7 @@ namespace StockAnalyzer.DataCache
                 if (m_avgValInIndustry[comparerName].ContainsKey(industryName))
                 {
                     avgVal = m_avgValInIndustry[comparerName][industryName];
+                    ret = true;
                 }
             }
 

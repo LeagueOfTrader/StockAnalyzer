@@ -66,7 +66,9 @@ namespace StockAnalyzerConsole
             //double ratio = calcCostPerfInHistory("sh603067");
             //double r2 = calcCostPerfInHistory("sh600995");
 
-            StockRealTimeData rd = StockDataCenter.getInstance().queryRealTimeData("sz000662");
+            //StockRealTimeData rd = StockDataCenter.getInstance().queryRealTimeData("sz000662");
+            double pe = 0;
+            DynamicPEFilter.calcDynamicPE("sz002551", out pe);
 
             while (true)
             {

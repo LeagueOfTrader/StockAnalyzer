@@ -16,6 +16,8 @@ namespace StockAnalyzer.DataFilter
             m_limitPE = limitPE;
 
             m_filterDesc = "StaticPE";
+            m_needLimitValue = true;
+            m_limitValue = 1000;
         }
 
         public override bool filterMethod(string stockID)
@@ -48,6 +50,21 @@ namespace StockAnalyzer.DataFilter
             }
 
             return false;
+        }
+
+        public override bool isValueValid(double val)
+        {
+            if(val < 0.0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public override bool compareValueRatio(double srcVal, double targetVal)
+        {
+            return srcVal < -targetVal;
         }
     }
 }

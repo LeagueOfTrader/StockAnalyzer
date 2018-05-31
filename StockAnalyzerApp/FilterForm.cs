@@ -103,7 +103,7 @@ namespace StockAnalyzerApp
 
         private void button_export_src_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
+            SaveFileDialog dlg = new SaveFileDialog();
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 string filepath = dlg.FileName;
@@ -113,7 +113,7 @@ namespace StockAnalyzerApp
 
         private void button_export_screened_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
+            SaveFileDialog dlg = new SaveFileDialog();
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 string filepath = dlg.FileName;

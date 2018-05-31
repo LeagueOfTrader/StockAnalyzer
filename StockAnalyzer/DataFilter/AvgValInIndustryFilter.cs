@@ -34,7 +34,7 @@ namespace StockAnalyzer.DataFilter
             }
 
             double ratio = (curVal - avgVal) / avgVal;
-            if(ratio > m_ratio)
+            if(m_comparer.compareValueRatio(ratio, m_ratio))
             {
                 return true;
             }
@@ -81,6 +81,11 @@ namespace StockAnalyzer.DataFilter
                     double curVal = 0.0;
                     if (m_comparer.getNumericValue(code, out curVal))
                     {
+                        if(m_comparer.needLimitValue() && 
+                            !m_comparer.isValueValid(curVal))
+                        {
+                            curVal = m_comparer.getLimitValue();
+                        }
                         accumVal += curVal;
                         accumCount++;
                     }
