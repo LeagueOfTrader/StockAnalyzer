@@ -57,6 +57,8 @@
     <Compile Include="DataAnalyze\Pattern\TrendAnalyzer.cs" />
     <Compile Include="DataAnalyze\PriceAnalyzer.cs" />
     <Compile Include="DataFilter\AnnualCostPerfFilter.cs" />
+    <Compile Include="DataFilter\AnnualNetProfitFilter.cs" />
+    <Compile Include="DataFilter\AvgAmplitudeFilter.cs" />
     <Compile Include="DataFilter\AvgValInIndustryFilter.cs" />
     <Compile Include="DataFilter\CostPerfFilter.cs" />
     <Compile Include="DataFilter\CostPerfYoyFilter.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="DataFilter\NumericStockFilter.cs" />
     <Compile Include="DataFilter\PriceScaleFilter.cs" />
     <Compile Include="DataFilter\QuarterCostPerfFilter.cs" />
+    <Compile Include="DataFilter\QuarterNetProfitFilter.cs" />
     <Compile Include="DataFilter\RankInIndustryFilter.cs" />
     <Compile Include="DataFilter\ROEFilter.cs" />
     <Compile Include="DataFilter\ROESustainedFilter.cs" />

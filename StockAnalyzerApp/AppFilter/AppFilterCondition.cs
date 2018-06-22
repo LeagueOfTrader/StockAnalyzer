@@ -21,6 +21,7 @@ namespace StockAnalyzerApp.AppFilter
         FLTT_HolderCount,
         FLTT_ExcludeIndustry,
         FLTT_IncludeIndustry,
+        FLTT_StableProfit,
         FLTT_STStocks
     }
 
@@ -112,6 +113,11 @@ namespace StockAnalyzerApp.AppFilter
                     break;
                 case AppFilterType.FLTT_HolderCount:
                     filter = generateHolderCountFilter();
+                    break;
+                case AppFilterType.FLTT_StableProfit:
+                    int yearsCount = int.Parse(m_param2);
+                    filter = new QuarterNetProfitFilter(year, quarter, yearsCount, 0.1);
+                    // AnnualNetProfitFilter(year, quarter, yearsCount, 0.1);
                     break;
                 default:
                     break;
@@ -243,6 +249,7 @@ namespace StockAnalyzerApp.AppFilter
                                                         AppFilterType.FLTT_IncludeIndustry,
                                                         AppFilterType.FLTT_PE,
                                                         AppFilterType.FLTT_ROE,
+                                                        AppFilterType.FLTT_StableProfit,
                                                         AppFilterType.FLTT_NetProfitRatio,
                                                         AppFilterType.FLTT_HolderCount,
                                                         AppFilterType.FLTT_Cost,

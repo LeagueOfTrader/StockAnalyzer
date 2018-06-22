@@ -219,6 +219,13 @@ namespace StockAnalyzerApp
                 item = new AppFilterItem(AppFilterType.FLTT_HolderCount, subType, param1, param2);
                 AppStockFilter.getInstance().addCondition(item);
             }
+
+            if (checkBox_stableprofit.Checked)
+            {
+                param2 = textBox_stable_years.Text;
+                item = new AppFilterItem(AppFilterType.FLTT_StableProfit, 0, 0, param2);
+                AppStockFilter.getInstance().addCondition(item);
+            }
         }
 
         private void button_filter_cancel_Click(object sender, EventArgs e)

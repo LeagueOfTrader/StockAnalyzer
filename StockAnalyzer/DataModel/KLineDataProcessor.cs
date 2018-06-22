@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockAnalyzer.DataSource;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -117,6 +118,40 @@ namespace StockAnalyzer.DataModel
                     minPrice = kLineData[i].lowestPrice;
                 }
             }
+        }
+
+        public static double calcKLineAverageAmplitude(List<StockKLineBaidu> kLineData, int days)
+        {
+            if(kLineData == null || kLineData.Count == 0)
+            {
+                return 0.0;
+            }
+
+            days = Math.Min(days, kLineData.Count - 1);
+            double accumVal = 0.0;
+            for(int i = 0; i < days; i++)
+            {
+                int index = kLineData.Count - 1 - i;
+                double amplitude = 0.0;
+                if (kLineData[index].lowestPrice < kLineData[index - 1].latestPrice 
+                    && kLineData[index].highestPrice > kLineData[index - 1].latestPrice)
+                {
+                    amplitude = kLineData[index].getRange() / kLineData[index - 1].latestPrice;
+                }
+                else if(kLineData[index].lowestPrice >= kLineData[index - 1].latestPrice)
+                {
+                    amplitude = kLineData[index].highestPrice / kLineData[index - 1].latestPrice - 1.0;
+                }
+                else
+                {
+                    amplitude = 1.0 - kLineData[index].lowestPrice / kLineData[index - 1].latestPrice;
+                }
+
+                accumVal += Math.Abs(amplitude);
+            }
+
+            double avgVal = accumVal / days;
+            return avgVal;
         }
     }
 }

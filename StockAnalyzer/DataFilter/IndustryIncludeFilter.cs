@@ -12,7 +12,7 @@ namespace StockAnalyzer.DataFilter
         public IndustryIncludeFilter(List<string> arr)
         {
             m_specifiedIndustries.Clear();
-            m_specifiedIndustries.AddRange(m_specifiedIndustries);
+            m_specifiedIndustries.AddRange(arr);
         }
 
         public override bool filterMethod(string stockID)

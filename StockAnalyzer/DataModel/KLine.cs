@@ -185,6 +185,11 @@ namespace StockAnalyzer.DataModel
         {
             return Math.Min(openPrice, latestPrice);
         }
+
+        public double getRange()
+        {
+            return highestPrice - lowestPrice;
+        }
     }
 
     public class StockKLine : KLine

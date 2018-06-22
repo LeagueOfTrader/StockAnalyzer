@@ -84,14 +84,18 @@
             this.textBox_includeInd_names = new System.Windows.Forms.TextBox();
             this.checkBox_includeIndustry = new System.Windows.Forms.CheckBox();
             this.panel10 = new System.Windows.Forms.Panel();
+            this.checkBox_holdercount_allowinvariant = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox_holdercount_quarters = new System.Windows.Forms.TextBox();
+            this.radioButton_holdercount_accumratio = new System.Windows.Forms.RadioButton();
+            this.radioButton_holdercount_decrease = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.textBox_holdercount_ratio = new System.Windows.Forms.TextBox();
             this.checkBox_holdercount = new System.Windows.Forms.CheckBox();
-            this.radioButton_holdercount_accumratio = new System.Windows.Forms.RadioButton();
-            this.radioButton_holdercount_decrease = new System.Windows.Forms.RadioButton();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textBox_holdercount_quarters = new System.Windows.Forms.TextBox();
-            this.checkBox_holdercount_allowinvariant = new System.Windows.Forms.CheckBox();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox_stable_years = new System.Windows.Forms.TextBox();
+            this.checkBox_stableprofit = new System.Windows.Forms.CheckBox();
             this.panel_cost.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -103,6 +107,7 @@
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkBox_cost
@@ -481,7 +486,7 @@
             // 
             // button_filter_ok
             // 
-            this.button_filter_ok.Location = new System.Drawing.Point(436, 614);
+            this.button_filter_ok.Location = new System.Drawing.Point(436, 668);
             this.button_filter_ok.Name = "button_filter_ok";
             this.button_filter_ok.Size = new System.Drawing.Size(75, 23);
             this.button_filter_ok.TabIndex = 14;
@@ -491,7 +496,7 @@
             // 
             // button_filter_cancel
             // 
-            this.button_filter_cancel.Location = new System.Drawing.Point(436, 650);
+            this.button_filter_cancel.Location = new System.Drawing.Point(436, 704);
             this.button_filter_cancel.Name = "button_filter_cancel";
             this.button_filter_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_filter_cancel.TabIndex = 15;
@@ -662,6 +667,55 @@
             this.panel10.Size = new System.Drawing.Size(396, 64);
             this.panel10.TabIndex = 11;
             // 
+            // checkBox_holdercount_allowinvariant
+            // 
+            this.checkBox_holdercount_allowinvariant.AutoSize = true;
+            this.checkBox_holdercount_allowinvariant.Location = new System.Drawing.Point(77, 36);
+            this.checkBox_holdercount_allowinvariant.Name = "checkBox_holdercount_allowinvariant";
+            this.checkBox_holdercount_allowinvariant.Size = new System.Drawing.Size(72, 16);
+            this.checkBox_holdercount_allowinvariant.TabIndex = 16;
+            this.checkBox_holdercount_allowinvariant.Text = "连续递减";
+            this.checkBox_holdercount_allowinvariant.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(121, 11);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(65, 12);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "连续季度：";
+            // 
+            // textBox_holdercount_quarters
+            // 
+            this.textBox_holdercount_quarters.Location = new System.Drawing.Point(192, 8);
+            this.textBox_holdercount_quarters.Name = "textBox_holdercount_quarters";
+            this.textBox_holdercount_quarters.Size = new System.Drawing.Size(59, 21);
+            this.textBox_holdercount_quarters.TabIndex = 14;
+            this.textBox_holdercount_quarters.Text = "1";
+            // 
+            // radioButton_holdercount_accumratio
+            // 
+            this.radioButton_holdercount_accumratio.AutoSize = true;
+            this.radioButton_holdercount_accumratio.Location = new System.Drawing.Point(171, 35);
+            this.radioButton_holdercount_accumratio.Name = "radioButton_holdercount_accumratio";
+            this.radioButton_holdercount_accumratio.Size = new System.Drawing.Size(71, 16);
+            this.radioButton_holdercount_accumratio.TabIndex = 11;
+            this.radioButton_holdercount_accumratio.Text = "累积幅度";
+            this.radioButton_holdercount_accumratio.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_holdercount_decrease
+            // 
+            this.radioButton_holdercount_decrease.AutoSize = true;
+            this.radioButton_holdercount_decrease.Checked = true;
+            this.radioButton_holdercount_decrease.Location = new System.Drawing.Point(24, 35);
+            this.radioButton_holdercount_decrease.Name = "radioButton_holdercount_decrease";
+            this.radioButton_holdercount_decrease.Size = new System.Drawing.Size(47, 16);
+            this.radioButton_holdercount_decrease.TabIndex = 10;
+            this.radioButton_holdercount_decrease.TabStop = true;
+            this.radioButton_holdercount_decrease.Text = "递减";
+            this.radioButton_holdercount_decrease.UseVisualStyleBackColor = true;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -689,60 +743,49 @@
             this.checkBox_holdercount.Text = "股东人数";
             this.checkBox_holdercount.UseVisualStyleBackColor = true;
             // 
-            // radioButton_holdercount_accumratio
+            // panel11
             // 
-            this.radioButton_holdercount_accumratio.AutoSize = true;
-            this.radioButton_holdercount_accumratio.Location = new System.Drawing.Point(171, 35);
-            this.radioButton_holdercount_accumratio.Name = "radioButton_holdercount_accumratio";
-            this.radioButton_holdercount_accumratio.Size = new System.Drawing.Size(71, 16);
-            this.radioButton_holdercount_accumratio.TabIndex = 11;
-            this.radioButton_holdercount_accumratio.Text = "累积幅度";
-            this.radioButton_holdercount_accumratio.UseVisualStyleBackColor = true;
+            this.panel11.Controls.Add(this.label13);
+            this.panel11.Controls.Add(this.textBox_stable_years);
+            this.panel11.Controls.Add(this.checkBox_stableprofit);
+            this.panel11.Location = new System.Drawing.Point(21, 684);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(396, 44);
+            this.panel11.TabIndex = 17;
             // 
-            // radioButton_holdercount_decrease
+            // label13
             // 
-            this.radioButton_holdercount_decrease.AutoSize = true;
-            this.radioButton_holdercount_decrease.Checked = true;
-            this.radioButton_holdercount_decrease.Location = new System.Drawing.Point(24, 35);
-            this.radioButton_holdercount_decrease.Name = "radioButton_holdercount_decrease";
-            this.radioButton_holdercount_decrease.Size = new System.Drawing.Size(47, 16);
-            this.radioButton_holdercount_decrease.TabIndex = 10;
-            this.radioButton_holdercount_decrease.TabStop = true;
-            this.radioButton_holdercount_decrease.Text = "递减";
-            this.radioButton_holdercount_decrease.UseVisualStyleBackColor = true;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(169, 13);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(41, 12);
+            this.label13.TabIndex = 9;
+            this.label13.Text = "年数：";
             // 
-            // label12
+            // textBox_stable_years
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(121, 11);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(65, 12);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "连续季度：";
+            this.textBox_stable_years.Location = new System.Drawing.Point(216, 8);
+            this.textBox_stable_years.Name = "textBox_stable_years";
+            this.textBox_stable_years.Size = new System.Drawing.Size(59, 21);
+            this.textBox_stable_years.TabIndex = 8;
+            this.textBox_stable_years.Text = "3";
             // 
-            // textBox_holdercount_quarters
+            // checkBox_stableprofit
             // 
-            this.textBox_holdercount_quarters.Location = new System.Drawing.Point(192, 8);
-            this.textBox_holdercount_quarters.Name = "textBox_holdercount_quarters";
-            this.textBox_holdercount_quarters.Size = new System.Drawing.Size(59, 21);
-            this.textBox_holdercount_quarters.TabIndex = 14;
-            this.textBox_holdercount_quarters.Text = "1";
-            // 
-            // checkBox_holdercount_allowinvariant
-            // 
-            this.checkBox_holdercount_allowinvariant.AutoSize = true;
-            this.checkBox_holdercount_allowinvariant.Location = new System.Drawing.Point(77, 36);
-            this.checkBox_holdercount_allowinvariant.Name = "checkBox_holdercount_allowinvariant";
-            this.checkBox_holdercount_allowinvariant.Size = new System.Drawing.Size(72, 16);
-            this.checkBox_holdercount_allowinvariant.TabIndex = 16;
-            this.checkBox_holdercount_allowinvariant.Text = "连续递减";
-            this.checkBox_holdercount_allowinvariant.UseVisualStyleBackColor = true;
+            this.checkBox_stableprofit.AutoSize = true;
+            this.checkBox_stableprofit.Location = new System.Drawing.Point(9, 13);
+            this.checkBox_stableprofit.Name = "checkBox_stableprofit";
+            this.checkBox_stableprofit.Size = new System.Drawing.Size(72, 16);
+            this.checkBox_stableprofit.TabIndex = 0;
+            this.checkBox_stableprofit.Text = "稳定盈利";
+            this.checkBox_stableprofit.UseVisualStyleBackColor = true;
             // 
             // FilterConditionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 690);
+            this.ClientSize = new System.Drawing.Size(533, 743);
+            this.Controls.Add(this.panel11);
             this.Controls.Add(this.panel10);
             this.Controls.Add(this.panel9);
             this.Controls.Add(this.panel8);
@@ -780,6 +823,8 @@
             this.panel9.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -850,5 +895,9 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox_holdercount_ratio;
         private System.Windows.Forms.CheckBox checkBox_holdercount;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBox_stable_years;
+        private System.Windows.Forms.CheckBox checkBox_stableprofit;
     }
 }
