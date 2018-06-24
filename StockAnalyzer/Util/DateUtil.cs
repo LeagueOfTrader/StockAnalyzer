@@ -86,7 +86,7 @@ namespace StockAnalyzer.Util
         public static int getShortDateYear(string date)
         {
             int year = getDateValue(date, 0, 2);
-            if(year > 90)
+            if(year > 80)
             {
                 year = 1900 + year;
             }

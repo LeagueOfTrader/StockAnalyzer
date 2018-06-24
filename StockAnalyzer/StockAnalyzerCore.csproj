@@ -87,6 +87,7 @@
     <Compile Include="DataFilter\STFilter.cs" />
     <Compile Include="DataFilter\StockFilter.cs" />
     <Compile Include="DataFilter\PEFilter.cs" />
+    <Compile Include="DataFilter\SubNewFilter.cs" />
     <Compile Include="DataModel\KLine.cs" />
     <Compile Include="DataModel\KLineAnalyzer.cs" />
     <Compile Include="DataModel\KLineDataProcessor.cs" />
