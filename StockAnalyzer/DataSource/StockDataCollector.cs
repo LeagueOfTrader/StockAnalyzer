@@ -75,7 +75,16 @@ namespace StockAnalyzer.DataSource
 
         public static String queryMonthlyKLineData(string stockID) //monthly k line
         {
-            return httpGet(String.Format(m_monthlyKLineUrl, stockID));
+            String str = null;
+            try
+            {
+                str = httpGet(String.Format(m_monthlyKLineUrl, stockID));
+            }
+            catch(Exception e)
+            {
+                str = "";
+            }
+            return str;
         }
 
         //public static String queryKLineDataXq(string stockID, bool exRights = false) //daily k line

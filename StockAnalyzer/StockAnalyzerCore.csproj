@@ -58,6 +58,7 @@
     <Compile Include="DataAnalyze\PriceAnalyzer.cs" />
     <Compile Include="DataFilter\AnnualCostPerfFilter.cs" />
     <Compile Include="DataFilter\AnnualNetProfitFilter.cs" />
+    <Compile Include="DataFilter\AnnualPBCostFilter.cs" />
     <Compile Include="DataFilter\AvgAmplitudeFilter.cs" />
     <Compile Include="DataFilter\AvgValInIndustryFilter.cs" />
     <Compile Include="DataFilter\CostPerfFilter.cs" />

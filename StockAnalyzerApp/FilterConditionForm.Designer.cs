@@ -96,6 +96,18 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBox_stable_years = new System.Windows.Forms.TextBox();
             this.checkBox_stableprofit = new System.Windows.Forms.CheckBox();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.checkBox_subnew = new System.Windows.Forms.CheckBox();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBox_amp_days = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox_amplitude = new System.Windows.Forms.TextBox();
+            this.checkBox_amplitude = new System.Windows.Forms.CheckBox();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBox_pbcost_ratio = new System.Windows.Forms.TextBox();
+            this.checkBox_pbcost = new System.Windows.Forms.CheckBox();
             this.panel_cost.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -108,6 +120,9 @@
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel11.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkBox_cost
@@ -486,7 +501,7 @@
             // 
             // button_filter_ok
             // 
-            this.button_filter_ok.Location = new System.Drawing.Point(436, 668);
+            this.button_filter_ok.Location = new System.Drawing.Point(446, 814);
             this.button_filter_ok.Name = "button_filter_ok";
             this.button_filter_ok.Size = new System.Drawing.Size(75, 23);
             this.button_filter_ok.TabIndex = 14;
@@ -496,7 +511,7 @@
             // 
             // button_filter_cancel
             // 
-            this.button_filter_cancel.Location = new System.Drawing.Point(436, 704);
+            this.button_filter_cancel.Location = new System.Drawing.Point(446, 850);
             this.button_filter_cancel.Name = "button_filter_cancel";
             this.button_filter_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_filter_cancel.TabIndex = 15;
@@ -780,11 +795,125 @@
             this.checkBox_stableprofit.Text = "稳定盈利";
             this.checkBox_stableprofit.UseVisualStyleBackColor = true;
             // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.checkBox_subnew);
+            this.panel12.Location = new System.Drawing.Point(21, 734);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(396, 44);
+            this.panel12.TabIndex = 14;
+            // 
+            // checkBox_subnew
+            // 
+            this.checkBox_subnew.AutoSize = true;
+            this.checkBox_subnew.Location = new System.Drawing.Point(9, 13);
+            this.checkBox_subnew.Name = "checkBox_subnew";
+            this.checkBox_subnew.Size = new System.Drawing.Size(72, 16);
+            this.checkBox_subnew.TabIndex = 0;
+            this.checkBox_subnew.Text = "排除次新";
+            this.checkBox_subnew.UseVisualStyleBackColor = true;
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.label15);
+            this.panel13.Controls.Add(this.textBox_amp_days);
+            this.panel13.Controls.Add(this.label14);
+            this.panel13.Controls.Add(this.textBox_amplitude);
+            this.panel13.Controls.Add(this.checkBox_amplitude);
+            this.panel13.Location = new System.Drawing.Point(21, 784);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(396, 44);
+            this.panel13.TabIndex = 18;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(248, 13);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(65, 12);
+            this.label15.TabIndex = 11;
+            this.label15.Text = "连续天数：";
+            // 
+            // textBox_amp_days
+            // 
+            this.textBox_amp_days.Location = new System.Drawing.Point(315, 9);
+            this.textBox_amp_days.Name = "textBox_amp_days";
+            this.textBox_amp_days.Size = new System.Drawing.Size(59, 21);
+            this.textBox_amp_days.TabIndex = 10;
+            this.textBox_amp_days.Text = "20";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(133, 14);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(41, 12);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "振幅：";
+            // 
+            // textBox_amplitude
+            // 
+            this.textBox_amplitude.Location = new System.Drawing.Point(180, 9);
+            this.textBox_amplitude.Name = "textBox_amplitude";
+            this.textBox_amplitude.Size = new System.Drawing.Size(59, 21);
+            this.textBox_amplitude.TabIndex = 8;
+            this.textBox_amplitude.Text = "0.02";
+            // 
+            // checkBox_amplitude
+            // 
+            this.checkBox_amplitude.AutoSize = true;
+            this.checkBox_amplitude.Location = new System.Drawing.Point(9, 13);
+            this.checkBox_amplitude.Name = "checkBox_amplitude";
+            this.checkBox_amplitude.Size = new System.Drawing.Size(72, 16);
+            this.checkBox_amplitude.TabIndex = 0;
+            this.checkBox_amplitude.Text = "平均振幅";
+            this.checkBox_amplitude.UseVisualStyleBackColor = true;
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.label16);
+            this.panel14.Controls.Add(this.textBox_pbcost_ratio);
+            this.panel14.Controls.Add(this.checkBox_pbcost);
+            this.panel14.Location = new System.Drawing.Point(21, 834);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(396, 44);
+            this.panel14.TabIndex = 19;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(169, 13);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(41, 12);
+            this.label16.TabIndex = 9;
+            this.label16.Text = "比例：";
+            // 
+            // textBox_pbcost_ratio
+            // 
+            this.textBox_pbcost_ratio.Location = new System.Drawing.Point(216, 8);
+            this.textBox_pbcost_ratio.Name = "textBox_pbcost_ratio";
+            this.textBox_pbcost_ratio.Size = new System.Drawing.Size(59, 21);
+            this.textBox_pbcost_ratio.TabIndex = 8;
+            this.textBox_pbcost_ratio.Text = "0.01";
+            // 
+            // checkBox_pbcost
+            // 
+            this.checkBox_pbcost.AutoSize = true;
+            this.checkBox_pbcost.Location = new System.Drawing.Point(9, 13);
+            this.checkBox_pbcost.Name = "checkBox_pbcost";
+            this.checkBox_pbcost.Size = new System.Drawing.Size(108, 16);
+            this.checkBox_pbcost.TabIndex = 0;
+            this.checkBox_pbcost.Text = "历史市净率比较";
+            this.checkBox_pbcost.UseVisualStyleBackColor = true;
+            // 
             // FilterConditionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 743);
+            this.ClientSize = new System.Drawing.Size(533, 889);
+            this.Controls.Add(this.panel14);
+            this.Controls.Add(this.panel13);
+            this.Controls.Add(this.panel12);
             this.Controls.Add(this.panel11);
             this.Controls.Add(this.panel10);
             this.Controls.Add(this.panel9);
@@ -825,6 +954,12 @@
             this.panel10.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -899,5 +1034,17 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox_stable_years;
         private System.Windows.Forms.CheckBox checkBox_stableprofit;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.CheckBox checkBox_subnew;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBox_amp_days;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBox_amplitude;
+        private System.Windows.Forms.CheckBox checkBox_amplitude;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox_pbcost_ratio;
+        private System.Windows.Forms.CheckBox checkBox_pbcost;
     }
 }

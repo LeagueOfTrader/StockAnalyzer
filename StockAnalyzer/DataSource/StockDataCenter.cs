@@ -43,6 +43,11 @@ namespace StockAnalyzer.DataSource
         public List<StockKLine> getMonthKLine(string stockID)
         {
             string str = StockDataCollector.queryMonthlyKLineData(stockID);
+            if(str == null || str.Length == 0)
+            {
+                return null;
+            }
+
             List<StockKLine> mk = StockDataConvertor.parseKLineArray(str);
 
             return mk;

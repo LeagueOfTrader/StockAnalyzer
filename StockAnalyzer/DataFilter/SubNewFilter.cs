@@ -34,7 +34,7 @@ namespace StockAnalyzer.DataFilter
         public int getEarliestYearInKLineInfo(string stockID)
         {
             List<StockKLine> arr = StockDataCenter.getInstance().getMonthKLine(stockID);
-            if(arr == null)
+            if(arr == null || arr.Count == 0)
             {
                 return 0;
             }

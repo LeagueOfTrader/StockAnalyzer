@@ -94,6 +94,10 @@ namespace StockAnalyzer.DataFilter
             if(getDistribBonus(stockID, year, season, out bonus))
             {
                 List<StockKLine> mk = StockDataCenter.getInstance().getMonthKLine(stockID);
+                if(mk == null)
+                {
+                    return 0.0;
+                }
                 string targetMonth = convertMonthBySeason(season);
                 StockKLine kl = StockDataUtil.getMonthKLineByYearMonth(mk, year, targetMonth);
 

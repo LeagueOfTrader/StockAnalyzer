@@ -226,6 +226,27 @@ namespace StockAnalyzerApp
                 item = new AppFilterItem(AppFilterType.FLTT_StableProfit, 0, 0, param2);
                 AppStockFilter.getInstance().addCondition(item);
             }
+
+            if (checkBox_amplitude.Checked)
+            {
+                param1 = double.Parse(textBox_amplitude.Text);
+                param2 = textBox_amp_days.Text;
+                item = new AppFilterItem(AppFilterType.FLTT_Amplitude, 0, param1, param2);
+                AppStockFilter.getInstance().addCondition(item);
+            }
+
+            if (checkBox_subnew.Checked)
+            {
+                item = new AppFilterItem(AppFilterType.FLTT_SubNew);
+                AppStockFilter.getInstance().addCondition(item);
+            }
+
+            if (checkBox_pbcost.Checked)
+            {
+                param1 = double.Parse(textBox_pbcost_ratio.Text);
+                item = new AppFilterItem(AppFilterType.FLTT_PBCost, 0, param1);
+                AppStockFilter.getInstance().addCondition(item);
+            }
         }
 
         private void button_filter_cancel_Click(object sender, EventArgs e)

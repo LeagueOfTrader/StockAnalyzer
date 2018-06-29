@@ -22,6 +22,9 @@ namespace StockAnalyzerApp.AppFilter
         FLTT_ExcludeIndustry,
         FLTT_IncludeIndustry,
         FLTT_StableProfit,
+        FLTT_SubNew,
+        FLTT_Amplitude,
+        FLTT_PBCost,
         FLTT_STStocks
     }
 
@@ -118,6 +121,16 @@ namespace StockAnalyzerApp.AppFilter
                     int yearsCount = int.Parse(m_param2);
                     filter = new QuarterNetProfitFilter(year, quarter, yearsCount, 0.1);
                     // AnnualNetProfitFilter(year, quarter, yearsCount, 0.1);
+                    break;
+                case AppFilterType.FLTT_Amplitude:
+                    int daysCount = int.Parse(m_param2);
+                    filter = new AvgAmplitudeFilter(m_param1, daysCount);
+                    break;
+                case AppFilterType.FLTT_SubNew:
+                    filter = new SubNewFilter();
+                    break;
+                case AppFilterType.FLTT_PBCost:
+                    filter = new AnnualPBCostFilter(year, quarter, m_param1);
                     break;
                 default:
                     break;
@@ -252,9 +265,12 @@ namespace StockAnalyzerApp.AppFilter
                                                         AppFilterType.FLTT_StableProfit,
                                                         AppFilterType.FLTT_NetProfitRatio,
                                                         AppFilterType.FLTT_HolderCount,
+                                                        AppFilterType.FLTT_SubNew,
+                                                        AppFilterType.FLTT_Amplitude,
                                                         AppFilterType.FLTT_Cost,
                                                         AppFilterType.FLTT_PriceScale,
                                                         AppFilterType.FLTT_Distrib,
+                                                        AppFilterType.FLTT_PBCost,
                                                         AppFilterType.FLTT_InIndustry
                                                        };
 

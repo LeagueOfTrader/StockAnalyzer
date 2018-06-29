@@ -98,6 +98,10 @@ namespace StockAnalyzer.DataFilter
             StockReportData rd = StockDBVisitor.getInstance().getStockReportData(stockID, year, season);
 
             List<StockKLine> mk = StockDataCenter.getInstance().getMonthKLine(stockID);
+            if(mk == null)
+            {
+                return 0.0;
+            }
             string targetMonth = convertMonthBySeason(season);
             StockKLine kl = StockDataUtil.getMonthKLineByYearMonth(mk, year, targetMonth);
             int quarter = int.Parse(season);
