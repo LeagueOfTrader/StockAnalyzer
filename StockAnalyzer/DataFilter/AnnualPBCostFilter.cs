@@ -48,7 +48,12 @@ namespace StockAnalyzer.DataFilter
         public static double calcPBCostValue(string stockID, string year, string quarter)
         {
             double costRefVal = 0.0;
+            double pe = 0.0;
             StockReportData rd = StockDBVisitor.getInstance().getStockReportData(stockID, year, quarter);
+            if (rd == null)
+            {
+                return 0.0;
+            }
 
             List<StockKLine> mk = StockDataCenter.getInstance().getMonthKLine(stockID);
             if (mk == null)
@@ -58,11 +63,15 @@ namespace StockAnalyzer.DataFilter
 
             string targetMonth = convertMonthBySeason(quarter);
             StockKLine kl = StockDataUtil.getMonthKLineByYearMonth(mk, year, targetMonth);
-            //int q = int.Parse(quarter);
-            if (rd != null && kl != null)
+            pe = kl.latestPrice / rd.eps;
+
+            StockProfitData pd = StockDBVisitor.getInstance().getStockProfitData(stockID, year, quarter);
+            if(pd == null)
             {
-                costRefVal = (rd.bvps / kl.latestPrice);
+                return 0.0;
             }
+
+            costRefVal = pe * pd.roe;
 
             return costRefVal;
         }
@@ -72,7 +81,8 @@ namespace StockAnalyzer.DataFilter
             int endYear = int.Parse(year);
             maxYear = 0;// endYear;
             double maxVal = 0.0;
-            for (int i = m_startYear; i < endYear; i++)
+            int startYear = 2013;
+            for (int i = startYear; i < endYear; i++)
             {
                 string yr = i.ToString();
                 double val = calcPBCostValue(stockID, yr, "4");

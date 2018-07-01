@@ -152,6 +152,6 @@ namespace StockAnalyzer.DataModel
 
             double avgVal = accumVal / days;
             return avgVal;
-        }
+        }        
     }
 }

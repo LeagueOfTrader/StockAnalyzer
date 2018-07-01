@@ -71,6 +71,7 @@
     <Compile Include="DataFilter\ForecastFilter.cs" />
     <Compile Include="DataFilter\HolderChangeRatioFilter.cs" />
     <Compile Include="DataFilter\HolderCountTrendFilter.cs" />
+    <Compile Include="DataFilter\IncreaseDaysFilter.cs" />
     <Compile Include="DataFilter\IndustryExcludeFilter.cs" />
     <Compile Include="DataFilter\IndustryIncludeFilter.cs" />
     <Compile Include="DataFilter\IStockFilter.cs" />
