@@ -247,6 +247,12 @@ namespace StockAnalyzerApp
                 item = new AppFilterItem(AppFilterType.FLTT_PBCost, 0, param1);
                 AppStockFilter.getInstance().addCondition(item);
             }
+
+            if (checkBox_blacklist.Checked)
+            {
+                item = new AppFilterItem(AppFilterType.FLTT_BlackList);
+                AppStockFilter.getInstance().addCondition(item);
+            }
         }
 
         private void button_filter_cancel_Click(object sender, EventArgs e)

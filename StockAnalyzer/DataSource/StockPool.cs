@@ -17,17 +17,25 @@ namespace StockAnalyzer.DataSource
         private Dictionary<string, string> m_stockIndustryMap = new Dictionary<string, string>();
         private Dictionary<string, List<string>> m_stocksInIndustry = new Dictionary<string, List<string>>();
 
+        private List<string> m_blackList = new List<string>();
+
         const string m_stockListFileSH = "Data/StockListSH.txt";
         const string m_stockListFileSZ = "Data/StockListSZ.txt";
+        const string m_stockBlackListFile = "Data/BlackList.txt";
 
-        public List<String> allSZStocks
+        public List<string> allSZStocks
         {
             get { return m_allSZStocks; }
         }
 
-        public List<String> allSHStocks
+        public List<string> allSHStocks
         {
             get { return m_allSHStocks; }
+        }
+
+        public List<string> blackList
+        {
+            get { return m_blackList; }
         }
 
         public void init() {
@@ -70,6 +78,21 @@ namespace StockAnalyzer.DataSource
                     container.Add(stockCode);
                 }                
             }
+        }
+
+        private void loadBlackList()
+        {
+            if (!File.Exists(m_stockBlackListFile))
+            {
+                return;
+            }
+
+            m_blackList = StockListFileUtil.readStocksFromFile(m_stockBlackListFile);
+        }
+
+        public void saveBlackList()
+        {
+            StockListFileUtil.writeStocksToFile(m_blackList, m_stockBlackListFile);
         }
 
         private void loadIndustry()

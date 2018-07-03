@@ -61,6 +61,7 @@
     <Compile Include="DataFilter\AnnualPBCostFilter.cs" />
     <Compile Include="DataFilter\AvgAmplitudeFilter.cs" />
     <Compile Include="DataFilter\AvgValInIndustryFilter.cs" />
+    <Compile Include="DataFilter\BlackListFilter.cs" />
     <Compile Include="DataFilter\CostPerfFilter.cs" />
     <Compile Include="DataFilter\CostPerfYoyFilter.cs" />
     <Compile Include="DataCache\StockDataCache.cs" />

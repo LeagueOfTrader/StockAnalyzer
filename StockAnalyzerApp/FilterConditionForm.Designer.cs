@@ -108,6 +108,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.textBox_pbcost_ratio = new System.Windows.Forms.TextBox();
             this.checkBox_pbcost = new System.Windows.Forms.CheckBox();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.checkBox_blacklist = new System.Windows.Forms.CheckBox();
             this.panel_cost.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -123,6 +125,7 @@
             this.panel12.SuspendLayout();
             this.panel13.SuspendLayout();
             this.panel14.SuspendLayout();
+            this.panel15.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkBox_cost
@@ -906,11 +909,30 @@
             this.checkBox_pbcost.Text = "历史市净率比较";
             this.checkBox_pbcost.UseVisualStyleBackColor = true;
             // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.checkBox_blacklist);
+            this.panel15.Location = new System.Drawing.Point(21, 884);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(396, 44);
+            this.panel15.TabIndex = 14;
+            // 
+            // checkBox_blacklist
+            // 
+            this.checkBox_blacklist.AutoSize = true;
+            this.checkBox_blacklist.Location = new System.Drawing.Point(9, 13);
+            this.checkBox_blacklist.Name = "checkBox_blacklist";
+            this.checkBox_blacklist.Size = new System.Drawing.Size(60, 16);
+            this.checkBox_blacklist.TabIndex = 0;
+            this.checkBox_blacklist.Text = "黑名单";
+            this.checkBox_blacklist.UseVisualStyleBackColor = true;
+            // 
             // FilterConditionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 889);
+            this.ClientSize = new System.Drawing.Size(533, 939);
+            this.Controls.Add(this.panel15);
             this.Controls.Add(this.panel14);
             this.Controls.Add(this.panel13);
             this.Controls.Add(this.panel12);
@@ -960,6 +982,8 @@
             this.panel13.PerformLayout();
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1046,5 +1070,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox_pbcost_ratio;
         private System.Windows.Forms.CheckBox checkBox_pbcost;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.CheckBox checkBox_blacklist;
     }
 }

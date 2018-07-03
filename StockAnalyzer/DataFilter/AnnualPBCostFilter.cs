@@ -30,13 +30,13 @@ namespace StockAnalyzer.DataFilter
         {
             double curVal = calcPBCostValue(stockID, m_targetYear, m_targetSeason);
             int maxYear = 0;
-            double histVal = getMaxAnnualPBCostValueBefore(stockID, m_targetYear, out maxYear);
+            double histVal = getMinAnnualPBCostValueBefore(stockID, m_targetYear, out maxYear);
             if(histVal < double.Epsilon)
             {
                 return false;
             }
 
-            double ratio = (curVal - histVal) / histVal;
+            double ratio = (histVal - curVal) / histVal;
             if(ratio < m_ratio)
             {
                 return false;
@@ -52,23 +52,27 @@ namespace StockAnalyzer.DataFilter
             StockReportData rd = StockDBVisitor.getInstance().getStockReportData(stockID, year, quarter);
             if (rd == null)
             {
-                return 0.0;
+                return double.MaxValue;
             }
 
             List<StockKLine> mk = StockDataCenter.getInstance().getMonthKLine(stockID);
             if (mk == null)
             {
-                return 0.0;
+                return double.MaxValue;
             }
 
             string targetMonth = convertMonthBySeason(quarter);
             StockKLine kl = StockDataUtil.getMonthKLineByYearMonth(mk, year, targetMonth);
+            if(kl == null)
+            {
+                return double.MaxValue;
+            }
             pe = kl.latestPrice / rd.eps;
 
             StockProfitData pd = StockDBVisitor.getInstance().getStockProfitData(stockID, year, quarter);
             if(pd == null)
             {
-                return 0.0;
+                return double.MaxValue;
             }
 
             costRefVal = pe * pd.roe;
@@ -76,32 +80,32 @@ namespace StockAnalyzer.DataFilter
             return costRefVal;
         }
 
-        public static double getMaxAnnualPBCostValueBefore(string stockID, string year, out int maxYear)
+        public static double getMinAnnualPBCostValueBefore(string stockID, string year, out int minYear)
         {
             int endYear = int.Parse(year);
-            maxYear = 0;// endYear;
-            double maxVal = 0.0;
+            minYear = 0;// endYear;
+            double minVal = double.MaxValue;
             int startYear = 2013;
             for (int i = startYear; i < endYear; i++)
             {
                 string yr = i.ToString();
                 double val = calcPBCostValue(stockID, yr, "4");
-                if (val > maxVal)
+                if (val < minVal)
                 {
-                    maxVal = val;
-                    maxYear = i;
+                    minVal = val;
+                    minYear = i;
                 }
             }
 
 
-            Logger.log("Best annual pb cost for " + stockID + " before " + year + ": " + maxYear);
-            return maxVal;
+            Logger.log("Best annual pb cost for " + stockID + " before " + year + ": " + minYear);
+            return minVal;
         }
 
         public override bool getNumericValue(string stockID, out double val)
         {            
             int maxYear = 0;
-            double srcVal = getMaxAnnualPBCostValueBefore(stockID, m_targetYear, out maxYear);
+            double srcVal = getMinAnnualPBCostValueBefore(stockID, m_targetYear, out maxYear);
             double targetVal = calcPBCostValue(stockID, m_targetYear, m_targetSeason);
 
             val = 0.0;

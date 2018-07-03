@@ -25,6 +25,7 @@ namespace StockAnalyzerApp.AppFilter
         FLTT_SubNew,
         FLTT_Amplitude,
         FLTT_PBCost,
+        FLTT_BlackList,
         FLTT_STStocks
     }
 
@@ -131,6 +132,9 @@ namespace StockAnalyzerApp.AppFilter
                     break;
                 case AppFilterType.FLTT_PBCost:
                     filter = new AnnualPBCostFilter(year, quarter, m_param1);
+                    break;
+                case AppFilterType.FLTT_BlackList:
+                    filter = new BlackListFilter();
                     break;
                 default:
                     break;
@@ -260,6 +264,7 @@ namespace StockAnalyzerApp.AppFilter
                                                         AppFilterType.FLTT_STStocks,
                                                         AppFilterType.FLTT_ExcludeIndustry,
                                                         AppFilterType.FLTT_IncludeIndustry,
+                                                        AppFilterType.FLTT_BlackList,
                                                         AppFilterType.FLTT_PE,
                                                         AppFilterType.FLTT_ROE,
                                                         AppFilterType.FLTT_StableProfit,
